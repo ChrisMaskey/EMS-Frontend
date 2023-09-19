@@ -1,0 +1,106 @@
+<!-- Section: Design Block -->
+<section class="">
+  <!-- Jumbotron -->
+  <div
+    class="px-4 py-5 px-md-5 text-center text-lg-start"
+    style="background-color: hsl(0, 0%, 96%)"
+  >
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-7 mb-5 mb-lg-0">
+          <h1 class="my-5 display-3 fw-bold ls-tight">
+            VERTEX <br />
+            <span class="text-primary">Special Technology</span>
+          </h1>
+          <p class="text-muted">
+            Leading provider of technology and business process outsourcing
+            solutions worldwide. Our range of services can help businesses
+            improve their efficiency.
+          </p>
+        </div>
+
+        <div class="col-lg-5 mb-5 mb-lg-0">
+          <div class="card">
+            <div class="col-md-12 pt-5 px-md-5">
+              <h3 class="text-primary">Welcome</h3>
+            </div>
+            <div class="card-body py-4 px-md-5">
+              <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                <div class="form-group">
+                  <div class="form-floating mb-3">
+                    <input
+                      type="email"
+                      id="floatingInput"
+                      name="email"
+                      formControlName="email"
+                      class="form-control"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">Email address</label>
+                    <div
+                      *ngIf="
+                        loginForm.get('email')?.hasError('required') &&
+                        loginForm.get('email')?.touched
+                      "
+                      class="text-danger mt-2"
+                    >
+                      {{ errorMessage.email.required }}
+                    </div>
+                  </div>
+
+                  <div class="form-floating">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="floatingPassword"
+                      formControlName="password"
+                      name="password"
+                      placeholder="Password"
+                      autocomplete="off"
+                    />
+                    <label for="floatingPassword">Password</label>
+                    <div
+                      *ngIf="
+                        loginForm.get('password')?.hasError('required') &&
+                        loginForm.get('password')?.touched
+                      "
+                      class="text-danger mt-2"
+                    >
+                      {{ errorMessage.password.required }}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-4">
+                  <div class="col-md-12">
+                    <div class="text-center">
+                      <div *ngIf="showInvalidMessage" class="text-danger mb-3">
+                        Invalid Login Credentials
+                      </div>
+                      <button
+                        type="submit"
+                        class="btn btn-outline-primary mb-3 py-2"
+                      >
+                        <!-- [disabled]="!loginForm.valid" -->
+                        Login
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="row text-muted">
+                <!-- <div class="col-md-6">
+                  </div> -->
+                <div class="col-md-12 forgot text-center">
+                  <a routerLink="/login"><small>Forgot password?</small></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->

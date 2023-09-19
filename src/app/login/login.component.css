@@ -1,0 +1,21 @@
+.forgot a {
+  text-decoration: none;
+  color: grey;
+}
+
+.forgot a :hover {
+  text-decoration: underline;
+  color: black;
+}
+
+button {
+  border-radius: 8px;
+}
+
+input {
+  border-radius: 8px;
+}
+
+.card {
+  border-radius: 8px;
+}
