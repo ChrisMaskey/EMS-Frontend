@@ -46,7 +46,7 @@ export class LoginComponent {
     let login: login = this.loginForm.value;
     this.service.login(login).subscribe(
       (res) => {
-        this.router.navigate(['/list']);
+        this.router.navigate(['/card']);
       },
       (err) => {
         //Handle Login Credentials
