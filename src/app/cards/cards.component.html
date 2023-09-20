@@ -1,0 +1,64 @@
+<app-search></app-search>
+
+<div class="dialog-container" (click)="hideDialog()">
+    <p-dialog
+      header="Employee Detail"
+      [(visible)]="visible"
+      [draggable]="false"
+      [resizable]="false"
+    >
+      <div class="details" *ngIf="selectedEmployee">
+        <div class="detail-image">
+          <img
+            src="  https://shotkit.com/wp-content/uploads/2020/07/headshots_image002.jpg"
+            class="detail-image"
+          />
+        </div>
+        <div class="description">
+          <div class="heading-name">
+            <h2 class="text-secondary">{{ selectedEmployee.name }}</h2>
+          </div>
+          <div class="designation">designation</div>
+          <div class="address">
+            {{ selectedEmployee.address }}
+          </div>
+          <div class="blood-group">
+            {{selectedEmployee.bloodGroup}}
+          </div>
+          
+        </div>
+      </div>
+    </p-dialog>
+  </div>
+  
+  
+  
+  
+  
+  <div class="card-holder">
+  
+    <div
+      class="card"
+      *ngFor="let employee of filteredEmployees "  
+      (click)="showDialog(employee)"
+    >
+      <div class="card-image">
+        <img
+          src="  https://shotkit.com/wp-content/uploads/2020/07/headshots_image002.jpg"
+        />
+      </div>
+      <p class="name">{{ employee.firstName }} {{employee.lastName}}</p>
+      <p>Front-End developer</p>
+      <p>Address: {{ employee.address }}</p>
+      <p>
+        Blood-group: {{employee.bloodGroup}}
+      </p>
+      <p>Country: {{employee.country}}</p>
+      <p>Department: {{employee.jobDepartment}}</p>
+      <div class="socials">
+        <button class="linkedin"><i class="fa fa-linkedin"></i></button>
+      </div>
+    </div>
+  
+  </div>
+  <router-outlet></router-outlet>

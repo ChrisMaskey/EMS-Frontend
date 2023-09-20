@@ -1,7 +1,24 @@
-a :hover{
-    color: black;
+*{
+    font-family: 'Roboto', sans-serif;
+
 }
 
-a :active{
-    color: black;
+.nav-center{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+#login-button{
+    background-color: #C2660A;
+    width: 85px;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+    border: none;
+
+}
+#login-button:hover{
+    background-color: #a85909;
+    color:white;
 }

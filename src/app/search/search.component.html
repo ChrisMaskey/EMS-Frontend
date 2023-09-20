@@ -1,0 +1,16 @@
+
+<div class="filter-fields">
+  <div class="search-box">
+    <input #searchInput [(ngModel)]="searchTerm" (keyup)="searchEmployee(searchInput.value)" class="search-input" type="text" placeholder="Search...."  >
+    <!-- <button class="search-btn"><i class="fa fa-search"></i></button> -->
+  
+  </div>
+  <div class="dropdown">
+    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Country"  optionLabel="name" (onChange)="filterByState($event)"></p-dropdown>
+  </div>
+  <div class="dropdown">
+    <p-dropdown [options]="departments" [(ngModel)]="selectedDepartment" placeholder="Department" optionLabel="name" (onChange)="filterByDepartment($event)"></p-dropdown>
+  </div>
+  
+</div>
+
