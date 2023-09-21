@@ -12,10 +12,10 @@ export class SearchComponent {
 
   searchTerm: any = '';
 
-  searchEmployee(value: any) {
-    console.log("works");
-    this.searchService.setSearchTerm(value);
-  }
+  // searchEmployee(value: any) {
+  //   console.log('works');
+  //   this.searchService.setSearchTerm(value);
+  // }
 
   cities = [
     { name: 'Nepal', code: 'Nepal' },
@@ -23,29 +23,46 @@ export class SearchComponent {
   ];
   selectedCity: any;
 
-  
   filter(value: any, key: string, source: string) {
-console.log(value)
-    this.searchService.setSearchTerm({ key: key, value: String(value), source: source });
-  }
+  let selectedValue;
+
+  if (source === 'input') {
+    selectedValue = value;
+    this.searchService.setSearchTerm({
+      key: key,
+      value: String(selectedValue),
+      source: source,
+    });
+  } else if (source === 'dropdown') {
+    this.searchService.setSearchTerm({
+      key: key,
+      value: value.value.code,
+      source: source,
+    });
+    
+  } 
+
   
+ 
+}
 
 
-    departments = [
+  departments = [
     { name: 'Admin', code: 'Admin' },
     { name: '.NET', code: '.NET' },
   ];
 
   selectedDepartment: any;
 
-
-  jobLevel= [
+  jobLevel = [
     { name: 'Senior', code: 'Senior' },
     { name: 'Junior', code: 'Junior' },
+    { name: 'Human Resource', code: 'Human Resource' },
+    { name: 'Business Analyst', code: 'Business Analyst' },
+
+
+
   ];
 
   selectedJobLevel: any;
-
-  
 }
-

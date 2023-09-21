@@ -50,13 +50,14 @@ export class CardsComponent {
 
 
         this.filteredEmployees = this.employees.filter((employee) => {
+
+          const searchTermLowerCase = searchedTerm.value.toLowerCase();
           
           return (
-            String(employee.firstName).includes(searchedTerm.value) || 
-            String(employee.address).includes(searchedTerm.value) 
-       
-   
-
+            String(employee.firstName).toLowerCase().includes(searchTermLowerCase) ||
+            String(employee.address).toLowerCase().includes(searchTermLowerCase) ||
+            String(employee.employeeNo).toLowerCase().includes(searchTermLowerCase)
+  
           );
         });
       }
