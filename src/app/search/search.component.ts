@@ -13,6 +13,7 @@ export class SearchComponent {
   searchTerm: any = '';
 
   searchEmployee(value: any) {
+    console.log("works");
     this.searchService.setSearchTerm(value);
   }
 
@@ -21,21 +22,27 @@ export class SearchComponent {
     { name: 'Pakistan', code: 'Pakistan' },
   ];
   selectedCity: any;
-
-  filterByState(country: any) {
-    this.searchService.setSearchTerm(country.value.code);
+  filter(value: any, key: string, source: string) {
+    this.searchService.setSearchTerm({ key: key, value: String(value.value.code), source: source });
   }
+  
 
 
     departments = [
-    { name: 'Front-end', code: 'Front-end' },
+    { name: 'Admin', code: 'Admin' },
     { name: '.NET', code: '.NET' },
   ];
 
   selectedDepartment: any;
 
-  filterByDepartment(department: any) {
-    this.searchService.setSearchTerm(department.value.code);
-  }
+
+  jobLevel= [
+    { name: 'Senior', code: 'Senior' },
+    { name: 'Junior', code: 'Junior' },
+  ];
+
+  selectedJobLevel: any;
+
+  
 }
 

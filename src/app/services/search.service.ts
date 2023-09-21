@@ -8,10 +8,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SearchService {
   private httpClient = inject(HttpClient);
-  private searchTermSubject = new BehaviorSubject<string>('');
+  private searchTermSubject = new BehaviorSubject<{key:string,value:string, source: string}>({key:'',value:'', source:''});
   searchTerm$ = this.searchTermSubject.asObservable();
 
-  setSearchTerm(term: string) {
+  setSearchTerm(term:{key: string ,value: string, source: string}) {
     this.searchTermSubject.next(term);
   }
 
