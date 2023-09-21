@@ -10,7 +10,6 @@ export class SearchComponent {
 
   countries: any[] = [{ name: 'Nepal' }, { name: 'Pakistan' }];
 
-
   searchTerm: any = '';
 
   searchEmployee(value: any) {
