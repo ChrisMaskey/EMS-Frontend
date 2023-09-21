@@ -1,6 +1,13 @@
-import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Renderer2,
+  ElementRef,
+  inject,
+} from '@angular/core';
 import { CardService } from '../services/card.service';
 import { Employee } from '../Model/employee.model';
+import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-card',
@@ -11,14 +18,9 @@ export class CardComponent implements OnInit {
   visible: boolean = false;
   selectedEmployee: Employee | null = null;
   employees: Employee[] = [];
-
-  showDialog() {
-    this.visible = true;
-  }
-
-  hideDialog() {
-    this.visible = false;
-  }
+  searchTerm: string = '';
+  items: Employee[] = [];
+  searchResults: Employee[] = [];
 
   constructor(
     private service: CardService,
@@ -30,7 +32,21 @@ export class CardComponent implements OnInit {
     this.service.getEmployee().subscribe((res) => (this.employees = res));
   }
 
-  // showDialog(employee: Employee) {
+  showDialog() {
+    this.visible = true;
+  }
+
+  hideDialog() {
+    this.visible = false;
+  }
+
+  search() {
+    this.searchResults = this.items.filter((item) =>
+      item.firstName.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  // showDialog(employee: any) {
   //   this.visible = true;
   //   this.selectedEmployee = employee;
   //   this.renderer.addClass(
