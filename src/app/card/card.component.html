@@ -1,4 +1,141 @@
-<app-search></app-search>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form class="d-flex custom-search-bar">
+        <input class="form-control" type="text" placeholder="Search" />
+        <button class="btn" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <div class="container mt-5">
+    <h1 class="text-center mb-5">Full Time</h1>
+    <div class="row row-cols-xl-3 row-cols-sm-2 text-center">
+      <div class="col py-3" *ngFor="let employee of employees">
+        <div class="card mr-3" (click)="showDialog()">
+          <div class="bg-white rounded shadow-sm pt-4 px-4 image">
+            <img
+              src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg"
+              alt=""
+              class="img-fluid rounded-circle mb-3 img-thumbnail"
+            />
+            <h5 class="mb-0">
+              {{ employee.firstName }} {{ employee.lastName }}
+            </h5>
+            <span class="small text-uppercase text-muted"
+              ><p>{{ employee.jobDepartment }}</p></span
+            >
+            <ul class="social list-inline mt-3">
+              <li class="list-inline-item">
+                <a href="#" class="social-link"
+                  ><i class="bi bi-instagram"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#" class="social-link"
+                  ><i class="bi bi-facebook"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#" class="social-link"
+                  ><i class="bi bi-linkedin"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#" class="social-link"
+                  ><i class="fa fa-linkedin"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="card flex justify-content-center">
+  <p-button
+    (click)="showDialog()"
+    icon="pi pi-external-link"
+    label="Show"
+  ></p-button> -->
+<p-dialog
+  header="Employee Detail"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="hideDialog()"
+>
+  <p class="m-0">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </p>
+</p-dialog>
+<!-- </div> -->
+
+<!-- <div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form class="d-flex custom-search-bar">
+        <input class="form-control" type="text" placeholder="Search" />
+        <button class="btn" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <div class="container mt-5">
+    <h1 class="text-center mb-5">Full Time</h1>
+    <div class="row row-cols-xl-3 row-cols-sm-2 text-center">
+      <div class="col py-3" *ngFor="let employee of employees">
+        <div class="card mr-3" (click)="showDialog(employee)">
+          <div class="bg-white rounded shadow-sm pt-4 px-4 image">
+            <img
+              src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg"
+              alt=""
+              class="img-fluid rounded-circle mb-3 img-thumbnail"
+            />
+            <h5 class="mb-0">
+              {{ employee.firstName }} {{ employee.lastName }}
+            </h5>
+            <span class="small text-uppercase text-muted">
+              <p>{{ employee.jobDepartment }}</p>
+            </span>
+            <ul class="social list-inline mt-3">
+              <li class="list-inline-item">
+                <a href="#" class="social-link"
+                  ><i class="bi bi-instagram"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#" class="social-link"
+                  ><i class="bi bi-facebook"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#" class="social-link"
+                  ><i class="bi bi-linkedin"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#" class="social-link"
+                  ><i class="fa fa-linkedin"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="dialog-container" (click)="hideDialog()">
   <p-dialog
     header="Employee Detail"
@@ -9,44 +146,18 @@
     <div class="details" *ngIf="selectedEmployee">
       <div class="detail-image">
         <img
-          src="  https://shotkit.com/wp-content/uploads/2020/07/headshots_image002.jpg"
+          src="https://shotkit.com/wp-content/uploads/2020/07/headshots_image002.jpg"
           class="detail-image"
         />
       </div>
       <div class="description">
         <div class="heading-name">
-          <h2 class="text-secondary">{{ selectedEmployee.name }}</h2>
+          <h2 class="text-secondary">
+            {{ selectedEmployee.firstName }} {{ selectedEmployee.lastName }}
+          </h2>
         </div>
-        <div class="designation">designation</div>
-        <div class="address">
-          {{ selectedEmployee.address }}
-        </div>
-        <div class="blood-group">
-          {{ selectedEmployee.bloodGroup }}
-        </div>
+        <div class="designation">{{ selectedEmployee.jobDepartment }}</div>
       </div>
     </div>
   </p-dialog>
-</div>
-
-<div class="card-holder">
-  <div
-    class="card"
-    *ngFor="let employee of filteredEmployees"
-    (click)="showDialog(employee)"
-  >
-    <div class="card-image">
-      <img
-        src="  https://shotkit.com/wp-content/uploads/2020/07/headshots_image002.jpg"
-      />
-    </div>
-    <p class="name">{{ employee.firstName }}</p>
-    <p>Front-End developer</p>
-    <p>address: {{ employee.address }}</p>
-    <p>blood-group: {{ employee.bloodGroup }}</p>
-    <p>country: {{ employee.country }}</p>
-    <div class="socials">
-      <button class="linkedin"><i class="fa fa-linkedin"></i></button>
-    </div>
-  </div>
-</div>
+</div> -->

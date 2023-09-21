@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,6 +37,8 @@ import { SearchService } from './services/search.service';
     HttpClientModule,
     DialogModule,
     DropdownModule,
+    ButtonModule,
+    BrowserAnimationsModule,
   ],
   providers: [SearchService],
   bootstrap: [AppComponent],
