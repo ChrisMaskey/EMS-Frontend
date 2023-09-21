@@ -48,12 +48,15 @@ export class CardsComponent {
 
       if(searchedTerm.source === 'input'){
 
+
         this.filteredEmployees = this.employees.filter((employee) => {
-      
+          
           return (
-            String(employee.firstName).includes(searchedTerm.value) ||
+            String(employee.firstName).includes(searchedTerm.value) || 
             String(employee.address).includes(searchedTerm.value) 
        
+   
+
           );
         });
       }

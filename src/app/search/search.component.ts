@@ -22,8 +22,11 @@ export class SearchComponent {
     { name: 'Pakistan', code: 'Pakistan' },
   ];
   selectedCity: any;
+
+  
   filter(value: any, key: string, source: string) {
-    this.searchService.setSearchTerm({ key: key, value: String(value.value.code), source: source });
+console.log(value)
+    this.searchService.setSearchTerm({ key: key, value: String(value), source: source });
   }
   
 
