@@ -16,7 +16,7 @@ export class SearchService {
   }
 
   getEmployeeData() {
-    return this.httpClient.get('http://vertex90-001-site1.atempurl.com/api/Employee/get-all-employees')
+    return this.httpClient.get('https://vertex90-001-site1.atempurl.com/api/Employee/get-all-employees')
   }
 
   

@@ -46,21 +46,22 @@ export class CardsComponent {
       }
 
 
-      if(searchedTerm.source === 'input'){
-
-
+      if (searchedTerm.source === 'input') {
         this.filteredEmployees = this.employees.filter((employee) => {
-
           const searchTermLowerCase = searchedTerm.value.toLowerCase();
+          const fullName = `${employee.firstName} ${employee.lastName}`.toLowerCase();
+          
+          const searchTermWithoutSpaces = searchTermLowerCase.replace(/\s/g, '');
+          const fullNameWithoutSpaces = fullName.replace(/\s/g, '');
           
           return (
-            String(employee.firstName).toLowerCase().includes(searchTermLowerCase) ||
+            fullNameWithoutSpaces.includes(searchTermWithoutSpaces) ||
             String(employee.address).toLowerCase().includes(searchTermLowerCase) ||
             String(employee.employeeNo).toLowerCase().includes(searchTermLowerCase)
-  
           );
         });
       }
+      
       else{
         this.filteredEmployees = this.employees.filter((employee) => {
       
