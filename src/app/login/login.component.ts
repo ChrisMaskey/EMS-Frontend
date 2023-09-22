@@ -63,7 +63,6 @@ export class LoginComponent {
 
     // Check if both the username and password are non-empty
     if (email.trim() !== '' && password.trim() !== '') {
-      console.log('hello');
       // If both fields are non-empty, attempt to log in
       this.service.login(login).subscribe(
         (res) => {
@@ -75,9 +74,8 @@ export class LoginComponent {
         }
       );
     } else {
-      console.log('hi');
       // If either the username or password is empty, display a message
-      this.showInvalidMessage = 'Both Email and Password are required.';
+      this.showInvalidMessage = '';
     }
   }
 }
