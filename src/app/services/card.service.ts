@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class CardService {
   employee: Employee[] = [];
 
-  private apiUrl = 'http://vertex90-001-site1.atempurl.com';
+  private apiUrl = 'https://vertex90-001-site1.atempurl.com';
 
   constructor(private http: HttpClient) {}
 
