@@ -41,18 +41,44 @@ export class LoginComponent {
     },
   };
 
+  // onLogin() {
+  //   this.showInvalidMessage = '';
+  //   let login: login = this.loginForm.value;
+  //   this.service.login(login).subscribe(
+  //     (res) => {
+  //       this.router.navigate(['/card']);
+  //     },
+  //     (err) => {
+  //       //Handle Login Credentials
+  //       this.showInvalidMessage = 'Invalid Login Credentials.';
+  //     }
+  //   );
+  // }
+
   onLogin() {
-    this.showInvalidMessage = '';
-    let login: login = this.loginForm.value;
-    this.service.login(login).subscribe(
-      (res) => {
-        this.router.navigate(['/card']);
-      },
-      (err) => {
-        //Handle Login Credentials
-        this.showInvalidMessage = 'Invalid Login Credentials.';
-      }
-    );
+    // Get the username and password from the form
+    const login: login = this.loginForm.value;
+    const email = login.email;
+    const password = login.password;
+
+    // Check if both the username and password are non-empty
+    if (email.trim() !== '' && password.trim() !== '') {
+      console.log('hello');
+      // If both fields are non-empty, attempt to log in
+      this.service.login(login).subscribe(
+        (res) => {
+          this.router.navigate(['/card']); // Successful login
+        },
+        (err) => {
+          // Handle invalid login credentials
+          this.showInvalidMessage = 'Invalid Login Credentials.';
+        }
+      );
+    } else {
+      console.log('hi');
+      // If either the username or password is empty, display a message
+      this.showInvalidMessage = 'Both Email and Password are required.';
+    }
   }
 }
 
