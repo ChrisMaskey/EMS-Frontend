@@ -16,7 +16,10 @@
               {{ employee.firstName }} {{ employee.lastName }}
             </h5>
             <span class="small text-uppercase text-muted"
-              ><p>{{ employee.jobDepartment }}</p></span
+              ><p>{{ employee.jobLevel }} {{ employee.jobDepartment }}</p></span
+            >
+            <span class="small text-uppercase text-muted"
+              ><p>{{ employee.country }}</p></span
             >
             <ul class="social list-inline mt-3">
               <li class="list-inline-item">
@@ -42,6 +45,7 @@
             </ul>
           </div>
         </div>
+        <hr />
       </div>
     </div>
   </div>

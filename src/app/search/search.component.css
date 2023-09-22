@@ -21,3 +21,10 @@
 .custom-search-bar button:hover {
   background-color: #63241f;
 }
+
+.dropdown {
+  width: 100%;
+}
+:host ::ng-deep .p-dropdown {
+  width: 100% !important;
+}
