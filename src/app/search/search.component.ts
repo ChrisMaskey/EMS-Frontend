@@ -12,11 +12,6 @@ export class SearchComponent {
 
   searchTerm: any = '';
 
-  // searchEmployee(value: any) {
-  //   console.log('works');
-  //   this.searchService.setSearchTerm(value);
-  // }
-
   cities = [
     { name: 'Nepal', code: 'Nepal' },
     { name: 'Pakistan', code: 'Pakistan' },
@@ -24,32 +19,29 @@ export class SearchComponent {
   selectedCity: any;
 
   filter(value: any, key: string, source: string) {
-  let selectedValue;
+    let selectedValue;
 
-  if (source === 'input') {
-    selectedValue = value;
-    this.searchService.setSearchTerm({
-      key: key,
-      value: String(selectedValue),
-      source: source,
-    });
-  } else if (source === 'dropdown') {
-    this.searchService.setSearchTerm({
-      key: key,
-      value: value.value.code,
-      source: source,
-    });
-    
-  } 
-
-  
- 
-}
-
+    if (source === 'input') {
+      selectedValue = value;
+      this.searchService.setSearchTerm({
+        key: key,
+        value: String(selectedValue),
+        source: source,
+      });
+    } else if (source === 'dropdown') {
+      this.searchService.setSearchTerm({
+        key: key,
+        value: value.value.code,
+        source: source,
+      });
+    }
+  }
 
   departments = [
     { name: 'Admin', code: 'Admin' },
     { name: '.NET', code: '.NET' },
+    { name: 'Human Resource', code: 'Human Resource' },
+    { name: 'Business Analyst', code: 'Business Analyst' },
   ];
 
   selectedDepartment: any;
@@ -57,11 +49,11 @@ export class SearchComponent {
   jobLevel = [
     { name: 'Senior', code: 'Senior' },
     { name: 'Junior', code: 'Junior' },
-    { name: 'Human Resource', code: 'Human Resource' },
-    { name: 'Business Analyst', code: 'Business Analyst' },
+    { name: 'Intern', code: 'Intern' },
+    { name: 'Administrator', code: 'Administrator' },
 
 
-
+    
   ];
 
   selectedJobLevel: any;

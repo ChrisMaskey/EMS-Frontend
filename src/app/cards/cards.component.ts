@@ -14,8 +14,6 @@ export class CardsComponent {
   filteredEmployees: any[] = [];
 
 
-  // filteredDepartment: any[] = this.employe;
-  // filteredCountry: any[] = this.employees;
 
   isModalOpen = false;
   selectedEmployee: any ='';
@@ -30,13 +28,9 @@ export class CardsComponent {
       this.employees = data;
       this.filteredEmployees = data;
     });
-    // if(source = input){
-    //   this.filteredEmployees = 
-    // }else{
-    //   this.filteredEmployees
-    // }
+
     this.searchService.searchTerm$.subscribe((searchedTerm) => {
-      console.log(searchedTerm)
+
       if (searchedTerm.key === 'country') {
         this.selectedCountry = searchedTerm.value;
       } else if (searchedTerm.key === 'jobLevel') {
@@ -44,7 +38,6 @@ export class CardsComponent {
       } else if (searchedTerm.key === 'department') {
         this.selectedDepartment = searchedTerm.value;
       }
-
 
       if (searchedTerm.source === 'input') {
         this.filteredEmployees = this.employees.filter((employee) => {

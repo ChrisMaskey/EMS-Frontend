@@ -11,7 +11,7 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
     padding: 40px 16px;
     position: relative;

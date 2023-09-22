@@ -9,11 +9,12 @@ import { login } from '../Model/login.model';
 export class LoginService {
   logins: login[] = [];
 
-  readonly apiUrl = 'http://vertex90-001-site1.atempurl.com';
+  readonly apiUrl = 'https://vertex90-001-site1.atempurl.com';
+  ;
 
   constructor(private http: HttpClient) {}
 
   login(credentials: login): Observable<void | undefined> {
-    return this.http.post<void>(this.apiUrl + '/api/auth/login', credentials);
+    return this.http.post<void>(this.apiUrl + '/api/Auth/login', credentials);
   }
 }
