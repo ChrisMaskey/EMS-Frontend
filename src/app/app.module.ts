@@ -10,21 +10,24 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { LoginComponent } from './login/login.component';
+import { LoginService } from './services/login.service';
 import { FooterComponent } from './footer/footer.component';
 import { SearchService } from './services/search.service';
 import { SearchComponent } from './search/search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardComponent } from './card/card.component';
+import { CardsComponent } from './cards/cards.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     EmployeeListComponent,
-    LoginComponent,
     FooterComponent,
     SearchComponent,
     CardComponent,
+    CardsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

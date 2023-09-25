@@ -18,9 +18,6 @@ input {
 
 .card {
   border-radius: 8px;
-<<<<<<< HEAD
-}
-=======
 }
 
 button {
@@ -42,4 +39,3 @@ button {
   background-color: #63241f; /* Solid background color on hover */
   color: #fff; /* Text color on hover */
 }
->>>>>>> feature/Login-Dashboard

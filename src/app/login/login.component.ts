@@ -56,19 +56,6 @@ export class LoginComponent {
   // }
 
   onLogin() {
-<<<<<<< HEAD
-    this.showInvalidMessage = '';
-    let login: login = this.loginForm.value;
-    this.service.login(login).subscribe(
-      (res) => {
-        this.router.navigate(['/home']);
-      },
-      (err) => {
-        //Handle Login Credentials
-        this.showInvalidMessage = 'Invalid Login Credentials.';
-      }
-    );
-=======
     // Get the username and password from the form
     const login: login = this.loginForm.value;
     const email = login.email;
@@ -90,7 +77,6 @@ export class LoginComponent {
       // If either the username or password is empty, display a message
       this.showInvalidMessage = '';
     }
->>>>>>> feature/Login-Dashboard
   }
 }
 

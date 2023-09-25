@@ -3,6 +3,7 @@ export class Employee {
     public employeeNo: string,
     public firstName: string,
     public middleName: string,
+    public address: string,
     public lastName: string,
     public phoneNumber: string,
     public email: string,

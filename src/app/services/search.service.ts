@@ -1,10 +1,6 @@
 // search.service.ts
 import { Injectable, inject } from '@angular/core';
-<<<<<<< HEAD
-import {HttpClient} from '@angular/common/http';
-=======
 import { HttpClient } from '@angular/common/http';
->>>>>>> feature/Login-Dashboard
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

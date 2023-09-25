@@ -1,6 +1,7 @@
 import { Component, inject, Renderer2, ElementRef } from '@angular/core';
 import { SearchService } from '../services/search.service';
 import { Employee } from '../Model/employee.model';
+import { SearchComponent } from '../search/search.component';
 
 @Component({
   selector: 'app-cards',
