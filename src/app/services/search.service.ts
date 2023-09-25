@@ -1,6 +1,10 @@
 // search.service.ts
 import { Injectable, inject } from '@angular/core';
+<<<<<<< HEAD
 import {HttpClient} from '@angular/common/http';
+=======
+import { HttpClient } from '@angular/common/http';
+>>>>>>> feature/Login-Dashboard
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -8,15 +12,21 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SearchService {
   private httpClient = inject(HttpClient);
-  private searchTermSubject = new BehaviorSubject<{key:string,value:string, source: string}>({key:'',value:'', source:''});
+  private searchTermSubject = new BehaviorSubject<{
+    key: string;
+    value: string;
+    source: string;
+  }>({ key: '', value: '', source: '' });
   searchTerm$ = this.searchTermSubject.asObservable();
 
-  setSearchTerm(term:{key: string ,value: string, source: string}) {
+  setSearchTerm(term: { key: string; value: string; source: string }) {
     this.searchTermSubject.next(term);
   }
 
   getEmployeeData() {
-    return this.httpClient.get('https://vertex90-001-site1.atempurl.com/api/Employee/get-all-employees')
+    return this.httpClient.get(
+      'https://vertex90-001-site1.atempurl.com/api/Employee/get-all-employees'
+    );
   }
 
   

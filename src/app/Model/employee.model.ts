@@ -1,36 +1,19 @@
-export interface Employee {
-  employeeNo: string;
-  firstName: string;
-  lastName: string;
-  address: string ;
-  position: string ;
-  employmentStatus: string;
-  profileIMG: string;
-  birthDate: string;
-  gender: string;
-  bloodGroup: string;
-  jobLevel: string;
-  jobDepartment: string;
-  jobType: string;
-  city: string;
-  state: string;
-  country: string;
-  id: string;
-  userName: string;
-  normalizedUserName: string;
-  email: string;
-  normalizedEmail: string;
-  emailConfirmed: boolean;
-  passwordHash: string;
-  securityStamp: string;
-  concurrencyStamp: string;
-  phoneNumber: string;
-  phoneNumberConfirmed: boolean;
-  twoFactorEnabled: boolean;
-  lockoutEnd: string ;
-  lockoutEnabled: boolean;
-  accessFailedCount: number;
-}
 export class Employee {
-  constructor() {}
+  constructor(
+    public employeeNo: string,
+    public firstName: string,
+    public middleName: string,
+    public lastName: string,
+    public phoneNumber: string,
+    public email: string,
+    public birthDate: number,
+    public gender: string,
+    public bloodGroup: string,
+    public jobLevel: string,
+    public jobDepartment: string,
+    public jobType: string,
+    public city: string,
+    public state: string,
+    public country: string
+  ) {}
 }

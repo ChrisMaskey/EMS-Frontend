@@ -18,4 +18,28 @@ input {
 
 .card {
   border-radius: 8px;
+<<<<<<< HEAD
 }
+=======
+}
+
+button {
+  background-color: #63241f;
+}
+
+.outline-button {
+  border: 2px solid #63241f; /* Initial outline border color */
+  background-color: transparent;
+  color: #63241f; /* Text color */
+  padding: 10px 20px; /* Adjust padding as needed */
+  cursor: pointer;
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+/* Hover effect */
+.outline-button:hover {
+  border-color: transparent; /* Remove the border on hover */
+  background-color: #63241f; /* Solid background color on hover */
+  color: #fff; /* Text color on hover */
+}
+>>>>>>> feature/Login-Dashboard

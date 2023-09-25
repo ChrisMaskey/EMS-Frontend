@@ -73,11 +73,11 @@
                   <div class="col-md-12">
                     <div class="text-center">
                       <div *ngIf="showInvalidMessage" class="text-danger mb-3">
-                        Invalid Login Credentials
+                        {{ showInvalidMessage }}
                       </div>
                       <button
                         type="submit"
-                        class="btn btn-outline- mb-3 py-2"
+                        class="btn mb-3 py-2 outline-button"
                       >
                         <!-- [disabled]="!loginForm.valid" -->
                         Login

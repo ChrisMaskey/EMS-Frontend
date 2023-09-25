@@ -11,11 +11,10 @@ import { HeaderComponent } from './header/header.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
-import { CardsComponent } from './cards/cards.component';
 import { SearchService } from './services/search.service';
 import { SearchComponent } from './search/search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +23,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EmployeeListComponent,
     LoginComponent,
     FooterComponent,
-    CardsComponent,
-    SearchComponent
+    SearchComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,8 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     DialogModule,
     DropdownModule,
-    BrowserAnimationsModule
-
+    BrowserAnimationsModule,
   ],
   providers: [SearchService],
   bootstrap: [AppComponent],

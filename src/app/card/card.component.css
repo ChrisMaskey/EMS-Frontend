@@ -1,0 +1,41 @@
+.card {
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: black;
+}
+
+img {
+  border-radius: 50%;
+  width: 50%;
+}
+
+.img-thumbnail {
+  transition: border 0.2s ease;
+}
+
+.card:hover .img-thumbnail {
+  border: 2px solid #63241f;
+}
+
+.card :hover h5 {
+  color: black;
+}
+
+.social-link {
+  color: rgba(0, 0, 0, 0.522);
+  transition: color 0.3s ease;
+}
+
+.social-link:hover {
+  color: black;
+}
+
+.card :hover p {
+  color: rgba(0, 0, 0, 0.69);
+}

@@ -41,7 +41,22 @@ export class LoginComponent {
     },
   };
 
+  // onLogin() {
+  //   this.showInvalidMessage = '';
+  //   let login: login = this.loginForm.value;
+  //   this.service.login(login).subscribe(
+  //     (res) => {
+  //       this.router.navigate(['/card']);
+  //     },
+  //     (err) => {
+  //       //Handle Login Credentials
+  //       this.showInvalidMessage = 'Invalid Login Credentials.';
+  //     }
+  //   );
+  // }
+
   onLogin() {
+<<<<<<< HEAD
     this.showInvalidMessage = '';
     let login: login = this.loginForm.value;
     this.service.login(login).subscribe(
@@ -53,6 +68,29 @@ export class LoginComponent {
         this.showInvalidMessage = 'Invalid Login Credentials.';
       }
     );
+=======
+    // Get the username and password from the form
+    const login: login = this.loginForm.value;
+    const email = login.email;
+    const password = login.password;
+
+    // Check if both the username and password are non-empty
+    if (email.trim() !== '' && password.trim() !== '') {
+      // If both fields are non-empty, attempt to log in
+      this.service.login(login).subscribe(
+        (res) => {
+          this.router.navigate(['/card']); // Successful login
+        },
+        (err) => {
+          // Handle invalid login credentials
+          this.showInvalidMessage = 'Invalid Login Credentials.';
+        }
+      );
+    } else {
+      // If either the username or password is empty, display a message
+      this.showInvalidMessage = '';
+    }
+>>>>>>> feature/Login-Dashboard
   }
 }
 

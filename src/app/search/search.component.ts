@@ -51,9 +51,12 @@ export class SearchComponent {
     { name: 'Junior', code: 'Junior' },
     { name: 'Intern', code: 'Intern' },
     { name: 'Administrator', code: 'Administrator' },
+<<<<<<< HEAD
 
 
     
+=======
+>>>>>>> feature/Login-Dashboard
   ];
 
   selectedJobLevel: any;

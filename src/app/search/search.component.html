@@ -1,22 +1,55 @@
-
-<div class="filter-fields">
-  <div class="search-box">
-    <input #searchInput [(ngModel)]="searchTerm" (keyup)="filter(searchInput.value,'','input')" class="search-input" type="text" placeholder="Search...."  >
-    
+<div class="row justify-content-center">
+  <!-- Search Bar -->
+  <div class="col-md-6">
+    <form class="d-flex custom-search-bar">
+      <input
+        #searchInput
+        class="form-control"
+        type="text"
+        placeholder="Search"
+        [(ngModel)]="searchTerm"
+        (keyup)="filter(searchInput.value, '', 'input')"
+      />
+      <button class="btn" type="submit">
+        <i class="bi bi-search"></i>
+      </button>
+    </form>
   </div>
 
-  
-  
-  <div class="dropdown">
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Country"  optionLabel="name" (onChange)="filter($event,'country','dropdown')"></p-dropdown>
+  <!-- Dropdown -->
+  <div class="col-md-2">
+    <div class="dropdown">
+      <p-dropdown
+        [options]="cities"
+        [(ngModel)]="selectedCity"
+        placeholder="Country"
+        optionLabel="name"
+        (onChange)="filter($event, 'country', 'dropdown')"
+      ></p-dropdown>
+    </div>
   </div>
-  <div class="dropdown">
-    <p-dropdown [options]="departments" [(ngModel)]="selectedDepartment" placeholder="Department" optionLabel="name" (onChange)="filter($event,'department', 'dropdown')"></p-dropdown>
-  </div>
- 
-   <div class="dropdown">
-    <p-dropdown [options]="jobLevel" [(ngModel)]="selectedJobLevel" placeholder="Designation" optionLabel="name" (onChange)="filter($event,'jobLevel', 'dropdown')"></p-dropdown>
 
-   </div>
+  <div class="col-md-2 mr-0">
+    <div class="dropdown">
+      <p-dropdown
+        [options]="departments"
+        [(ngModel)]="selectedDepartment"
+        placeholder="Department"
+        optionLabel="name"
+        (onChange)="filter($event, 'department', 'dropdown')"
+      ></p-dropdown>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="dropdown">
+      <p-dropdown
+        [options]="jobLevel"
+        [(ngModel)]="selectedJobLevel"
+        placeholder="Designation"
+        optionLabel="name"
+        (onChange)="filter($event, 'jobLevel', 'dropdown')"
+      ></p-dropdown>
+    </div>
+  </div>
 </div>
 

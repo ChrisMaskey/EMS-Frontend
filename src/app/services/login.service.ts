@@ -10,7 +10,10 @@ export class LoginService {
   logins: login[] = [];
 
   readonly apiUrl = 'https://vertex90-001-site1.atempurl.com';
+<<<<<<< HEAD
   ;
+=======
+>>>>>>> feature/Login-Dashboard
 
   constructor(private http: HttpClient) {}
 
