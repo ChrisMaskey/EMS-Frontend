@@ -43,26 +43,22 @@ img {
 .card-details-container {
   display: grid;
   grid-template-columns: 1fr 2fr; /* Two columns */
-  gap: 20px; /* Gap between columns */
+  gap: 20px; 
   padding: 20px;
   margin: 20px;
 }
 
 .column-left {
-  grid-column: 1 / 2; /* Specify that the container should span from column 1 to column 2 */
-  background-color: #63241f; /* Set the background color */
-  height: 100%; /* Occupy full height of the column */
+  grid-column: 1 / 2; 
+  background-color: #63241f; 
+  height: 100%;
   border-radius: 3%;
 }
 
 
 
 .column-right {
-  grid-column: 2 / 3; /* Specify that the container should span from column 2 to column 3 */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Align items to the start of the column */
-  justify-content: flex-start; /* Center align content vertically */
+  grid-column: 2 / 3; 
 }
 
 #dialog-profile-image{
@@ -83,50 +79,54 @@ img {
   border: 2px solid white;
 }
 
-/* Your existing CSS for .column-right */
 .column-right {
   display: grid;
-  grid-template-rows: auto auto; /* Make rows have equal heights based on content */
-  gap: 20px; /* Gap between rows */
+  grid-template-rows: auto auto; 
+  gap: 20px; 
 }
 
-/* Your existing CSS for .row-second */
 .row-second {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two columns within row-second */
-  gap: 20px; /* Gap between columns */
+  grid-template-columns: 1fr 1fr; 
+  gap: 20px; 
 }
 
-/* Title styles */
 .title {
-  color: #63241f; /* Color for the titles */
-  margin-bottom: 5px; /* Add some spacing between title and value */
+  color: #63241f; 
+  margin-bottom: 5px; 
 }
 
-/* Text alignment and muted text for values */
+
 .r2-col1,
 .r2-col2 {
-  text-align: left; /* Align content to the left */
+  text-align: left; 
 }
 
 .title + strong {
-  font-weight: normal; /* Remove bold style from the values */
-  color: rgba(0, 0, 0, 0.5); /* Muted text color for the values */
+  font-weight: normal; 
+  color: rgba(0, 0, 0, 0.5); 
 }
 
-/* Media query for responsiveness */
 @media screen and (max-width: 1556px) {
   .column-left, .column-right {
-    grid-template-rows: auto; /* Switch to single column layout for both column-left and column-right */
+    grid-template-rows: auto;
   }
+  
   
   .row-second {
-    grid-template-columns: 1fr; /* Switch to single column layout for row-second */
-    gap: 10px; /* Reduce gap between rows */
+    grid-template-columns: 1fr; 
+    gap: 10px; 
   }
   
-  /* Remove extra margin from .title elements */
   .title {
     margin-bottom: 3px;
   }
 }
+
+@media screen and (max-width:1056px){
+  .card-details-container{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
