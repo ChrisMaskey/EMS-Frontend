@@ -4,7 +4,7 @@
   cursor: pointer;
 }
 
-.card:hover {
+#card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-color: black;
@@ -36,6 +36,97 @@ img {
   color: black;
 }
 
-.card :hover p {
+#card :hover p {
   color: rgba(0, 0, 0, 0.69);
+}
+
+.card-details-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Two columns */
+  gap: 20px; /* Gap between columns */
+  padding: 20px;
+  margin: 20px;
+}
+
+.column-left {
+  grid-column: 1 / 2; /* Specify that the container should span from column 1 to column 2 */
+  background-color: #63241f; /* Set the background color */
+  height: 100%; /* Occupy full height of the column */
+  border-radius: 3%;
+}
+
+
+
+.column-right {
+  grid-column: 2 / 3; /* Specify that the container should span from column 2 to column 3 */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the start of the column */
+  justify-content: flex-start; /* Center align content vertically */
+}
+
+#dialog-profile-image{
+  width: 80%;
+  
+}
+
+.image-dialog{
+  margin-top: 3rem;
+}
+
+
+.description-dialog{
+  margin: 3rem;
+}
+
+#dialog-profile-image:hover{
+  border: 2px solid white;
+}
+
+/* Your existing CSS for .column-right */
+.column-right {
+  display: grid;
+  grid-template-rows: auto auto; /* Make rows have equal heights based on content */
+  gap: 20px; /* Gap between rows */
+}
+
+/* Your existing CSS for .row-second */
+.row-second {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns within row-second */
+  gap: 20px; /* Gap between columns */
+}
+
+/* Title styles */
+.title {
+  color: #63241f; /* Color for the titles */
+  margin-bottom: 5px; /* Add some spacing between title and value */
+}
+
+/* Text alignment and muted text for values */
+.r2-col1,
+.r2-col2 {
+  text-align: left; /* Align content to the left */
+}
+
+.title + strong {
+  font-weight: normal; /* Remove bold style from the values */
+  color: rgba(0, 0, 0, 0.5); /* Muted text color for the values */
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 1556px) {
+  .column-left, .column-right {
+    grid-template-rows: auto; /* Switch to single column layout for both column-left and column-right */
+  }
+  
+  .row-second {
+    grid-template-columns: 1fr; /* Switch to single column layout for row-second */
+    gap: 10px; /* Reduce gap between rows */
+  }
+  
+  /* Remove extra margin from .title elements */
+  .title {
+    margin-bottom: 3px;
+  }
 }

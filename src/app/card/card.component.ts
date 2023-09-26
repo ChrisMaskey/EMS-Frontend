@@ -88,12 +88,15 @@ export class CardComponent implements OnInit {
     });
   }
 
-  showDialog() {
+  showDialog(employee: Employee) {
+    this.selectedEmployee = employee;
     this.visible = true;
   }
 
   hideDialog() {
     this.visible = false;
+    this.selectedEmployee = null;
+
   }
 
   search() {
