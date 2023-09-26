@@ -34,6 +34,7 @@ export class CardComponent implements OnInit {
   selectedCountry: any = '';
   selectedDepartment: any = '';
   selectedJobLevel: any = '';
+  selectedJobType: any = '';
 
   constructor(
     private service: CardService,
@@ -52,6 +53,8 @@ export class CardComponent implements OnInit {
         this.selectedJobLevel = searchedTerm.value;
       } else if (searchedTerm.key === 'department') {
         this.selectedDepartment = searchedTerm.value;
+      } else if (searchedTerm.key === 'jobType') {
+        this.selectedJobType = searchedTerm.value;
       }
 
       if (searchedTerm.source === 'input') {
@@ -81,7 +84,8 @@ export class CardComponent implements OnInit {
           return (
             String(employee.country).includes(this.selectedCountry) &&
             String(employee.jobDepartment).includes(this.selectedDepartment) &&
-            String(employee.jobLevel).includes(this.selectedJobLevel)
+            String(employee.jobLevel).includes(this.selectedJobLevel) &&
+            String(employee.jobType).includes(this.selectedJobType)
           );
         });
       }
@@ -123,3 +127,4 @@ export class CardComponent implements OnInit {
   //   );
   // }
 }
+

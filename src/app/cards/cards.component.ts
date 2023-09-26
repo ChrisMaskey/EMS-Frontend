@@ -1,7 +1,7 @@
 import { Component, inject, Renderer2, ElementRef } from '@angular/core';
 import { SearchService } from '../services/search.service';
 import { Employee } from '../Model/employee.model';
-import { SearchComponent } from '../search/search.component';
+
 
 @Component({
   selector: 'app-cards',
@@ -21,6 +21,7 @@ export class CardsComponent {
   selectedCountry: any ='';
   selectedDepartment: any='';
   selectedJobLevel: any='';
+  selectedJobType: any= '';
 
   constructor(private renderer: Renderer2, private el: ElementRef) {}
 
@@ -38,6 +39,8 @@ export class CardsComponent {
         this.selectedJobLevel = searchedTerm.value;
       } else if (searchedTerm.key === 'department') {
         this.selectedDepartment = searchedTerm.value;
+      } else if (searchedTerm.key === 'jobType') {
+        this.selectedJobType.key = searchedTerm.value;
       }
 
       if (searchedTerm.source === 'input') {

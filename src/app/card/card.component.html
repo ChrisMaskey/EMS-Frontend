@@ -57,7 +57,7 @@
   header=""
   [(visible)]="visible"
   [modal]="true"
-  [style]="{ width: '50vw' }"
+  [style]="{ width: '70vw' }"
   [draggable]="false"
   [resizable]="false"
   (onHide)="hideDialog()"
@@ -91,12 +91,26 @@
   <div class="column-right">
 
     <div class="row-first">
-      <p style="text-align: left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus sint architecto autem voluptatibus? Natus sunt est magni ducimus accusantium nihil dolore, dolorum ad ex, ullam sapiente, id reprehenderit molestias delectus!</p>
+
+      <div class="employee-about">
+        <h5 style="text-align: left; color: #63241f;" >ABOUT {{selectedEmployee.firstName}}</h5>
+
+      </div>
+
+      <div class="employee-about-desc">
+        <p style="text-align: left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus sint architecto autem voluptatibus? Natus sunt est magni ducimus accusantium nihil dolore, dolorum ad ex, ullam sapiente, id reprehenderit molestias delectus!</p>
+
+      </div>
     </div>
+
+    
 
     <hr style="color: #63241f;">
     <div class="row-second">
+
+
      <div class="r2-col1">
+
  
    <strong>ID:</strong> {{ selectedEmployee.employeeNo }} <br>
    <strong>FIRST NAME:</strong> {{ selectedEmployee.firstName }} <br>
@@ -105,7 +119,6 @@
    <strong>PHONE NUMBER:</strong> {{ selectedEmployee.phoneNumber }} <br>
    <strong>EMAIL:</strong> {{ selectedEmployee.email }} <br>
    <strong>BIRTH DATE</strong> {{ selectedEmployee.birthDate }} <br>
-   <strong>COUNTRY:</strong> {{ selectedEmployee.country }} <br>
 
 </div>
 
