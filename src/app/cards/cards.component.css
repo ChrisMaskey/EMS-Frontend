@@ -1,10 +1,4 @@
-/* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-    color: #54677c;
-} */
+
 
 .card-holder{
     min-height: 100vh;
@@ -91,7 +85,6 @@ button i {
     font-size: 1.4em;
 }
 
-/* Social media colors */
 button.linkedin {
     background-color: #0A66C2;
 } 
@@ -105,8 +98,7 @@ button.linkedin {
   }
   
   .detail-image {
-    width: 100%; /* Allow the image to fill its container */
-    max-width: 350px; /* Limit the maximum width to maintain aspect ratio */
+    width: 100%; 
+    max-width: 350px;
     border-radius: 10px;
   }
-  

@@ -29,6 +29,11 @@ export class SearchComponent {
         source: source,
       });
     } else if (source === 'dropdown') {
+      console.log({
+        key: key,
+        value: value.value.code,
+        source: source,
+      })
       this.searchService.setSearchTerm({
         key: key,
         value: value.value.code,
@@ -54,4 +59,11 @@ export class SearchComponent {
   ];
 
   selectedJobLevel: any;
+
+  jobType = [
+    { name: 'Full-time', code: 'Full-time' },
+    { name: 'Part-time', code: 'Part-time' },
+    ];
+
+  selectedJobType : any;
 }
