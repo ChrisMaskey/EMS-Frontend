@@ -9,8 +9,18 @@ import { login } from '../Model/login.model';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+
 })
+
 export class LoginComponent {
+  
+  showForgotPassword: boolean = false;
+
+  toggleForgotPassword() {
+    this.showForgotPassword = !this.showForgotPassword;
+  }
+
+
   private apiUrl = 'http://vertex90-001-site1.atempurl.com';
 
   loginForm: FormGroup;
@@ -88,4 +98,7 @@ function vertexEmailValidator(): ValidatorFn {
     }
     return null;
   };
+
+
+  
 }
