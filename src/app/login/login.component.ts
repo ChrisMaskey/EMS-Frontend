@@ -13,12 +13,7 @@ import { login } from '../Model/login.model';
 })
 
 export class LoginComponent {
-  
-  showForgotPassword: boolean = false;
 
-  toggleForgotPassword() {
-    this.showForgotPassword = !this.showForgotPassword;
-  }
 
 
   private apiUrl = 'http://vertex90-001-site1.atempurl.com';
