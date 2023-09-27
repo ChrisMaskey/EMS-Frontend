@@ -18,6 +18,8 @@ export class SearchComponent {
   ];
   selectedCity: any;
 
+ 
+
   filter(value: any, key: string, source: string) {
     let selectedValue;
 
@@ -33,7 +35,7 @@ export class SearchComponent {
         key: key,
         value: value.value.code,
         source: source,
-      })
+      });
       this.searchService.setSearchTerm({
         key: key,
         value: value.value.code,
@@ -63,7 +65,8 @@ export class SearchComponent {
   jobType = [
     { name: 'Full-time', code: 'Full-time' },
     { name: 'Part-time', code: 'Part-time' },
-    ];
+    { name: 'Intern', codterne: 'Intern' },
+  ];
 
-  selectedJobType : any;
+  selectedJobType: any;
 }
