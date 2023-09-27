@@ -1,41 +1,75 @@
 import { Injectable } from '@angular/core';
 import { Employee } from '../Model/employee.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeDataService {
-  private employees: Employee[] = [];
-  private apiUrl = 'http://localhost:3000';
+  // private employees: Employee[] = [];
+  private apiUrl = 'https://vertex90-001-site1.atempurl.com';
+
+  private employeeListSubject = new BehaviorSubject<Employee[]>([]);
+  private employeeSubject = new BehaviorSubject<Employee | null>(null);
+  readonly employeeList$ = this.employeeListSubject.asObservable();
+  readonly employee$ = this.employeeSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
   //CRUD
 
-  getEmployeeData(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.apiUrl + '/lists');
+  getEmployeeData(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      return this.http
+        .get<Employee[]>(this.apiUrl + '/api/User/get-all-employees')
+        .subscribe((data) => {
+          this.employeeListSubject.next(data);
+        });
+    });
   }
 
-  // getEmployeeDataId(id: number): Employee | undefined {
-  //   return this.employeeData.find((emp) => emp.id === id);
-  // }
+  getEmployeeById(id: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      return this.http
+        .get<Employee>(this.apiUrl + '/api/Employee/get-employee/' + id)
+        .subscribe((data) => {
+          this.employeeSubject.next(data);
+          resolve();
+        });
+    });
+  }
 
-  // addEmployeeData(employee: Employee) {
-  //   employee.id = this.idCounter++;
-  //   this.employeeData.push(employee);
-  // }
+  addEmployee(employee: Employee): Promise<void> {
+    return new Promise((resolve, reject) => {
+      return this.http
+        .post<Employee>(this.apiUrl + '/api/Employee/add-employee', employee)
+        .subscribe((data) => {
+          this.employeeSubject.next(data);
+          resolve();
+        });
+    });
+  }
 
-  // deleteEmployeeData(id: number) {
-  //   let index = this.employeeData.findIndex((emp) => emp.id === id);
-  //   if (index !== -1) {
-  //     this.employeeData.splice(index, 1);
-  //   }
-  // }
+  updateEmployee(id: string, employee: Employee): Promise<void> {
+    return new Promise((resolve, reject) => {
+      return this.http
+        .put<Employee>(
+          this.apiUrl + '/api/Employee/update-employee/' + id,
+          employee
+        )
+        .subscribe((data) => {
+          this.employeeSubject.next(data);
+          resolve();
+        });
+    });
+  }
 
-  // updateEmployeeData(id: number, updatedEmployeeData: Employee) {
-  //   let index = this.employeeData.findIndex((emp) => emp.id === id);
-  //   if (index !== -1) this.employeeData[index] = updatedEmployeeData;
-  // }
+  deleteEmployee(id: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      return this.http
+        .delete<void>(this.apiUrl + '/api/Employee/delete-employee/' + id)
+        .subscribe();
+    });
+  }
 }

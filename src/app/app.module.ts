@@ -15,6 +15,8 @@ import { SearchService } from './services/search.service';
 import { SearchComponent } from './search/search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardComponent } from './card/card.component';
+import { AddComponent } from './employee-list/add/add.component';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { CardComponent } from './card/card.component';
     FooterComponent,
     SearchComponent,
     CardComponent,
+    AddComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import { CardComponent } from './card/card.component';
     DialogModule,
     DropdownModule,
     BrowserAnimationsModule,
+    CalendarModule,
   ],
   providers: [SearchService],
   bootstrap: [AppComponent],

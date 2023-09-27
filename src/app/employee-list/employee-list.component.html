@@ -1,22 +1,10 @@
-<!-- <div class="card shadow border-0 mt-4">
+<div class="card shadow border-0 mt-4">
   <div class="card-header bg-dark ml-0 py-3">
     <div class="row">
-      <div class="col-md-12 text-center text-light p-2">
-   
-      </div>
-    </div>
-  </div> -->
-<!-- <!-- <div class="row px-2 pt-4">
-    <div class="col-md-6 px-4">
-      
-    </div>
-    <div class="col-md-6 text-end">
-      <a class="btn btn-primary">
-        <i class="bi bi-journal-plus"></i> Register New Employee
-      </a>
+      <div class="col-md-12 text-center text-light p-2"></div>
     </div>
   </div>
-  <div class="row mx-2 mt-2">
+  <div class="row mx-2 mt-4">
     <div class="col-md-6">
       <form class="form-inline">
         <input
@@ -28,42 +16,40 @@
       </form>
     </div>
     <div class="col-md-6 text-end">
-      <a class="btn btn-primary">
+      <a class="btn btn-outline-primary">
         <i class="bi bi-journal-plus"></i> Register New Employee
       </a>
     </div>
   </div>
 
-  <div class="card-body p-4 table-responsive">
+  <div
+    class="card-body p-4 table-responsive"
+    *ngIf="employeeList$ | async as employees"
+  >
     <table class="table table-bordered table-striped text-center">
       <thead>
         <tr>
+          <th>Emp No.</th>
           <th>Name</th>
-          <th>Age</th>
           <th>Email</th>
-          <th>Address</th>
-          <th>Phone Number</th>
-          <th>Role</th>
+          <th>Country</th>
+          <th>Department</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let employee of employees">
-          <td>{{ employee.name }}</td>
-          <td>{{ employee.age }}</td>
+          <td>{{ employee.employeeNo }}</td>
+          <td>{{ employee.firstName }} {{ employee.lastName }}</td>
           <td>{{ employee.email }}</td>
-          <td>{{ employee.address }}</td>
-          <td>{{ employee.phone }}</td>
-          <td>{{ employee.role }}</td>
+          <td>{{ employee.country }}</td>
+          <td>{{ employee.jobDepartment }}</td>
           <td>
             <div>
               <a class="btn btn-primary mx-2">
                 <i class="bi bi-pencil-square"></i> Edit
               </a>
-              <a
-                class="btn btn-danger mx-2"
-                (click)="deleteEmployeeData(employee.id)"
-              >
+              <a class="btn btn-danger mx-2">
                 <i class="bi bi-trash3-fill"></i> Delete
               </a>
             </div>
@@ -72,4 +58,4 @@
       </tbody>
     </table>
   </div>
-</div> -->
+</div>

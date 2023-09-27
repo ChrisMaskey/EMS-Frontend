@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { LoginComponent } from './login/login.component';
 import { CardComponent } from './card/card.component';
+import { AddComponent } from './employee-list/add/add.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: 'list', component: EmployeeListComponent },
   { path: 'card', component: CardComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'add', component: AddComponent },
 ];
 
 @NgModule({
