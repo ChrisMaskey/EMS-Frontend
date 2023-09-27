@@ -15,7 +15,7 @@ export class CardService {
 
   getEmployee(): Observable<Employee[]> {
     return this.http.get<Employee[]>(
-      this.apiUrl + '/api/Employee/get-all-employees'
+      this.apiUrl + '/api/User/get-all-employees'
     );
   }
 }

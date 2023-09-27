@@ -136,3 +136,19 @@ img {
   }
 }
 
+.employee-count {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background-color: #63241f;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  flex: 1; /* Distribute available space equally among badges */
+  margin: 5px; /* Add margin for spacing between badges */
+  max-width:calc(75%-25%);
+}
+
