@@ -26,6 +26,7 @@
             </div>
             <div class="card-body py-4 px-md-5">
               <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                <!-- Conditionally render email field when showForgotPassword is false -->
                 <div class="form-group">
                   <div class="form-floating mb-3">
                     <input
@@ -47,7 +48,9 @@
                       {{ errorMessage.email.required }}
                     </div>
                   </div>
-
+                </div>
+                
+                <div *ngIf="!showForgotPassword">
                   <div class="form-floating">
                     <input
                       type="password"
@@ -74,27 +77,23 @@
                 <div class="row mt-4">
                   <div class="col-md-12">
                     <div class="text-center">
-                      <div *ngIf="showInvalidMessage" class="text-danger mb-3">
+                      <!-- Only show invalid message if not in forgot password mode -->
+                      <div *ngIf="!showForgotPassword && showInvalidMessage" class="text-danger mb-3">
                         {{ showInvalidMessage }}
                       </div>
                       <button
                         type="submit"
                         class="btn mb-3 py-2 outline-button"
                       >
-                        <!-- [disabled]="!loginForm.valid" -->
-                        Login
+                        {{ showForgotPassword ? 'Reset Password' : 'Login' }}
                       </button>
+                      <br>
+                      <a style="cursor: pointer;"
+                      (click)="showForgotPassword = !showForgotPassword"><small>{{ showForgotPassword ? 'Back to login' : 'Forgot password?' }}</small></a>
                     </div>
                   </div>
                 </div>
               </form>
-              <div class="row text-muted">
-                <!-- <div class="col-md-6">
-                  </div> -->
-                <div class="col-md-12 forgot text-center">
-                  <a routerLink="/login"><small>Forgot password?</small></a>
-                </div>
-              </div>
             </div>
           </div>
         </div>
