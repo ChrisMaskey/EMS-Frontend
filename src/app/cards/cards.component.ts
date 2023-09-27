@@ -2,7 +2,6 @@ import { Component, inject, Renderer2, ElementRef } from '@angular/core';
 import { SearchService } from '../services/search.service';
 import { Employee } from '../Model/employee.model';
 
-
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
@@ -13,8 +12,8 @@ export class CardsComponent {
   visible = false;
   employees: Employee[] = [];
   filteredEmployees: any[] = [];
-
-
+  
+ 
 
   isModalOpen = false;
   selectedEmployee: any ='';
@@ -61,7 +60,6 @@ export class CardsComponent {
       
       else{
         this.filteredEmployees = this.employees.filter((employee) => {
-      
           return (
             String(employee.country).includes(this.selectedCountry) &&
             String(employee.jobDepartment).includes(this.selectedDepartment) &&
@@ -69,9 +67,9 @@ export class CardsComponent {
           );
         });
       }
-  
-    
-      
+
+      // Calculate part-time and full-time counts
+     
     });
   }
 
@@ -93,5 +91,3 @@ export class CardsComponent {
     );
   }
 }
-
-
