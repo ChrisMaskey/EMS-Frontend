@@ -20,6 +20,7 @@ export class CardComponent implements OnInit {
   fullTimeEmployeesCount: number = 0;
   partTimeEmployeesCount: number = 0;
   internsCount: number = 0;
+  total: number = 0;
 
   selectedEmployee: any = '';
   selectedCountry: any = '';
@@ -84,6 +85,9 @@ export class CardComponent implements OnInit {
     this.fullTimeEmployeesCount = this.employees.filter((employee) => employee.jobType === 'Full-time').length;
     this.partTimeEmployeesCount = this.employees.filter((employee) => employee.jobType === 'Part-time').length;
     this.internsCount = this.employees.filter((employee) => employee.jobLevel === 'Intern').length;
+    this.total = this.employees.filter((employee) => employee).length;
+
+
   }
 
   showDialog(employee: Employee) {
