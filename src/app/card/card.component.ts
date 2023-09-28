@@ -28,6 +28,8 @@ export class CardComponent implements OnInit {
   selectedJobLevel: any = '';
   selectedJobType: any = '';
 
+  
+
   constructor(
     private service: CardService,
     private renderer: Renderer2,
@@ -105,4 +107,23 @@ export class CardComponent implements OnInit {
       item.firstName.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
+
+
+  // showDialog(employee: any) {
+  //   this.visible = true;
+  //   this.selectedEmployee = employee;
+  //   this.renderer.addClass(
+  //     this.el.nativeElement.querySelector('.card-holder'),
+  //     'blur-background'
+  //   );
+  // }
+
+  // hideDialog() {
+  //   this.visible = false;
+  //   this.selectedEmployee = null;
+  //   this.renderer.removeClass(
+  //     this.el.nativeElement.querySelector('.card-holder'),
+  //     'blur-background'
+  //   );
+  // }
 }

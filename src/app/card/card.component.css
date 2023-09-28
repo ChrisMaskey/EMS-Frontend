@@ -118,7 +118,6 @@ img {
     grid-template-rows: auto;
   }
   
-  
   .row-second {
     grid-template-columns: 1fr; 
     gap: 10px; 
