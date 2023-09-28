@@ -12,15 +12,13 @@ export class CardsComponent {
   visible = false;
   employees: Employee[] = [];
   filteredEmployees: any[] = [];
-  
- 
 
   isModalOpen = false;
-  selectedEmployee: any ='';
-  selectedCountry: any ='';
-  selectedDepartment: any='';
-  selectedJobLevel: any='';
-  selectedJobType: any= '';
+  selectedEmployee: any = '';
+  selectedCountry: any = '';
+  selectedDepartment: any = '';
+  selectedJobLevel: any = '';
+  selectedJobType: any = '';
 
   constructor(private renderer: Renderer2, private el: ElementRef) {}
 
@@ -31,7 +29,6 @@ export class CardsComponent {
     });
 
     this.searchService.searchTerm$.subscribe((searchedTerm) => {
-
       if (searchedTerm.key === 'country') {
         this.selectedCountry = searchedTerm.value;
       } else if (searchedTerm.key === 'jobLevel') {
@@ -45,31 +42,34 @@ export class CardsComponent {
       if (searchedTerm.source === 'input') {
         this.filteredEmployees = this.employees.filter((employee) => {
           const searchTermLowerCase = searchedTerm.value.toLowerCase();
-          const fullName = `${employee.firstName} ${employee.lastName}`.toLowerCase();
-          
-          const searchTermWithoutSpaces = searchTermLowerCase.replace(/\s/g, '');
+          const fullName =
+            `${employee.firstName} ${employee.lastName}`.toLowerCase();
+
+          const searchTermWithoutSpaces = searchTermLowerCase.replace(
+            /\s/g,
+            ''
+          );
           const fullNameWithoutSpaces = fullName.replace(/\s/g, '');
-          
+
           return (
             fullNameWithoutSpaces.includes(searchTermWithoutSpaces) ||
-            String(employee.address).toLowerCase().includes(searchTermLowerCase) ||
-            String(employee.employeeNo).toLowerCase().includes(searchTermLowerCase)
+            // String(employee.address).toLowerCase().includes(searchTermLowerCase) ||
+            String(employee.employeeNo)
+              .toLowerCase()
+              .includes(searchTermLowerCase)
           );
         });
-      }
-      
-      else{
+      } else {
         this.filteredEmployees = this.employees.filter((employee) => {
           return (
             String(employee.country).includes(this.selectedCountry) &&
             String(employee.jobDepartment).includes(this.selectedDepartment) &&
-            String(employee.jobLevel).includes(this.selectedJobLevel) 
+            String(employee.jobLevel).includes(this.selectedJobLevel)
           );
         });
       }
 
       // Calculate part-time and full-time counts
-     
     });
   }
 

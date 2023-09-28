@@ -16,6 +16,9 @@ import { SearchService } from './services/search.service';
 import { SearchComponent } from './search/search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardComponent } from './card/card.component';
+import { AddComponent } from './employee-list/add/add.component';
+import { CalendarModule } from 'primeng/calendar';
+import { EditComponent } from './employee-list/edit/edit.component';
 import { CardsComponent } from './cards/cards.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
@@ -27,9 +30,11 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     FooterComponent,
     SearchComponent,
     CardComponent,
+    AddComponent,
+    EditComponent,
     CardsComponent,
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +46,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     DialogModule,
     DropdownModule,
     BrowserAnimationsModule,
+    CalendarModule,
   ],
   providers: [SearchService],
   bootstrap: [AppComponent],

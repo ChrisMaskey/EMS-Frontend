@@ -1,0 +1,18 @@
+.outline-button {
+  border: 2px solid #63241f;
+  background-color: transparent;
+  color: #63241f; /* Text color */
+  padding: 10px 20px; /* Adjust padding as needed */
+  cursor: pointer;
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+  transition: transform 0.3s ease; /* Smooth transition for border color */
+}
+
+/* Hover effect */
+.outline-button:hover {
+  border-color: transparent; /* Remove the border on hover */
+  background-color: #63241f; /* Solid background color on hover */
+  color: #fff; /* Text color on hover */
+  /* box-shadow: 0 0 0 0.3rem #63241f; */
+  transform: scale(0.95);
+}

@@ -1,0 +1,338 @@
+when edit button is clicked the following code should be shown with existing
+fields:
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div
+      class="col-sm-3 text-light d-flex justify-content-center align-items-center image"
+      style="background-color: #371512"
+    >
+      <div class="row text-center">
+        <div class="col-sm-12 image">
+          <div class="image-container rounded-circle">
+            <img
+              src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg"
+              alt=""
+              class="img-fluid mb-3 rounded-circle"
+            />
+            <div class="overlay">
+              <span class="add-image-text"
+                ><i class="bi bi-journal-plus"></i>Add Image</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="row"></div>
+      </div>
+    </div>
+    <form
+      [formGroup]="editForm"
+      (ngSubmit)="onSubmit()"
+      class="col-sm-9"
+      style="background-color: hsl(0, 0%, 98%)"
+    >
+      <h3 class="text-dark text-center my-3">Employee Detail</h3>
+      <div class="row">
+        <h5 class="text-center">Identity</h5>
+        <div class="col-sm-4 my-3">
+          <input
+            type="text"
+            formControlName="firstName"
+            class="form-control text-center"
+            placeholder="First Name"
+          />
+          <div
+            *ngIf="
+              isRegisterButtonClicked && editForm.get('firstName')?.invalid
+            "
+            class="text-center"
+          >
+            <small class="text-danger">First name required</small>
+          </div>
+        </div>
+        <div class="col-sm-4 my-3">
+          <input
+            type="text"
+            formControlName="middleName"
+            class="form-control text-center"
+            placeholder="Middle Name"
+          />
+        </div>
+        <div class="col-sm-4 my-3">
+          <input
+            type="text"
+            formControlName="lastName"
+            class="form-control text-center"
+            placeholder="Last Name"
+          />
+          <div
+            *ngIf="isRegisterButtonClicked && editForm.get('lastName')?.invalid"
+            class="text-center"
+          >
+            <small class="text-danger">Last name required</small>
+          </div>
+        </div>
+        <div class="col-sm-6 mb-3">
+          <input
+            type="text"
+            formControlName="birthDate"
+            class="form-control text-center"
+            placeholder="DOB"
+          />
+          <div
+            *ngIf="
+              isRegisterButtonClicked && editForm.get('birthDate')?.invalid
+            "
+            class="text-center"
+          >
+            <small class="text-danger">Date of birth required</small>
+          </div>
+        </div>
+        <div class="col-sm-6 mb-3">
+          <select formControlName="gender" class="form-control text-center">
+            <option value="" disabled selected>Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+          <div
+            *ngIf="isRegisterButtonClicked && editForm.get('gender')?.invalid"
+            class="text-center"
+          >
+            <small class="text-danger">Please select a gender</small>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <select
+            formControlName="bloodGroup"
+            class="form-control text-center"
+            placeholder="Blood Group"
+          >
+            <option value="" disabled selected>Blood Group</option>
+            <option>A+</option>
+            <option>A-</option>
+            <option>B+</option>
+            <option>B-</option>
+            <option>AB+</option>
+            <option>AB-</option>
+            <option>O+</option>
+            <option>O-</option>
+          </select>
+          <div
+            *ngIf="
+              isRegisterButtonClicked && editForm.get('bloodGroup')?.invalid
+            "
+            class="text-center"
+          >
+            <small class="text-danger">Please select a blood group</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <h5 class="text-center my-3">Contact Details</h5>
+        <div class="col-sm-12 mb-3">
+          <input
+            type="text"
+            formControlName="phoneNumber"
+            class="form-control text-center"
+            placeholder="Phone Number"
+          />
+          <ng-container *ngIf="isRegisterButtonClicked">
+            <div
+              class="text-center"
+              *ngIf="
+                editForm.get('phoneNumber')?.hasError('required');
+                else validPhoneNumber
+              "
+            >
+              <small class="text-danger">Phone number required</small>
+            </div>
+            <ng-template #validPhoneNumber>
+              <div
+                class="text-center"
+                *ngIf="
+                  editForm.get('phoneNumber')?.hasError('invalidPhoneNumber')
+                "
+              >
+                <small class="text-danger"
+                  >Phone Number must be exactly 10 digits.</small
+                >
+              </div>
+            </ng-template>
+          </ng-container>
+        </div>
+        <div class="col-sm-6 mb-3">
+          <input
+            type="text"
+            formControlName="city"
+            class="form-control text-center"
+            placeholder="City"
+          />
+          <div
+            *ngIf="isRegisterButtonClicked && editForm.get('city')?.invalid"
+            class="text-center"
+          >
+            <small class="text-danger">City required</small>
+          </div>
+        </div>
+        <div class="col-sm-6 mb-3">
+          <input
+            type="text"
+            formControlName="state"
+            class="form-control text-center"
+            placeholder="State"
+          />
+          <div
+            *ngIf="isRegisterButtonClicked && editForm.get('state')?.invalid"
+            class="text-center"
+          >
+            <small class="text-danger">State required</small>
+          </div>
+        </div>
+        <div class="col-sm-12 mb-3">
+          <select formControlName="country" class="form-control text-center">
+            <option value="" disabled selected>Country</option>
+            <option>Nepal</option>
+            <option>Pakistan</option>
+          </select>
+          <div
+            *ngIf="isRegisterButtonClicked && editForm.get('country')?.invalid"
+            class="text-center"
+          >
+            <small class="text-danger">Please select a country</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <h5 class="text-center my-3">Login Credentials</h5>
+        <div class="col-sm-6 mb-3">
+          <input
+            type="text"
+            formControlName="email"
+            class="form-control text-center"
+            placeholder="Email Address"
+          />
+          <ng-container *ngIf="isRegisterButtonClicked">
+            <div
+              class="text-center"
+              *ngIf="
+                editForm.get('email')?.hasError('required');
+                else validEmail
+              "
+            >
+              <small class="text-danger">Email address required.</small>
+            </div>
+            <ng-template #validEmail>
+              <div
+                class="text-center"
+                *ngIf="editForm.get('email')?.hasError('vertexSpecialEmail')"
+              >
+                <small class="text-danger">Email must be @vertexspecial</small>
+              </div>
+            </ng-template>
+          </ng-container>
+        </div>
+
+        <div class="col-sm-6 mb-3">
+          <input
+            type="text"
+            formControlName="password"
+            class="form-control text-center"
+            placeholder="Password"
+          />
+          <div
+            *ngIf="isRegisterButtonClicked && editForm.get('password')?.invalid"
+            class="text-center"
+          >
+            <small class="text-danger">Password required</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <h5 class="text-center my-3">Position Details</h5>
+        <div class="col-sm-12 mb-3">
+          <input
+            type="text"
+            formControlName="employeeNo"
+            class="form-control text-center"
+            placeholder="Employee Number"
+          />
+          <div
+            class="text-center"
+            *ngIf="
+              isRegisterButtonClicked && editForm.get('employeeNo')?.invalid
+            "
+          >
+            <small class="text-danger">Employee number required.</small>
+          </div>
+        </div>
+        <div class="col-sm-4 mb-3">
+          <select formControlName="jobLevel" class="form-control text-center">
+            <option value="" disabled selected>Level</option>
+            <option>Senior</option>
+            <option>Mid</option>
+            <option>Junior</option>
+            <option>Intern</option>
+          </select>
+          <div
+            *ngIf="isRegisterButtonClicked && editForm.get('jobLevel')?.invalid"
+            class="text-center"
+          >
+            <small class="text-danger">Please select a level</small>
+          </div>
+        </div>
+        <div class="col-sm-4 mb-3">
+          <select
+            value=""
+            formControlName="jobType"
+            class="form-control text-center"
+          >
+            <option value="" disabled selected>Type</option>
+            <option>Full-time</option>
+            <option>Part-time</option>
+          </select>
+          <div
+            *ngIf="isRegisterButtonClicked && editForm.get('jobType')?.invalid"
+            class="text-center"
+          >
+            <small class="text-danger">Please select a type</small>
+          </div>
+        </div>
+        <div class="col-sm-4 mb-3">
+          <select
+            formControlName="jobDepartment"
+            class="form-control text-center"
+          >
+            <option value="" disabled selected>Department</option>
+            <option>.Net Developer</option>
+            <option>Angular Developer</option>
+            <option>Artificial Intelligence</option>
+            <option>Business Analytics</option>
+            <option>Quality Assurance</option>
+            <option>Marketing</option>
+          </select>
+          <div
+            *ngIf="
+              isRegisterButtonClicked && editForm.get('jobDepartment')?.invalid
+            "
+            class="text-center"
+          >
+            <small class="text-danger">Please select a department</small>
+          </div>
+        </div>
+        <div class="col-md-12 text-center">
+          <a
+            class="btn outline-button px-5 mb-3"
+            (click)="onSubmit()"
+            (click)="onRegisterClick()"
+          >
+            <i class="bi bi-journal-plus"></i> Register
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
