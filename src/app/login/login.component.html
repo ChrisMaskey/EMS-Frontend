@@ -1,6 +1,4 @@
-<!-- Section: Design Block -->
-<section class="">
-  <!-- Jumbotron -->
+<section class="Login">
   <div
     class="px-4 py-5 px-md-5 text-center text-lg-start"
     style="background-color: hsl(0, 0%, 96%)"
@@ -8,9 +6,9 @@
     <div class="container">
       <div class="row gx-lg-5 align-items-center">
         <div class="col-lg-7 mb-5 mb-lg-0">
-          <h1 class="my-5 display-3 fw-bold ls-tight">
+          <h1 class="my-5 display-3 fw-bold ls-tight text-muted">
             VERTEX <br />
-            <span class="text-primary">Special Technology</span>
+            <span class="text-muted">Special Technology</span>
           </h1>
           <p class="text-muted">
             Leading provider of technology and business process outsourcing
@@ -22,7 +20,7 @@
         <div class="col-lg-5 mb-5 mb-lg-0">
           <div class="card">
             <div class="col-md-12 pt-5 px-md-5">
-              <h3 class="text-primary">Welcome</h3>
+              <h3 class="text-muted">Welcome</h3>
             </div>
             <div class="card-body py-4 px-md-5">
               <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
@@ -92,7 +90,7 @@
                 <!-- <div class="col-md-6">
                   </div> -->
                 <div class="col-md-12 forgot text-center">
-                  <a routerLink="/login"><small>Forgot password?</small></a>
+                  <a routerLink="/forgotpassword"><small>Forgot password?</small></a>
                 </div>
               </div>
             </div>
@@ -104,3 +102,4 @@
   <!-- Jumbotron -->
 </section>
 <!-- Section: Design Block -->
+

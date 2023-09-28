@@ -7,6 +7,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { addEmployee } from 'src/app/Model/addEmployee.model';
 import { Employee } from 'src/app/Model/employee.model';
 import { EmployeeDataService } from 'src/app/services/employee-data.service';
 

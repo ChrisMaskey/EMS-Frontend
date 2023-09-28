@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { addEmployee } from 'src/app/Model/addEmployee.model';
 import { Employee } from 'src/app/Model/employee.model';
 import { EmployeeDataService } from 'src/app/services/employee-data.service';
 
@@ -36,7 +37,7 @@ export class AddComponent {
         [Validators.required, Validators.email, vertexEmailValidator()],
       ],
       password: ['', Validators.required],
-      birthDate: ['', Validators.required],
+      birthDate: [''],
       gender: ['', Validators.required],
       bloodGroup: ['', Validators.required],
       jobLevel: ['', Validators.required],
@@ -51,7 +52,7 @@ export class AddComponent {
   onSubmit() {
     this.isRegisterButtonClicked = true;
     if (this.addForm.valid) {
-      const employee: Employee = {
+      const employee: addEmployee = {
         employeeNo: this.addForm.get('employeeNo')?.value,
         firstName: this.addForm.get('firstName')?.value,
         middleName: this.addForm.get('middleName')?.value,
@@ -68,7 +69,6 @@ export class AddComponent {
         city: this.addForm.get('city')?.value,
         state: this.addForm.get('state')?.value,
         country: this.addForm.get('country')?.value,
-        id: '',
       };
       this.service
         .addEmployee(employee)
@@ -78,6 +78,10 @@ export class AddComponent {
         .catch((error) => {
           console.log(error);
         });
+      this.addForm.patchValue({
+        // Set the value of the birthDate field only
+        birthDate: new Date('2023-01-01'),
+      });
     }
   }
 

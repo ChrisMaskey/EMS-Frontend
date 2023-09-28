@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { SearchService } from '../services/search.service';
-
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -19,6 +18,8 @@ export class SearchComponent {
   ];
   selectedCity: any;
 
+ 
+
   filter(value: any, key: string, source: string) {
     let selectedValue;
 
@@ -30,6 +31,11 @@ export class SearchComponent {
         source: source,
       });
     } else if (source === 'dropdown') {
+      console.log({
+        key: key,
+        value: value.value.code,
+        source: source,
+      });
       this.searchService.setSearchTerm({
         key: key,
         value: value.value.code,
@@ -55,4 +61,12 @@ export class SearchComponent {
   ];
 
   selectedJobLevel: any;
+
+  jobType = [
+    { name: 'Full-time', code: 'Full-time' },
+    { name: 'Part-time', code: 'Part-time' },
+    { name: 'Intern', codterne: 'Intern' },
+  ];
+
+  selectedJobType: any;
 }

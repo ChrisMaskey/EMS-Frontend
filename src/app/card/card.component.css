@@ -4,7 +4,7 @@
   cursor: pointer;
 }
 
-.card:hover {
+#card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-color: black;
@@ -36,6 +36,119 @@ img {
   color: black;
 }
 
-.card :hover p {
+#card :hover p {
   color: rgba(0, 0, 0, 0.69);
 }
+
+.card-details-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Two columns */
+  gap: 4rem; 
+  padding: 20px;
+  margin: 20px;
+}
+
+.column-left {
+  grid-column: 1 / 2; 
+  background-color: #63241f; 
+  height: 100%;
+  border-radius: 3%;
+}
+
+
+
+.column-right {
+  grid-column: 2 / 3; 
+}
+
+#dialog-profile-image{
+  width: 80%;
+  
+}
+
+.image-dialog{
+  margin-top: 3rem;
+}
+
+
+.description-dialog{
+  margin: 3rem;
+}
+
+#dialog-profile-image:hover{
+  border: 2px solid white;
+}
+
+.column-right {
+  display: grid;
+  grid-template-rows: auto auto; 
+  gap: 20px; 
+}
+
+.row-first{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.row-second {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 20px; 
+}
+
+.title {
+  color: #63241f; 
+  margin-bottom: 5px; 
+}
+
+
+.r2-col1,
+.r2-col2 {
+  text-align: left; 
+}
+
+.title + strong {
+  font-weight: normal; 
+  color: rgba(0, 0, 0, 0.5); 
+}
+
+@media screen and (max-width: 1556px) {
+  .column-left, .column-right {
+    grid-template-rows: auto;
+  }
+  http://localhost:4200/card
+  
+  .row-second {
+    grid-template-columns: 1fr; 
+    gap: 10px; 
+  }
+  
+  .title {
+    margin-bottom: 3px;
+  }
+}
+
+@media screen and (max-width:1056px){
+  .card-details-container{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.employee-count {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background-color: #63241f;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  flex: 1; /* Distribute available space equally among badges */
+  margin: 5px; /* Add margin for spacing between badges */
+  max-width:calc(75%-25%);
+}
+

@@ -7,7 +7,7 @@ export class addEmployee {
     public phoneNumber: string,
     public email: string,
     public password: string,
-    public birthDate: Date,
+    public birthDate: Date = new Date('2023-01-01'),
     public gender: string,
     public bloodGroup: string,
     public jobLevel: string,

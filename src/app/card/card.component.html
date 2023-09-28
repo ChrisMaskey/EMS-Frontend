@@ -3,9 +3,35 @@
 
   <div class="container mt-5">
     <h1 class="text-center mb-5">Employee List</h1>
+    
+    <div class="employee-count mb-5">
+      <div class="badge">
+        <div class="counts">
+          Full-Time Employees: {{ fullTimeEmployeesCount }}
+        </div>
+      </div>
+      <div class="badge">
+        <div class="counts">
+          Part-Time Employees: {{ partTimeEmployeesCount }}
+        </div>
+      </div>
+      <div class="badge">
+        <div class="counts">
+          Interns: {{ internsCount }}
+        </div>
+      </div>
+      <div class="badge">
+        <div class="counts">
+          Total: {{ total }}
+        </div>
+      </div>
+    </div>
+    
+    
+    
     <div class="row row-cols-xl-3 row-cols-sm-2 text-center">
       <div class="col py-3" *ngFor="let employee of filteredEmployees">
-        <div class="card mr-3" (click)="showDialog()">
+        <div class="card mr-3" id="card" (click)="showDialog(employee)">
           <div class="bg-white rounded shadow-sm pt-4 px-4 image">
             <img
               src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg"
@@ -28,22 +54,22 @@
                 <a href="#" class="social-link"
                   ><i class="bi bi-instagram"></i
                 ></a>
-              </li>
+               <br>
               <li class="list-inline-item">
                 <a href="#" class="social-link"
                   ><i class="bi bi-facebook"></i
                 ></a>
-              </li>
+               <br>
               <li class="list-inline-item">
                 <a href="#" class="social-link"
                   ><i class="bi bi-linkedin"></i
                 ></a>
-              </li>
+               <br>
               <li class="list-inline-item">
                 <a href="#" class="social-link"
                   ><i class="fa fa-linkedin"></i
                 ></a>
-              </li>
+               <br>
             </ul>
           </div>
         </div>
@@ -57,14 +83,88 @@
   header=""
   [(visible)]="visible"
   [modal]="true"
-  [style]="{ width: '50vw' }"
+  [style]="{ width: '70vw' }"
   [draggable]="false"
   [resizable]="false"
   (onHide)="hideDialog()"
   class="text-center"
 >
-  <h1 class="mb-5">Employee Detail</h1>
-  <h5 class="m-0">Will display Employee details in upcoming stories</h5>
+
+<div class="card-details-container">
+
+  <div class="column-left">
+
+    <div class="image-dialog">
+      <img src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg" id="dialog-profile-image" alt="image">
+
+    </div>
+    <div class="description-dialog">
+      <h5 class="mb-0 text-white">
+        {{ selectedEmployee.firstName }} {{ selectedEmployee.lastName }}
+      </h5>
+      <span class="small text-uppercase text-white"
+        ><p>
+          {{ selectedEmployee.jobLevel }} - {{ selectedEmployee.jobDepartment }}
+        </p></span
+      >
+      <span class="small text-uppercase text-white"
+        ><p>{{ selectedEmployee.country }}</p></span
+      >
+    </div>
+    
+  </div>
+
+  <div class="column-right">
+
+    <div class="row-first">
+
+      <div class="employee-about">
+        <h5 style="text-align: left; color: #63241f;" >ABOUT {{selectedEmployee.firstName}}</h5>
+
+      </div>
+
+      <div class="employee-about-desc">
+        <p style="text-align: left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus sint architecto autem voluptatibus? Natus sunt est magni ducimus accusantium nihil dolore, dolorum ad ex, ullam sapiente, id reprehenderit molestias delectus!</p>
+
+      </div>
+    </div>
+
+    
+
+    <hr style="color: #63241f;">
+    <div class="row-second">
+
+
+     <div class="r2-col1">
+
+ 
+   <strong>ID:</strong> {{ selectedEmployee.employeeNo }} <br>
+   <strong>FIRST NAME:</strong> {{ selectedEmployee.firstName }} <br>
+   <strong>MIDDLE NAME:</strong> {{ selectedEmployee.middleName }} <br>
+   <strong>LAST NAME:</strong> {{ selectedEmployee.lastName }} <br>
+   <strong>PHONE NUMBER:</strong> {{ selectedEmployee.phoneNumber }} <br>
+   <strong>EMAIL:</strong> {{ selectedEmployee.email }} <br>
+   <strong>BIRTH DATE</strong> {{ selectedEmployee.birthDate }} <br>
+
+</div>
+
+<div class="r2-col2">
+ 
+   <strong>GENDER:</strong> {{ selectedEmployee.gender }} <br>
+   <strong>BLOOD GROUP:</strong> {{ selectedEmployee.bloodGroup }} <br>
+   <strong>JOB LEVEL:</strong> {{ selectedEmployee.jobLevel }} <br>
+   <strong>JOB DEPARTMENT:</strong> {{ selectedEmployee.jobDepartment }} <br>
+   <strong>JOB TYPE:</strong> {{ selectedEmployee.jobType }} <br>
+   <strong>CITY:</strong> {{ selectedEmployee.city }} <br>
+   <strong>STATE:</strong> {{ selectedEmployee.state }} <br>
+  
+</div>
+
+    </div>
+
+  </div>
+</div>
+
 </p-dialog>
 
 <!-- <app-search></app-search>
@@ -120,3 +220,30 @@
   </div>
 </div>
 <router-outlet></router-outlet> -->
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-md-4 content-details">
+      <div class="text">
+        <p class="small text-uppercase text-muted">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+          Deserunt magnam voluptatum, quod modi doloremque saepe, nulla
+          mollitia totam earum expedita tempore, illum perspiciatis
+          maiores. Nihil numquam debitis dolorem dolor commodi?
+        </p>
+      </div>
+
+      <div class="col-md-6 dialog-description">
+        <span class="small text-uppercase text-muted"
+          ><p>{{ selectedEmployee.country }}</p></span
+        >
+
+        <span class="small text-uppercase text-muted">
+          <p>ID: {{ selectedEmployee.selectedEmployeeNo }}</p>
+          <p>Designation: {{ selectedEmployee.jobLevel }}</p>
+          <p>Address: {{ selectedEmployee.country }}</p>
+          <p>Blood-group: {{ selectedEmployee.bloodGroup }}</p>
+          <p>Country: {{ selectedEmployee.country }}</p>
+          <p>Department: {{ selectedEmployee.jobDepartment }}</p></span
+        >
+      </div>
+    </div> -->
