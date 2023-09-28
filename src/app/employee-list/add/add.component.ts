@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -18,16 +18,19 @@ import { EmployeeDataService } from 'src/app/services/employee-data.service';
 })
 export class AddComponent {
   date: Date | undefined;
+  @Output() visible: EventEmitter<void> = new EventEmitter<void>();
   private service = inject(EmployeeDataService);
+  isRegisterButtonClicked: boolean = false;
 
   addForm: FormGroup;
 
-  constructor(public fb: FormBuilder, private router: Router) {
+  constructor(public fb: FormBuilder) {
     this.addForm = this.fb.group({
+      employeeNo: ['', Validators.required],
       firstName: ['', Validators.required],
-      middleName: ['', Validators.required],
+      middleName: [''],
       lastName: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, phoneNumberValidator]],
       email: [
         '',
         [Validators.required, Validators.email, vertexEmailValidator()],
@@ -46,9 +49,12 @@ export class AddComponent {
   }
 
   onSubmit() {
+    this.isRegisterButtonClicked = true;
     if (this.addForm.valid) {
       const employee: Employee = {
+        employeeNo: this.addForm.get('employeeNo')?.value,
         firstName: this.addForm.get('firstName')?.value,
+        middleName: this.addForm.get('middleName')?.value,
         lastName: this.addForm.get('lastName')?.value,
         phoneNumber: this.addForm.get('phoneNumber')?.value,
         email: this.addForm.get('email')?.value,
@@ -62,11 +68,37 @@ export class AddComponent {
         city: this.addForm.get('city')?.value,
         state: this.addForm.get('state')?.value,
         country: this.addForm.get('country')?.value,
-        employeeNo: '',
-        middleName: '',
+        id: '',
       };
-      this.service.addEmployee(employee);
+      this.service
+        .addEmployee(employee)
+        .then(() => {
+          this.addForm.reset();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
+  }
+
+  onRegisterClick() {
+    if (this.addForm.valid) {
+      this.visible.emit();
+    }
+  }
+
+  getPhoneNumberErrors() {
+    const phoneNumberControl = this.addForm.get('phoneNumber');
+
+    if (phoneNumberControl?.hasError('required')) {
+      return 'Phone Number is required.';
+    }
+
+    if (phoneNumberControl?.hasError('invalidPhoneNumber')) {
+      return 'Phone Number must be exactly 10 digits.';
+    }
+
+    return '';
   }
 }
 
@@ -78,4 +110,13 @@ function vertexEmailValidator(): ValidatorFn {
     }
     return null;
   };
+}
+
+function phoneNumberValidator(
+  control: AbstractControl
+): { [key: string]: any } | null {
+  const phoneNumber = control.value;
+  const isValid = /^\d{10}$/.test(phoneNumber);
+
+  return isValid ? null : { invalidPhoneNumber: true };
 }

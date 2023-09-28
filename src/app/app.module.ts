@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardComponent } from './card/card.component';
 import { AddComponent } from './employee-list/add/add.component';
 import { CalendarModule } from 'primeng/calendar';
+import { EditComponent } from './employee-list/edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CalendarModule } from 'primeng/calendar';
     SearchComponent,
     CardComponent,
     AddComponent,
+    EditComponent,
   ],
   imports: [
     BrowserModule,

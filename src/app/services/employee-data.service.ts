@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Employee } from '../Model/employee.model';
 import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { addEmployee } from '../Model/addEmployee.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,10 @@ export class EmployeeDataService {
 
   private employeeListSubject = new BehaviorSubject<Employee[]>([]);
   private employeeSubject = new BehaviorSubject<Employee | null>(null);
+  private addEmployeeSubject = new BehaviorSubject<addEmployee | null>(null);
   readonly employeeList$ = this.employeeListSubject.asObservable();
   readonly employee$ = this.employeeSubject.asObservable();
+  readonly addEmployee$ = this.employeeSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -32,7 +35,7 @@ export class EmployeeDataService {
   getEmployeeById(id: string): Promise<void> {
     return new Promise((resolve, reject) => {
       return this.http
-        .get<Employee>(this.apiUrl + '/api/Employee/get-employee/' + id)
+        .get<Employee>(this.apiUrl + '/api/User/get-employee/' + id)
         .subscribe((data) => {
           this.employeeSubject.next(data);
           resolve();
@@ -40,12 +43,12 @@ export class EmployeeDataService {
     });
   }
 
-  addEmployee(employee: Employee): Promise<void> {
+  addEmployee(employee: addEmployee): Promise<void> {
     return new Promise((resolve, reject) => {
       return this.http
-        .post<Employee>(this.apiUrl + '/api/Employee/add-employee', employee)
+        .post<addEmployee>(this.apiUrl + '/api/User/add-employee', employee)
         .subscribe((data) => {
-          this.employeeSubject.next(data);
+          this.addEmployeeSubject.next(data);
           resolve();
         });
     });
@@ -55,7 +58,7 @@ export class EmployeeDataService {
     return new Promise((resolve, reject) => {
       return this.http
         .put<Employee>(
-          this.apiUrl + '/api/Employee/update-employee/' + id,
+          this.apiUrl + '/api/User/update-employee/' + id,
           employee
         )
         .subscribe((data) => {
@@ -68,7 +71,7 @@ export class EmployeeDataService {
   deleteEmployee(id: string): Promise<void> {
     return new Promise((resolve, reject) => {
       return this.http
-        .delete<void>(this.apiUrl + '/api/Employee/delete-employee/' + id)
+        .delete<void>(this.apiUrl + '/api/User/remove-user/' + id)
         .subscribe();
     });
   }

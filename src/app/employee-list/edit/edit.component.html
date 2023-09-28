@@ -1,16 +1,18 @@
+when edit button is clicked the following code should be shown with existing
+fields:
 <div class="container mt-3">
   <div class="row justify-content-center">
     <div
-      class="col-sm-12 text-light d-flex justify-content-center align-items-center image"
-      style="background-color: #312c2c"
+      class="col-sm-3 text-light d-flex justify-content-center align-items-center image"
+      style="background-color: #371512"
     >
       <div class="row text-center">
-        <div class="col-sm-12 my-3 image">
+        <div class="col-sm-12 image">
           <div class="image-container rounded-circle">
             <img
               src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg"
               alt=""
-              class="img-fluid rounded-circle"
+              class="img-fluid mb-3 rounded-circle"
             />
             <div class="overlay">
               <span class="add-image-text"
@@ -19,12 +21,13 @@
             </div>
           </div>
         </div>
+        <div class="row"></div>
       </div>
     </div>
     <form
-      [formGroup]="addForm"
+      [formGroup]="editForm"
       (ngSubmit)="onSubmit()"
-      class="col-sm-12"
+      class="col-sm-9"
       style="background-color: hsl(0, 0%, 98%)"
     >
       <h3 class="text-dark text-center my-3">Employee Detail</h3>
@@ -38,7 +41,9 @@
             placeholder="First Name"
           />
           <div
-            *ngIf="isRegisterButtonClicked && addForm.get('firstName')?.invalid"
+            *ngIf="
+              isRegisterButtonClicked && editForm.get('firstName')?.invalid
+            "
             class="text-center"
           >
             <small class="text-danger">First name required</small>
@@ -60,7 +65,7 @@
             placeholder="Last Name"
           />
           <div
-            *ngIf="isRegisterButtonClicked && addForm.get('lastName')?.invalid"
+            *ngIf="isRegisterButtonClicked && editForm.get('lastName')?.invalid"
             class="text-center"
           >
             <small class="text-danger">Last name required</small>
@@ -68,13 +73,15 @@
         </div>
         <div class="col-sm-6 mb-3">
           <input
-            type="date"
+            type="text"
             formControlName="birthDate"
             class="form-control text-center"
             placeholder="DOB"
           />
           <div
-            *ngIf="isRegisterButtonClicked && addForm.get('birthDate')?.invalid"
+            *ngIf="
+              isRegisterButtonClicked && editForm.get('birthDate')?.invalid
+            "
             class="text-center"
           >
             <small class="text-danger">Date of birth required</small>
@@ -88,7 +95,7 @@
             <option>Other</option>
           </select>
           <div
-            *ngIf="isRegisterButtonClicked && addForm.get('gender')?.invalid"
+            *ngIf="isRegisterButtonClicked && editForm.get('gender')?.invalid"
             class="text-center"
           >
             <small class="text-danger">Please select a gender</small>
@@ -113,7 +120,7 @@
           </select>
           <div
             *ngIf="
-              isRegisterButtonClicked && addForm.get('bloodGroup')?.invalid
+              isRegisterButtonClicked && editForm.get('bloodGroup')?.invalid
             "
             class="text-center"
           >
@@ -135,7 +142,7 @@
             <div
               class="text-center"
               *ngIf="
-                addForm.get('phoneNumber')?.hasError('required');
+                editForm.get('phoneNumber')?.hasError('required');
                 else validPhoneNumber
               "
             >
@@ -145,7 +152,7 @@
               <div
                 class="text-center"
                 *ngIf="
-                  addForm.get('phoneNumber')?.hasError('invalidPhoneNumber')
+                  editForm.get('phoneNumber')?.hasError('invalidPhoneNumber')
                 "
               >
                 <small class="text-danger"
@@ -163,7 +170,7 @@
             placeholder="City"
           />
           <div
-            *ngIf="isRegisterButtonClicked && addForm.get('city')?.invalid"
+            *ngIf="isRegisterButtonClicked && editForm.get('city')?.invalid"
             class="text-center"
           >
             <small class="text-danger">City required</small>
@@ -177,7 +184,7 @@
             placeholder="State"
           />
           <div
-            *ngIf="isRegisterButtonClicked && addForm.get('state')?.invalid"
+            *ngIf="isRegisterButtonClicked && editForm.get('state')?.invalid"
             class="text-center"
           >
             <small class="text-danger">State required</small>
@@ -190,7 +197,7 @@
             <option>Pakistan</option>
           </select>
           <div
-            *ngIf="isRegisterButtonClicked && addForm.get('country')?.invalid"
+            *ngIf="isRegisterButtonClicked && editForm.get('country')?.invalid"
             class="text-center"
           >
             <small class="text-danger">Please select a country</small>
@@ -211,7 +218,7 @@
             <div
               class="text-center"
               *ngIf="
-                addForm.get('email')?.hasError('required');
+                editForm.get('email')?.hasError('required');
                 else validEmail
               "
             >
@@ -220,7 +227,7 @@
             <ng-template #validEmail>
               <div
                 class="text-center"
-                *ngIf="addForm.get('email')?.hasError('vertexSpecialEmail')"
+                *ngIf="editForm.get('email')?.hasError('vertexSpecialEmail')"
               >
                 <small class="text-danger">Email must be @vertexspecial</small>
               </div>
@@ -236,7 +243,7 @@
             placeholder="Password"
           />
           <div
-            *ngIf="isRegisterButtonClicked && addForm.get('password')?.invalid"
+            *ngIf="isRegisterButtonClicked && editForm.get('password')?.invalid"
             class="text-center"
           >
             <small class="text-danger">Password required</small>
@@ -256,7 +263,7 @@
           <div
             class="text-center"
             *ngIf="
-              isRegisterButtonClicked && addForm.get('employeeNo')?.invalid
+              isRegisterButtonClicked && editForm.get('employeeNo')?.invalid
             "
           >
             <small class="text-danger">Employee number required.</small>
@@ -271,7 +278,7 @@
             <option>Intern</option>
           </select>
           <div
-            *ngIf="isRegisterButtonClicked && addForm.get('jobLevel')?.invalid"
+            *ngIf="isRegisterButtonClicked && editForm.get('jobLevel')?.invalid"
             class="text-center"
           >
             <small class="text-danger">Please select a level</small>
@@ -288,7 +295,7 @@
             <option>Part-time</option>
           </select>
           <div
-            *ngIf="isRegisterButtonClicked && addForm.get('jobType')?.invalid"
+            *ngIf="isRegisterButtonClicked && editForm.get('jobType')?.invalid"
             class="text-center"
           >
             <small class="text-danger">Please select a type</small>
@@ -309,7 +316,7 @@
           </select>
           <div
             *ngIf="
-              isRegisterButtonClicked && addForm.get('jobDepartment')?.invalid
+              isRegisterButtonClicked && editForm.get('jobDepartment')?.invalid
             "
             class="text-center"
           >
@@ -321,7 +328,6 @@
             class="btn outline-button px-5 mb-3"
             (click)="onSubmit()"
             (click)="onRegisterClick()"
-            type="submit"
           >
             <i class="bi bi-journal-plus"></i> Register
           </a>
