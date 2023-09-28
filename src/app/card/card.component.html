@@ -3,6 +3,32 @@
 
   <div class="container mt-5">
     <h1 class="text-center mb-5">Employee List</h1>
+    
+    <div class="employee-count mb-5">
+      <div class="badge">
+        <div class="counts">
+          Full-Time Employees: {{ fullTimeEmployeesCount }}
+        </div>
+      </div>
+      <div class="badge">
+        <div class="counts">
+          Part-Time Employees: {{ partTimeEmployeesCount }}
+        </div>
+      </div>
+      <div class="badge">
+        <div class="counts">
+          Interns: {{ internsCount }}
+        </div>
+      </div>
+      <div class="badge">
+        <div class="counts">
+          Total: {{ total }}
+        </div>
+      </div>
+    </div>
+    
+    
+    
     <div class="row row-cols-xl-3 row-cols-sm-2 text-center">
       <div class="col py-3" *ngFor="let employee of filteredEmployees">
         <div class="card mr-3" id="card" (click)="showDialog(employee)">

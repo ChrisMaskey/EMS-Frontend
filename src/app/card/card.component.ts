@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Renderer2,
-  ElementRef,
-  inject,
-} from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
 import { CardService } from '../services/card.service';
 import { Employee } from '../Model/employee.model';
 import { SearchService } from '../services/search.service';
@@ -16,7 +10,6 @@ import { Filter } from '../Model/filter';
   styleUrls: ['./card.component.css'],
 })
 export class CardComponent implements OnInit {
-  private searchService = inject(SearchService);
   visible: boolean = false;
 
   employees: Employee[] = [];
@@ -24,11 +17,10 @@ export class CardComponent implements OnInit {
   items: Employee[] = [];
   searchResults: Employee[] = [];
   filteredEmployees: Employee[] = [];
-
-  // selectedEmployee?: Filter;
-  // selectedCountry?: Filter;
-  // selectedDepartment?: Filter;
-  // selectedJobLevel?: Filter;
+  fullTimeEmployeesCount: number = 0;
+  partTimeEmployeesCount: number = 0;
+  internsCount: number = 0;
+  total: number = 0;
 
   selectedEmployee: any = '';
   selectedCountry: any = '';
@@ -41,13 +33,17 @@ export class CardComponent implements OnInit {
   constructor(
     private service: CardService,
     private renderer: Renderer2,
-    private el: ElementRef
+    private el: ElementRef,
+    private searchService: SearchService // Inject SearchService
   ) {}
 
   ngOnInit(): void {
     this.service.getEmployee().subscribe((res) => {
-      (this.employees = res), (this.filteredEmployees = res);
+      this.employees = res;
+      this.filteredEmployees = res;
+      this.calculateEmployeeCounts(); // Calculate counts on initialization
     });
+
     this.searchService.searchTerm$.subscribe((searchedTerm) => {
       if (searchedTerm.key === 'country') {
         this.selectedCountry = searchedTerm.value;
@@ -62,23 +58,14 @@ export class CardComponent implements OnInit {
       if (searchedTerm.source === 'input') {
         this.filteredEmployees = this.employees.filter((employee) => {
           const searchTermLowerCase = searchedTerm.value.toLowerCase();
-          const fullName =
-            `${employee.firstName} ${employee.lastName}`.toLowerCase();
-
-          const searchTermWithoutSpaces = searchTermLowerCase.replace(
-            /\s/g,
-            ''
-          );
+          const fullName = `${employee.firstName} ${employee.lastName}`.toLowerCase();
+          const searchTermWithoutSpaces = searchTermLowerCase.replace(/\s/g, '');
           const fullNameWithoutSpaces = fullName.replace(/\s/g, '');
 
           return (
             fullNameWithoutSpaces.includes(searchTermWithoutSpaces) ||
-            String(employee.country)
-              .toLowerCase()
-              .includes(searchTermLowerCase) ||
-            String(employee.employeeNo)
-              .toLowerCase()
-              .includes(searchTermLowerCase)
+            String(employee.country).toLowerCase().includes(searchTermLowerCase) ||
+            String(employee.employeeNo).toLowerCase().includes(searchTermLowerCase)
           );
         });
       } else {
@@ -91,7 +78,18 @@ export class CardComponent implements OnInit {
           );
         });
       }
+
+      this.calculateEmployeeCounts(); // Recalculate counts when filtered
     });
+  }
+
+  private calculateEmployeeCounts(): void {
+    this.fullTimeEmployeesCount = this.employees.filter((employee) => employee.jobType === 'Full-time').length;
+    this.partTimeEmployeesCount = this.employees.filter((employee) => employee.jobType === 'Part-time').length;
+    this.internsCount = this.employees.filter((employee) => employee.jobLevel === 'Intern').length;
+    this.total = this.employees.filter((employee) => employee).length;
+
+
   }
 
   showDialog(employee: Employee) {
@@ -102,7 +100,6 @@ export class CardComponent implements OnInit {
   hideDialog() {
     this.visible = false;
     this.selectedEmployee = null;
-
   }
 
   search() {
@@ -130,4 +127,3 @@ export class CardComponent implements OnInit {
   //   );
   // }
 }
-
