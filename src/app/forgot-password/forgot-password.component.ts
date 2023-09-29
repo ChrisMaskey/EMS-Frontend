@@ -12,7 +12,7 @@ export class ForgotPasswordComponent {
   message: string = '';
   apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
   onSubmit() {
     if (this.isValidEmail(this.email)) {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-reset-password',
@@ -7,10 +7,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent {
-  email: string = ''; // Add an input field for email in your HTML template
-  token: string = ''; // Add an input field for token in your HTML template
-  newPassword: string = ''; // Add an input field for newPassword in your HTML template
-  confirmPassword: string = ''; // Add an input field for confirmPassword in your HTML template
+  email: string = '';
+  token: string = '';
+  newPassword: string = '';
+  confirmPassword: string = '';
   message: string = '';
   apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password';
 
@@ -25,8 +25,10 @@ export class ResetPasswordComponent {
         confirmPassword: this.confirmPassword
       };
 
-      this.http.post(this.apiUrl, data, { observe: 'response' }).subscribe(
-        (response) => {
+      const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+      this.http.post(this.apiUrl, data, { headers, observe: 'response' }).subscribe(
+        (response: HttpResponse<any>) => {
           if (response.status === 200) {
             console.log('response:', response);
             this.message = 'Password reset successful.';
