@@ -7,9 +7,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { addEmployee } from 'src/app/Model/addEmployee.model';
-import { Employee } from 'src/app/Model/employee.model';
 import { EmployeeDataService } from 'src/app/services/employee-data.service';
 
 @Component({
@@ -18,6 +16,7 @@ import { EmployeeDataService } from 'src/app/services/employee-data.service';
   styleUrls: ['./add.component.css'],
 })
 export class AddComponent {
+  employees: addEmployee[] = [];
   date: Date | undefined;
   @Output() visible: EventEmitter<void> = new EventEmitter<void>();
   private service = inject(EmployeeDataService);
@@ -37,7 +36,7 @@ export class AddComponent {
         [Validators.required, Validators.email, vertexEmailValidator()],
       ],
       password: ['', Validators.required],
-      birthDate: [''],
+      birthDate: ['', Validators.required],
       gender: ['', Validators.required],
       bloodGroup: ['', Validators.required],
       jobLevel: ['', Validators.required],
@@ -52,6 +51,14 @@ export class AddComponent {
   onSubmit() {
     this.isRegisterButtonClicked = true;
     if (this.addForm.valid) {
+      var date = new Date(this.addForm.get('birthDate')?.value);
+      var year = date.getFullYear();
+      var month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+      var day = date.getDate().toString().padStart(2, '0');
+      var dateFormat = year + '-' + month + '-' + day;
+
+      console.log(dateFormat);
+
       const employee: addEmployee = {
         employeeNo: this.addForm.get('employeeNo')?.value,
         firstName: this.addForm.get('firstName')?.value,
@@ -60,7 +67,7 @@ export class AddComponent {
         phoneNumber: this.addForm.get('phoneNumber')?.value,
         email: this.addForm.get('email')?.value,
         password: this.addForm.get('password')?.value,
-        birthDate: this.addForm.get('birthDate')?.value,
+        birthDate: dateFormat,
         gender: this.addForm.get('gender')?.value,
         bloodGroup: this.addForm.get('bloodGroup')?.value,
         jobLevel: this.addForm.get('jobLevel')?.value,
@@ -73,15 +80,13 @@ export class AddComponent {
       this.service
         .addEmployee(employee)
         .then(() => {
+          console.log('refresh list');
+          this.service.getEmployeeData();
           this.addForm.reset();
         })
         .catch((error) => {
           console.log(error);
         });
-      this.addForm.patchValue({
-        // Set the value of the birthDate field only
-        birthDate: new Date('2023-01-01'),
-      });
     }
   }
 

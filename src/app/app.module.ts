@@ -21,6 +21,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { EditComponent } from './employee-list/edit/edit.component';
 import { CardsComponent } from './cards/cards.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { EmployeeDataService } from './services/employee-data.service';
+
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 @NgModule({
   declarations: [
@@ -35,7 +37,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     CardsComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     BrowserAnimationsModule,
     CalendarModule,
   ],
-  providers: [SearchService],
+  providers: [SearchService, EmployeeDataService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

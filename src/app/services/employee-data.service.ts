@@ -3,6 +3,7 @@ import { Employee } from '../Model/employee.model';
 import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { addEmployee } from '../Model/addEmployee.model';
+import { editEmployee } from '../Model/editEmployee.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,13 +33,12 @@ export class EmployeeDataService {
     });
   }
 
-  getEmployeeById(id: string): Promise<void> {
+  getEmployeeById(id: string): Promise<editEmployee> {
     return new Promise((resolve, reject) => {
       return this.http
         .get<Employee>(this.apiUrl + '/api/User/get-employee/' + id)
-        .subscribe((data) => {
+        .subscribe((data: any) => {
           this.employeeSubject.next(data);
-          resolve();
         });
     });
   }
@@ -48,6 +48,7 @@ export class EmployeeDataService {
       return this.http
         .post<addEmployee>(this.apiUrl + '/api/User/add-employee', employee)
         .subscribe((data) => {
+          console.log('data added');
           this.addEmployeeSubject.next(data);
           resolve();
         });
@@ -71,8 +72,16 @@ export class EmployeeDataService {
   deleteEmployee(id: string): Promise<void> {
     return new Promise((resolve, reject) => {
       return this.http
-        .delete<void>(this.apiUrl + '/api/User/remove-user/' + id)
+        .delete<void>(this.apiUrl + '/api/User/remove-user?Id=' + id)
         .subscribe();
     });
   }
+
+  // hideEmployee(id: string): Promise<void> {
+  //   return new Promise((resolve, reject) => {
+  //     return this.http
+  //       .put<void>(this.apiUrl + '/api/User/hide-user/' + id)
+  //       .subscribe();
+  //   });
+  // }
 }
