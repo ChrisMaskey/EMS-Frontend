@@ -10,14 +10,14 @@ import { Router } from '@angular/router';
 export class ForgotPasswordComponent {
   email: string = '';
   message: string = '';
-  apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
+  url: string = 'http://localhost:4200/reset-password';
+  apiUrl='https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link'
 
   constructor(private http: HttpClient) {}
 
   onSubmit() {
     if (this.isValidEmail(this.email)) {
-      const url = `${this.apiUrl}?email=${this.email}`;
-  
+      const url = `${this.apiUrl}?email=${this.email}&url=${this.url}`;
       this.http.post(url, null, { observe: 'response' }).subscribe(
         (response) => {
           if (response.status === 200) { // Check for HTTP 200 OK (or any other success status code)

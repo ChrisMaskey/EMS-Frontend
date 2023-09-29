@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute} from '@angular/router';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 @Component({
@@ -7,25 +8,36 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angul
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent {
-  email: string = '';
-  token: string = '';
+  activationToken: string = '';
+  email: string = ''; // Extracted email
   newPassword: string = '';
   confirmPassword: string = '';
   message: string = '';
   apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient
+  ) {
+    this.route.queryParams.subscribe(params => {
+      this.activationToken = params['activationToken'];
+      this.email = params['email'];
+      console.log('Token:', this.activationToken);
+      console.log('Email:', this.email);
+    });
+  }
 
   onSubmit() {
-    if (this.isValidEmail(this.email) && this.newPassword === this.confirmPassword) {
+    if (this.newPassword === this.confirmPassword) {
       const data = {
-        email: this.email,
-        token: this.token,
-        password: this.newPassword,
-        confirmPassword: this.confirmPassword
+        Token: this.activationToken,
+        Email: this.email, // Include extracted email
+        Password: this.newPassword,
+        ConfirmPassword: this.confirmPassword
       };
 
-      const headers = new HttpHeaders().set('Content-Type', 'application/json');
+      const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
 
       this.http.post(this.apiUrl, data, { headers, observe: 'response' }).subscribe(
         (response: HttpResponse<any>) => {
@@ -42,16 +54,11 @@ export class ResetPasswordComponent {
         }
       );
     } else {
-      this.message = 'Invalid email format or passwords do not match.';
+      this.message = 'Passwords do not match.';
     }
   }
-  
+
   private handleApiError(errorMessage: string) {
     this.message = errorMessage;
-  }
-  
-  isValidEmail(email: string): boolean {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return emailRegex.test(email);
   }
 }
