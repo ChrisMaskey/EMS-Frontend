@@ -1,18 +1,16 @@
-when edit button is clicked the following code should be shown with existing
-fields:
 <div class="container mt-3">
   <div class="row justify-content-center">
     <div
-      class="col-sm-3 text-light d-flex justify-content-center align-items-center image"
-      style="background-color: #371512"
+      class="col-sm-12 text-light d-flex justify-content-center align-items-center image"
+      style="background-color: #312c2c"
     >
       <div class="row text-center">
-        <div class="col-sm-12 image">
+        <div class="col-sm-12 my-3 image">
           <div class="image-container rounded-circle">
             <img
               src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg"
               alt=""
-              class="img-fluid mb-3 rounded-circle"
+              class="img-fluid rounded-circle"
             />
             <div class="overlay">
               <span class="add-image-text"
@@ -21,13 +19,12 @@ fields:
             </div>
           </div>
         </div>
-        <div class="row"></div>
       </div>
     </div>
     <form
       [formGroup]="editForm"
       (ngSubmit)="onSubmit()"
-      class="col-sm-9"
+      class="col-sm-12"
       style="background-color: hsl(0, 0%, 98%)"
     >
       <h3 class="text-dark text-center my-3">Employee Detail</h3>
@@ -73,7 +70,7 @@ fields:
         </div>
         <div class="col-sm-6 mb-3">
           <input
-            type="text"
+            type="date"
             formControlName="birthDate"
             class="form-control text-center"
             placeholder="DOB"
@@ -131,7 +128,7 @@ fields:
 
       <div class="row">
         <h5 class="text-center my-3">Contact Details</h5>
-        <div class="col-sm-12 mb-3">
+        <div class="col-sm-6 mb-3">
           <input
             type="text"
             formControlName="phoneNumber"
@@ -190,7 +187,7 @@ fields:
             <small class="text-danger">State required</small>
           </div>
         </div>
-        <div class="col-sm-12 mb-3">
+        <div class="col-sm-6 mb-3">
           <select formControlName="country" class="form-control text-center">
             <option value="" disabled selected>Country</option>
             <option>Nepal</option>
@@ -253,7 +250,7 @@ fields:
 
       <div class="row">
         <h5 class="text-center my-3">Position Details</h5>
-        <div class="col-sm-12 mb-3">
+        <div class="col-sm-6 mb-3">
           <input
             type="text"
             formControlName="employeeNo"
@@ -269,7 +266,7 @@ fields:
             <small class="text-danger">Employee number required.</small>
           </div>
         </div>
-        <div class="col-sm-4 mb-3">
+        <div class="col-sm-6 mb-3">
           <select formControlName="jobLevel" class="form-control text-center">
             <option value="" disabled selected>Level</option>
             <option>Senior</option>
@@ -284,7 +281,7 @@ fields:
             <small class="text-danger">Please select a level</small>
           </div>
         </div>
-        <div class="col-sm-4 mb-3">
+        <div class="col-sm-6 mb-3">
           <select
             value=""
             formControlName="jobType"
@@ -301,7 +298,7 @@ fields:
             <small class="text-danger">Please select a type</small>
           </div>
         </div>
-        <div class="col-sm-4 mb-3">
+        <div class="col-sm-6 mb-3">
           <select
             formControlName="jobDepartment"
             class="form-control text-center"
@@ -328,6 +325,7 @@ fields:
             class="btn outline-button px-5 mb-3"
             (click)="onSubmit()"
             (click)="onRegisterClick()"
+            type="submit"
           >
             <i class="bi bi-journal-plus"></i> Register
           </a>

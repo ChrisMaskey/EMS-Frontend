@@ -46,7 +46,10 @@
           <td>{{ employee.jobDepartment }}</td>
           <td>
             <div>
-              <a class="btn btn-primary mx-2" (click)="showDialogEdit()">
+              <a
+                class="btn btn-primary mx-2"
+                (click)="showDialogEdit(employee.id)"
+              >
                 <i class="bi bi-pencil-square"></i> Edit
               </a>
               <a
@@ -76,15 +79,19 @@
   <app-add (visible)="hideDialog()"></app-add>
 </p-dialog>
 
-<!-- <p-dialog
+<p-dialog
   header=""
-  [(visible)]="visible"
+  [(visible)]="editDialogVisible"
   [modal]="true"
   [style]="{ width: '80vw' }"
   [draggable]="false"
   [resizable]="false"
-  (onHide)="hideDialogEdit()"
+  (onHide)="hideEditDialog()"
   class="text-center"
 >
-  <app-edit (visible)="hideDialogEdit()"></app-edit>
-</p-dialog> -->
+  <app-edit
+    *ngIf="employee$ | async"
+    [employees]="employee$ | async"
+    (visible)="hideEditDialog()"
+  ></app-edit>
+</p-dialog>
