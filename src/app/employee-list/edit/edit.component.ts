@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  inject,
+} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -7,7 +16,8 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { addEmployee } from 'src/app/Model/addEmployee.model';
+import { from } from 'rxjs';
+import { editEmployee } from 'src/app/Model/editEmployee.model';
 import { Employee } from 'src/app/Model/employee.model';
 import { EmployeeDataService } from 'src/app/services/employee-data.service';
 
@@ -16,7 +26,8 @@ import { EmployeeDataService } from 'src/app/services/employee-data.service';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css'],
 })
-export class EditComponent {
+export class EditComponent implements OnInit {
+  @Input() employees: Employee | null = null;
   employee: Employee | null = null;
   date: Date | undefined;
   @Output() visible: EventEmitter<void> = new EventEmitter<void>();
@@ -25,27 +36,35 @@ export class EditComponent {
 
   editForm: FormGroup;
 
+  ngOnInit() {
+    console.log('from employee');
+    console.log(this.employees);
+    if (this.employees) {
+      this.loadUserDataForEdit(this.employees.id);
+    }
+  }
+
   constructor(public fb: FormBuilder) {
     this.editForm = this.fb.group({
-      employeeNo: [this.employee?.employeeNo, Validators.required],
-      firstName: [this.employee?.firstName, Validators.required],
-      middleName: [this.employee?.middleName],
-      lastName: [this.employee?.lastName, Validators.required],
+      employeeNo: [this.employees?.employeeNo || '', Validators.required],
+      firstName: [this.employees?.firstName || '', Validators.required],
+      middleName: [this.employees?.middleName || ''],
+      lastName: [this.employees?.lastName || '', Validators.required],
       phoneNumber: [
-        this.employee?.phoneNumber,
+        this.employees?.phoneNumber,
         [Validators.required, phoneNumberValidator],
       ],
       email: [
-        this.employee?.email,
+        this.employees?.email,
         [Validators.required, Validators.email, vertexEmailValidator()],
       ],
-      password: [this.employee?.password, Validators.required],
-      birthDate: [this.employee?.birthDate, Validators.required],
+      password: [this.employees?.password, Validators.required],
+      birthDate: [this.employees?.birthDate, Validators.required],
       gender: ['', Validators.required],
-      bloodGroup: [this.employee?.bloodGroup, Validators.required],
-      jobLevel: [this.employee?.jobLevel, Validators.required],
-      jobDepartment: [this.employee?.jobDepartment, Validators.required],
-      jobType: [this.employee?.jobType, Validators.required],
+      bloodGroup: [this.employees?.bloodGroup, Validators.required],
+      jobLevel: [this.employees?.jobLevel, Validators.required],
+      jobDepartment: [this.employees?.jobDepartment, Validators.required],
+      jobType: [this.employees?.jobType, Validators.required],
       city: [this.employee?.city, Validators.required],
       state: [this.employee?.state, Validators.required],
       country: [this.employee?.country, Validators.required],
@@ -55,26 +74,10 @@ export class EditComponent {
   async onSubmit() {
     this.isRegisterButtonClicked = true;
     if (this.editForm.valid) {
-      const employee: Employee = {
-        employeeNo: this.editForm.get('employeeNo')?.value,
-        firstName: this.editForm.get('firstName')?.value,
-        middleName: this.editForm.get('middleName')?.value,
-        lastName: this.editForm.get('lastName')?.value,
-        phoneNumber: this.editForm.get('phoneNumber')?.value,
-        email: this.editForm.get('email')?.value,
-        password: this.editForm.get('password')?.value,
-        birthDate: this.editForm.get('birthDate')?.value,
-        gender: this.editForm.get('gender')?.value,
-        bloodGroup: this.editForm.get('bloodGroup')?.value,
-        jobLevel: this.editForm.get('jobLevel')?.value,
-        jobDepartment: this.editForm.get('jobDepartment')?.value,
-        jobType: this.editForm.get('jobType')?.value,
-        city: this.editForm.get('city')?.value,
-        state: this.editForm.get('state')?.value,
-        country: this.editForm.get('country')?.value,
-        id: '',
-      };
-      await this.service.updateEmployee(employee.id, employee);
+      const employeeData: Employee = this.editForm.value;
+      if (this.employee) {
+        await this.service.updateEmployee(this.employee.id, employeeData);
+      }
     }
   }
 
@@ -82,6 +85,34 @@ export class EditComponent {
     if (this.editForm.valid) {
       this.visible.emit();
     }
+  }
+
+  loadUserDataForEdit(id: string) {
+    from(this.service.getEmployeeById(id)).subscribe(
+      (user: editEmployee) => {
+        this.editForm.patchValue({
+          employeeNo: user.employeeNo,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          middleName: user.middleName,
+          phoneNumber: user.phoneNumber,
+          email: user.email,
+          password: user.password,
+          birthDate: user.birthDate,
+          gender: user.gender,
+          bloodGroup: user.bloodGroup,
+          jobLevel: user.jobLevel,
+          jobDepartment: user.jobDepartment,
+          jobType: user.jobType,
+          city: user.city,
+          state: user.state,
+          country: user.country,
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   getPhoneNumberErrors() {
@@ -102,9 +133,11 @@ export class EditComponent {
 function vertexEmailValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const email = control.value as string;
-    if (!email.endsWith('@vertexspecial.com')) {
+
+    if (email && !email.endsWith('@vertexspecial.com')) {
       return { vertexSpecialEmail: true };
     }
+
     return null;
   };
 }

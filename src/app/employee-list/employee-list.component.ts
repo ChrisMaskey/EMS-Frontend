@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Employee } from '../Model/employee.model';
 import { EmployeeDataService } from 'src/app/services/employee-data.service';
 import { addEmployee } from '../Model/addEmployee.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-employee-list',
@@ -16,7 +17,7 @@ export class EmployeeListComponent implements OnInit {
   protected addEmployee$ = this.employeeDataService.employee$;
 
   visible: boolean = false;
-  visibleEdit: boolean = false;
+  editDialogVisible: boolean = false;
 
   async ngOnInit() {
     await this.employeeDataService.getEmployeeData();
@@ -42,15 +43,16 @@ export class EmployeeListComponent implements OnInit {
     this.visible = true;
   }
 
-  showDialogEdit() {
-    this.visibleEdit = true;
+  showDialogEdit(id: string) {
+    this.employeeDataService.getEmployeeById(id);
+    this.editDialogVisible = true;
   }
 
   hideDialog() {
     this.visible = false;
   }
 
-  hideDialogEdit() {
-    this.visibleEdit = false;
+  hideEditDialog() {
+    this.editDialogVisible = false;
   }
 }
