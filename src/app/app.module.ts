@@ -23,6 +23,7 @@ import { CardsComponent } from './cards/cards.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { EmployeeDataService } from './services/employee-data.service';
 
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { EmployeeDataService } from './services/employee-data.service';
     CardsComponent,
     LoginComponent,
     ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
