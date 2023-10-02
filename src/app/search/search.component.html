@@ -6,6 +6,7 @@
         #searchInput
         class="form-control"
         type="text"
+        name="search"
         placeholder="Search"
         [(ngModel)]="searchTerm"
         (keyup)="filter(searchInput.value, '', 'input')"
@@ -22,6 +23,7 @@
       <p-dropdown
         [options]="cities"
         [(ngModel)]="selectedCity"
+        name="selectedCity"
         placeholder="Country"
         optionLabel="name"
         (onChange)="filter($event, 'country', 'dropdown')"
@@ -34,6 +36,7 @@
       <p-dropdown
         [options]="departments"
         [(ngModel)]="selectedDepartment"
+        name="selectedDepartment"
         placeholder="Department"
         optionLabel="name"
         (onChange)="filter($event, 'department', 'dropdown')"
@@ -46,6 +49,7 @@
         [options]="jobLevel"
         [(ngModel)]="selectedJobLevel"
         placeholder="Designation"
+        name="selectedJobLevel"
         optionLabel="name"
         (onChange)="filter($event, 'jobLevel', 'dropdown')"
       ></p-dropdown>
@@ -57,6 +61,7 @@
       <p-dropdown
         [options]="jobType"
         [(ngModel)]="selectedJobType"
+        name="selectedJobType"
         placeholder="JobType"
         optionLabel="name"
         (onChange)="filter($event, 'jobType', 'dropdown')"

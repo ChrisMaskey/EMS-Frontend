@@ -119,7 +119,7 @@
     <div class="row-first">
 
       <div class="employee-about">
-        <h5 style="text-align: left; color: #63241f;" >ABOUT {{selectedEmployee.firstName}}</h5>
+        <h5 style="text-align: left; color: #63241f;" >{{selectedEmployee.firstName}}'s details</h5>
 
       </div>
 
@@ -132,34 +132,57 @@
     
 
     <hr style="color: #63241f;">
-    <div class="row-second">
+    <div class="row-second ">
+      
 
 
-     <div class="r2-col1">
-
- 
-   <strong>ID:</strong> {{ selectedEmployee.employeeNo }} <br>
-   <strong>FIRST NAME:</strong> {{ selectedEmployee.firstName }} <br>
-   <strong>MIDDLE NAME:</strong> {{ selectedEmployee.middleName }} <br>
-   <strong>LAST NAME:</strong> {{ selectedEmployee.lastName }} <br>
-   <strong>PHONE NUMBER:</strong> {{ selectedEmployee.phoneNumber }} <br>
-   <strong>EMAIL:</strong> {{ selectedEmployee.email }} <br>
-   <strong>BIRTH DATE</strong> {{ selectedEmployee.birthDate }} <br>
-
-</div>
-
-<div class="r2-col2">
- 
-   <strong>GENDER:</strong> {{ selectedEmployee.gender }} <br>
-   <strong>BLOOD GROUP:</strong> {{ selectedEmployee.bloodGroup }} <br>
-   <strong>JOB LEVEL:</strong> {{ selectedEmployee.jobLevel }} <br>
-   <strong>JOB DEPARTMENT:</strong> {{ selectedEmployee.jobDepartment }} <br>
-   <strong>JOB TYPE:</strong> {{ selectedEmployee.jobType }} <br>
-   <strong>CITY:</strong> {{ selectedEmployee.city }} <br>
-   <strong>STATE:</strong> {{ selectedEmployee.state }} <br>
-  
-</div>
-
+      <table class="styled-table">
+        <tbody>
+          <tr>
+            <th>ID:</th>
+            <td>{{ selectedEmployee.employeeNo }}</td>
+            <th>FIRST NAME:</th>
+            <td>{{ selectedEmployee.firstName }}</td>
+          </tr>
+          <tr>
+            <th>MIDDLE NAME:</th>
+            <td  >{{ selectedEmployee.middleName }}</td>
+            <th>LAST NAME:</th>
+            <td>{{ selectedEmployee.lastName }}</td>
+          </tr>
+          <tr>
+            <th>PHONE NUMBER:</th>
+            <td>{{ selectedEmployee.phoneNumber }}</td>
+            <th>EMAIL:</th>
+            <td>{{ selectedEmployee.email }}</td>
+          </tr>
+          <tr>
+            <th>BIRTH DATE:</th>
+            <td>{{ selectedEmployee.birthDate }}</td>
+            <th>GENDER:</th>
+            <td>{{ selectedEmployee.gender }}</td>
+          </tr>
+          <tr>
+            <th>BLOOD GROUP:</th>
+            <td>{{ selectedEmployee.bloodGroup }}</td>
+            <th>JOB LEVEL:</th>
+            <td>{{ selectedEmployee.jobLevel }}</td>
+          </tr>
+          <tr>
+            <th>JOB DEPARTMENT:</th>
+            <td>{{ selectedEmployee.jobDepartment }}</td>
+            <th>JOB TYPE:</th>
+            <td>{{ selectedEmployee.jobType }}</td>
+          </tr>
+          <tr>
+            <th>CITY:</th>
+            <td>{{ selectedEmployee.city }}</td>
+            <th>STATE:</th>
+            <td>{{ selectedEmployee.state }}</td>
+          </tr>
+        </tbody>
+      </table>
+      
     </div>
 
   </div>
