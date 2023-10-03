@@ -64,9 +64,8 @@ export class SearchComponent {
 
   jobType = [
     { name: 'Full-time', code: 'Full-time' },
-    { name: 'Part-time', code: 'Part-time' },
-    { name: 'Intern', codterne: 'Intern' },
-  ];
+    { name: 'Part-time', code: 'Part-time' }
+    ];
 
   selectedJobType: any;
 }
