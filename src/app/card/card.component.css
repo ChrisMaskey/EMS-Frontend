@@ -121,7 +121,7 @@ img {
     margin-bottom: 3px;
   }
 
-  @media screen and (max-width: 1056px) {
+  @media screen and (max-width: 1450px) {
     .card-details-container {
       display: flex;
       flex-direction: column;
@@ -152,12 +152,18 @@ img {
   border: 1px solid #ddd;
 }
 
+/* Apply styles to the table container for responsiveness */
+.table-container {
+  overflow-x: auto;
+}
+
 /* Style the table headers */
 .styled-table th {
   background-color: #251f1e12;
   color: #63241f;
   padding: 10px;
   text-align: left;
+  border-bottom: 2px solid #ddd;
 }
 
 /* Style the table data cells */
@@ -167,11 +173,71 @@ img {
 }
 
 /* Alternate row colors */
-.styled-table tr:nth-child(even) {
+.styled-table tbody tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
 /* Hover effect */
-.styled-table tr:hover {
+.styled-table tbody tr:hover {
   background-color: #ddd;
+}
+
+/* Apply styles to the table container for responsiveness */
+.table-container {
+  overflow-x: auto;
+}
+
+/* Style the table headers */
+.styled-table th {
+  background-color: #251f1e12;
+  color: #63241f;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+  white-space: nowrap; /* Prevent header text from wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for long header text */
+}
+
+/* Style the table data cells */
+.styled-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  white-space: normal; /* Allow data text to wrap */
+  word-wrap: break-word; /* Break words to wrap long content */
+}
+
+/* Alternate row colors with varying shades */
+.styled-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.styled-table tbody tr:nth-child(odd) {
+  background-color: #e0e0e0;
+}
+
+/* Hover effect */
+.styled-table tbody tr:hover {
+  background-color: #ddd;
+}
+
+/* Media query for screens with a width lower than 1050px */
+@media screen and (max-width: 1050px) {
+  /* Display headers and data cells in the same line */
+  .styled-table th,
+  .styled-table td {
+    display: inline-block;
+    width: 50%;
+    box-sizing: border-box;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  /* Reset white-space and text-overflow for headers and data cells */
+  .styled-table th,
+  .styled-table td {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: initial;
+  }
 }

@@ -10,6 +10,7 @@ import { Filter } from '../Model/filter';
   styleUrls: ['./card.component.css'],
 })
 export class CardComponent implements OnInit {
+  
   visible: boolean = false;
 
   employees: Employee[] = [];
@@ -30,10 +31,10 @@ export class CardComponent implements OnInit {
 
   
 
+
+
   constructor(
     private service: CardService,
-    private renderer: Renderer2,
-    private el: ElementRef,
     private searchService: SearchService // Inject SearchService
   ) {}
 

@@ -36,6 +36,8 @@ export class ResetPasswordComponent {
         ConfirmPassword: this.confirmPassword
       };
 
+      console.log(this.activationToken, this.email)
+
       const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
 
