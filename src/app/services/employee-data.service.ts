@@ -9,7 +9,6 @@ import { editEmployee } from '../Model/editEmployee.model';
   providedIn: 'root',
 })
 export class EmployeeDataService {
-  // private employees: Employee[] = [];
   private apiUrl = 'https://vertex90-001-site1.atempurl.com';
 
   private employeeListSubject = new BehaviorSubject<Employee[]>([]);
@@ -59,7 +58,7 @@ export class EmployeeDataService {
     return new Promise((resolve, reject) => {
       return this.http
         .put<Employee>(
-          this.apiUrl + '/api/User/update-employee/' + id,
+          this.apiUrl + '/api/User/update-employee?Id=' + id,
           employee
         )
         .subscribe((data) => {
@@ -77,11 +76,13 @@ export class EmployeeDataService {
     });
   }
 
-  // hideEmployee(id: string): Promise<void> {
-  //   return new Promise((resolve, reject) => {
-  //     return this.http
-  //       .put<void>(this.apiUrl + '/api/User/hide-user/' + id)
-  //       .subscribe();
-  //   });
-  // }
+  hideEmployee(id: string, employee: Employee): Promise<void> {
+    return new Promise((resolve, reject) => {
+      return this.http
+        .put<Employee>(this.apiUrl + '/api/User/hide-user?Id=' + id, employee)
+        .subscribe((data) => {
+          this.employeeSubject.next(data);
+        });
+    });
+  }
 }
