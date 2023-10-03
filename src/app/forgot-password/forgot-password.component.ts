@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class ForgotPasswordComponent {
   email: string = '';
   message: string = '';
-  url: string = 'https://vertex-ems.netlify.app/reset-password';
+  url: string = 'http://vertex-ems.netlify.app/';
   apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
 
   constructor(private http: HttpClient) {}
