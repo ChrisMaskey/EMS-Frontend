@@ -30,13 +30,14 @@ export class ResetPasswordComponent {
   onSubmit() {
     if (this.newPassword === this.confirmPassword) {
       const data = {
-        Token: this.activationToken,
+        Token: this.activationToken.replaceAll(" ","+"),
         Email: this.email, // Include extracted email
         Password: this.newPassword,
         ConfirmPassword: this.confirmPassword
       };
 
       console.log(this.activationToken, this.email)
+      console.log(this.activationToken.replaceAll(" ","+"));
 
       const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
