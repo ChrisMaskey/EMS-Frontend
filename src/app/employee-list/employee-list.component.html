@@ -115,14 +115,19 @@
     <div class="row">
       <div class="col-sm-6">
         <button
-          class="btn btn-danger full-width-button"
+          class="btn btn-danger-delete full-width-button"
           (click)="deleteEmployeeData(deleteId); hideDeleteDialog()"
         >
           Delete
         </button>
       </div>
       <div class="col-sm-6">
-        <button class="btn btn-primary full-width-button">Cancel</button>
+        <button
+          class="btn btn-primary full-width-button"
+          (click)="hideDeleteDialog()"
+        >
+          Cancel
+        </button>
       </div>
     </div>
   </div>
