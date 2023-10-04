@@ -16,3 +16,21 @@
   /* box-shadow: 0 0 0 0.3rem #63241f; */
   transform: scale(0.95);
 }
+
+.btn-dark {
+  transition: transform 0.3s ease;
+}
+
+.btn-dark:hover {
+  transform: scale(0.95);
+  background-color: black;
+}
+
+.btn-danger {
+  transition: transform 0.3s ease;
+}
+
+.btn-danger:hover {
+  transform: scale(0.95);
+  background-color: rgb(143, 8, 8);
+}

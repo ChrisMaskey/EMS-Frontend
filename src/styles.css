@@ -1,7 +1,7 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
-@import "~bootstrap/dist/css/bootstrap.css";
-@import "node_modules/bootswatch/dist/lux/bootstrap.min.css";
+@import "~bootswatch/dist/lux/bootstrap.css";
+@import "~bootswatch/dist/lux/bootstrap.min.css";
 
 html,
 body {

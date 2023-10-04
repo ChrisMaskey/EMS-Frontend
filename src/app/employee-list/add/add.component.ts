@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnChanges,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -57,8 +65,6 @@ export class AddComponent {
       var day = date.getDate().toString().padStart(2, '0');
       var dateFormat = year + '-' + month + '-' + day;
 
-      console.log(dateFormat);
-
       const employee: addEmployee = {
         employeeNo: this.addForm.get('employeeNo')?.value,
         firstName: this.addForm.get('firstName')?.value,
@@ -81,7 +87,6 @@ export class AddComponent {
         .addEmployee(employee)
         .then(() => {
           console.log('refresh list');
-          this.service.getEmployeeData();
           this.addForm.reset();
         })
         .catch((error) => {
