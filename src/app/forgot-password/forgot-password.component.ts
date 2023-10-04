@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -17,12 +18,11 @@ export class ForgotPasswordComponent {
 
   onSubmit() {
     if (this.isValidEmail(this.email)) {
-      const url = `${this.apiUrl}?email=${this.email}&url=${this.url}`;
+      const url = `${this.apiUrl}?email=${this.email}&url=${encodeURIComponent(this.url)}`;
       this.http.post(url, null, { observe: 'response', responseType: 'text' }).subscribe(
         (response) => {
           if (response.status === 200) {
             if (response.body === 'Email has been proceeded.') {
-              // Handle the success case where the email has been proceeded
               console.log('Email has been proceeded.');
               this.message = 'Password Change request is sent. Please open your email.';
               this.hideMessageAfterDelay(3000); // Hide the message after 3 seconds
