@@ -10,14 +10,14 @@ import { HttpClient } from '@angular/common/http';
 export class ForgotPasswordComponent {
   email: string = '';
   message: string = '';
-  url: string = 'https://localhost:4200/reset-password';
+  url: string = 'https://vertex-ems.netlify.app/#/reset-password';
   apiUrl =   'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
 
   constructor(private http: HttpClient) {}
 
   onSubmit() {
     if (this.isValidEmail(this.email)) {
-      const url = `${this.apiUrl}?email=${this.email}&url=${this.url}`;
+      const url = `${this.apiUrl}?email=${this.email}&url=${encodeURIComponent(this.url)}`;
       this.http.post(url, null, { observe: 'response', responseType: 'text' }).subscribe(
         (response) => {
           if (response.status === 200) {
