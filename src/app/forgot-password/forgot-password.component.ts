@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,8 +10,8 @@ import { HttpClient } from '@angular/common/http';
 export class ForgotPasswordComponent {
   email: string = '';
   message: string = '';
-  url: string = 'http://vertex-ems.netlify.app/reset-password';
-  apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
+  url: string = 'http://localhost:4200/reset-password';
+  apiUrl =   'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
 
   constructor(private http: HttpClient) {}
 
@@ -21,7 +22,6 @@ export class ForgotPasswordComponent {
         (response) => {
           if (response.status === 200) {
             if (response.body === 'Email has been proceeded.') {
-              // Handle the success case where the email has been proceeded
               console.log('Email has been proceeded.');
               this.message = 'Password Change request is sent. Please open your email.';
               this.hideMessageAfterDelay(3000); // Hide the message after 3 seconds
