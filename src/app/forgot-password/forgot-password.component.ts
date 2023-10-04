@@ -10,9 +10,14 @@ import { HttpClient } from '@angular/common/http';
 export class ForgotPasswordComponent {
   email: string = '';
   message: string = '';
+<<<<<<< HEAD
+  url: string = 'https://vertex-ems.netlify.app/#/reset-password';
+  apiUrl =   'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
+=======
   
   url: string = 'https://vertex-ems.netlify.app/#/reset-password';
   apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
+>>>>>>> b151b3fe7915234c847cca8082191171fbd51101
 
   constructor(private http: HttpClient) {}
 
