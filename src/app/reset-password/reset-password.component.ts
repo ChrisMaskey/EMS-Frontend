@@ -9,7 +9,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 })
 export class ResetPasswordComponent {
   activationToken: string = '';
-  email: string = ''; // Extracted email
+  email: string = ''; 
   newPassword: string = '';
   confirmPassword: string = '';
   message: string = '';
@@ -31,7 +31,7 @@ export class ResetPasswordComponent {
     if (this.newPassword === this.confirmPassword) {
       const data = {
         Token: this.activationToken.replaceAll(" ", "+"),
-        Email: this.email, // Include extracted email
+        Email: this.email, 
         Password: this.newPassword,
         ConfirmPassword: this.confirmPassword
       };
