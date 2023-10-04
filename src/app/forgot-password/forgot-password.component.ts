@@ -10,7 +10,7 @@ export class ForgotPasswordComponent {
   email: string = '';
   message: string = '';
   
-  url: string = 'https://vertex-ems.netlify.app/reset-password';
+  url: string = 'https://vertex-ems.netlify.app/#/reset-password';
   apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
 
   constructor(private http: HttpClient) {}
