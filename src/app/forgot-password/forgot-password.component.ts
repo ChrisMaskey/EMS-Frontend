@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,14 +9,9 @@ import { HttpClient } from '@angular/common/http';
 export class ForgotPasswordComponent {
   email: string = '';
   message: string = '';
-<<<<<<< HEAD
-  url: string = 'https://vertex-ems.netlify.app/#/reset-password';
-  apiUrl =   'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
-=======
-  
+  messageType: string = '';
   url: string = 'https://vertex-ems.netlify.app/#/reset-password';
   apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
->>>>>>> b151b3fe7915234c847cca8082191171fbd51101
 
   constructor(private http: HttpClient) {}
 
@@ -29,28 +23,31 @@ export class ForgotPasswordComponent {
           if (response.status === 200) {
             if (response.body === 'Email has been proceeded.') {
               console.log('Email has been proceeded.');
+              this.messageType = 'success'; // Set messageType to 'success'
               this.message = 'Password Change request is sent. Please open your email.';
-              this.hideMessageAfterDelay(3000); // Hide the message after 3 seconds
+              this.hideMessageAfterDelay(3000);
             } else {
-              // Handle unexpected response content
               console.error('Unexpected response:', response.body);
+              this.messageType = 'error'; // Set messageType to 'error'
               this.handleApiError('Unexpected response from the server.');
             }
           } else {
+            this.messageType = 'error'; // Set messageType to 'error'
             this.handleApiError('Password Change request failed. Please try again later.');
           }
         },
         (error) => {
           console.error('Error sending email', error);
+          this.messageType = 'error'; // Set messageType to 'error'
           this.handleApiError('An error occurred while sending the email. Please try again later.');
         }
       );
     } else {
-      this.message = 'Invalid email format';
-      this.hideMessageAfterDelay(3000); // Hide the message after 3 seconds
+      this.messageType = 'error'; // Set messageType to 'error'
+      this.message = 'Invalid email';
+      this.hideMessageAfterDelay(3000);
     }
   }
-
   private handleApiError(errorMessage: string) {
     this.message = errorMessage;
     this.hideMessageAfterDelay(3000); // Hide the message after 3 seconds
@@ -58,7 +55,8 @@ export class ForgotPasswordComponent {
 
   private hideMessageAfterDelay(delay: number) {
     setTimeout(() => {
-      this.message = ''; // Clear the message after the specified delay
+      this.message = '';
+      this.messageType = ''; // Clear the message and message type after the specified delay
     }, delay);
   }
 
