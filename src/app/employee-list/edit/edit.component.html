@@ -23,13 +23,18 @@
     </div>
     <form
       [formGroup]="editForm"
-      (ngSubmit)="onSubmit()"
+      (ngSubmit)="onEdit()"
       class="col-sm-12"
       style="background-color: hsl(0, 0%, 98%)"
     >
       <h3 class="text-dark text-center my-3">Employee Detail</h3>
       <div class="row">
-        <h5 class="text-center">Identity</h5>
+        <div class="col-sm-12 hide">
+          <h5 class="text-center">Identity</h5>
+          <button class="btn btn-warning" (click)="showDialog()">
+            <i class="bi bi-file-lock2"></i> Inactivate
+          </button>
+        </div>
         <div class="col-sm-4 my-3">
           <input
             type="text"
@@ -102,7 +107,7 @@
         <div class="col-sm-12">
           <select
             formControlName="bloodGroup"
-            class="form-control text-center"
+            class="form-control text-center mb-3"
             placeholder="Blood Group"
           >
             <option value="" disabled selected>Blood Group</option>
@@ -204,7 +209,7 @@
 
       <div class="row">
         <h5 class="text-center my-3">Login Credentials</h5>
-        <div class="col-sm-6 mb-3">
+        <div class="col-sm-12 mb-3">
           <input
             type="text"
             formControlName="email"
@@ -230,21 +235,6 @@
               </div>
             </ng-template>
           </ng-container>
-        </div>
-
-        <div class="col-sm-6 mb-3">
-          <input
-            type="text"
-            formControlName="password"
-            class="form-control text-center"
-            placeholder="Password"
-          />
-          <div
-            *ngIf="isRegisterButtonClicked && editForm.get('password')?.invalid"
-            class="text-center"
-          >
-            <small class="text-danger">Password required</small>
-          </div>
         </div>
       </div>
 
@@ -323,14 +313,53 @@
         <div class="col-md-12 text-center">
           <a
             class="btn outline-button px-5 mb-3"
-            (click)="onSubmit()"
+            (click)="onEdit()"
             (click)="onRegisterClick()"
             type="submit"
           >
-            <i class="bi bi-journal-plus"></i> Register
+            <i class="bi bi-journal-plus"></i> Update
           </a>
         </div>
       </div>
     </form>
   </div>
 </div>
+
+<p-dialog
+  header=""
+  [(visible)]="visibleDialog"
+  [modal]="true"
+  [style]="{ width: '35vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="hideDialog()"
+>
+  <div class="container text-justify">
+    <h4 class="mb-3">Confirmation</h4>
+
+    <p class="text-dark">
+      Pressing the <span style="font-weight: bold">"Inactivate"</span> button
+      confirms the irreversible removal of this employee from the system,
+      permanently hiding all associated data. Proceed with caution and ensure
+      this is the intended action.
+    </p>
+    <div class="row" *ngIf="employee$ | async as employee">
+      <div class="col-sm-6">
+        <button
+          class="btn btn-danger full-width-button"
+          (click)="hideEmployee(employee.id, employee)"
+        >
+          Inactivate
+        </button>
+      </div>
+      <div class="col-sm-6">
+        <button
+          class="btn btn-primary full-width-button"
+          (click)="hideDialog()"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</p-dialog>
