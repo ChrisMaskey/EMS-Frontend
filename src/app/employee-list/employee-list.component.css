@@ -34,3 +34,16 @@
   transform: scale(0.95);
   background-color: rgb(143, 8, 8);
 }
+
+.full-width-button {
+  display: block;
+  width: 100%;
+}
+
+p {
+  text-align: justify;
+}
+
+h4 {
+  text-align: center;
+}

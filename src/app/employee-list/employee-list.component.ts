@@ -18,6 +18,9 @@ export class EmployeeListComponent implements OnInit {
 
   visible: boolean = false;
   editDialogVisible: boolean = false;
+  visibleDeleteDialog: boolean = false;
+
+  deleteId: string = '';
 
   async ngOnInit() {
     await this.employeeDataService.getEmployeeData();
@@ -48,11 +51,20 @@ export class EmployeeListComponent implements OnInit {
     this.editDialogVisible = true;
   }
 
+  showDialogDelete(id: string) {
+    this.deleteId = id;
+    this.visibleDeleteDialog = true;
+  }
+
   hideDialog() {
     this.visible = false;
   }
 
   hideEditDialog() {
     this.editDialogVisible = false;
+  }
+
+  hideDeleteDialog() {
+    this.visibleDeleteDialog = false;
   }
 }

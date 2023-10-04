@@ -43,7 +43,7 @@ export class AddComponent {
         '',
         [Validators.required, Validators.email, vertexEmailValidator()],
       ],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, passwordValidator]],
       birthDate: ['', Validators.required],
       gender: ['', Validators.required],
       bloodGroup: ['', Validators.required],
@@ -133,4 +133,26 @@ function phoneNumberValidator(
   const isValid = /^\d{10}$/.test(phoneNumber);
 
   return isValid ? null : { invalidPhoneNumber: true };
+}
+
+function passwordValidator(control: AbstractControl): ValidationErrors | null {
+  const password = control.value;
+
+  // Regular expressions for password criteria
+  const lengthRegex = /.{8,}/;
+  const uppercaseRegex = /[A-Z]/;
+  const lowercaseRegex = /[a-z]/;
+  const digitRegex = /\d/;
+  const specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+
+  // Check if the password meets all criteria
+  const isValid =
+    lengthRegex.test(password) &&
+    uppercaseRegex.test(password) &&
+    lowercaseRegex.test(password) &&
+    digitRegex.test(password) &&
+    specialCharRegex.test(password);
+
+  // Return an error object if the password is not valid
+  return isValid ? null : { invalidPassword: true };
 }
