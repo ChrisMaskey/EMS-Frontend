@@ -9,7 +9,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 })
 export class ResetPasswordComponent {
   activationToken: string = '';
-  email: string = ''; // Extracted email
+  email: string = ''; 
   newPassword: string = '';
   confirmPassword: string = '';
   message: string = '';
