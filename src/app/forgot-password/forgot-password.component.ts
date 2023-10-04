@@ -1,50 +1,54 @@
-
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.css']
+  styleUrls: ['./forgot-password.component.css'],
 })
 export class ForgotPasswordComponent {
   email: string = '';
   message: string = '';
-<<<<<<< HEAD
+
   url: string = 'https://vertex-ems.netlify.app/#/reset-password';
-  apiUrl =   'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
-=======
-  
-  url: string = 'https://vertex-ems.netlify.app/#/reset-password';
-  apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
->>>>>>> b151b3fe7915234c847cca8082191171fbd51101
+  apiUrl =
+    'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
 
   constructor(private http: HttpClient) {}
 
   onSubmit() {
     if (this.isValidEmail(this.email)) {
-      const url = `${this.apiUrl}?email=${this.email}&url=${encodeURIComponent(this.url)}`;
-      this.http.post(url, null, { observe: 'response', responseType: 'text' }).subscribe(
-        (response) => {
-          if (response.status === 200) {
-            if (response.body === 'Email has been proceeded.') {
-              console.log('Email has been proceeded.');
-              this.message = 'Password Change request is sent. Please open your email.';
-              this.hideMessageAfterDelay(3000); // Hide the message after 3 seconds
+      const url = `${this.apiUrl}?email=${this.email}&url=${encodeURIComponent(
+        this.url
+      )}`;
+      this.http
+        .post(url, null, { observe: 'response', responseType: 'text' })
+        .subscribe(
+          (response) => {
+            if (response.status === 200) {
+              if (response.body === 'Email has been proceeded.') {
+                console.log('Email has been proceeded.');
+                this.message =
+                  'Password Change request is sent. Please open your email.';
+                this.hideMessageAfterDelay(3000); // Hide the message after 3 seconds
+              } else {
+                // Handle unexpected response content
+                console.error('Unexpected response:', response.body);
+                this.handleApiError('Unexpected response from the server.');
+              }
             } else {
-              // Handle unexpected response content
-              console.error('Unexpected response:', response.body);
-              this.handleApiError('Unexpected response from the server.');
+              this.handleApiError(
+                'Password Change request failed. Please try again later.'
+              );
             }
-          } else {
-            this.handleApiError('Password Change request failed. Please try again later.');
+          },
+          (error) => {
+            console.error('Error sending email', error);
+            this.handleApiError(
+              'An error occurred while sending the email. Please try again later.'
+            );
           }
-        },
-        (error) => {
-          console.error('Error sending email', error);
-          this.handleApiError('An error occurred while sending the email. Please try again later.');
-        }
-      );
+        );
     } else {
       this.message = 'Invalid email format';
       this.hideMessageAfterDelay(3000); // Hide the message after 3 seconds
