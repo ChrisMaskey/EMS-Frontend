@@ -46,11 +46,15 @@ export class EmployeeDataService {
     return new Promise((resolve, reject) => {
       return this.http
         .post<addEmployee>(this.apiUrl + '/api/User/add-employee', employee)
-        .subscribe((data) => {
-          console.log('data added');
-          this.addEmployeeSubject.next(data);
-          resolve();
-        });
+        .subscribe(
+          (data) => {
+            this.addEmployeeSubject.next(data);
+            this.getEmployeeData();
+          },
+          (error) => {
+            this.getEmployeeData();
+          }
+        );
     });
   }
 
@@ -61,10 +65,14 @@ export class EmployeeDataService {
           this.apiUrl + '/api/User/update-employee?Id=' + id,
           employee
         )
-        .subscribe((data) => {
-          this.employeeSubject.next(data);
-          resolve();
-        });
+        .subscribe(
+          (data: any) => {
+            this.getEmployeeData();
+          },
+          (error) => {
+            this.getEmployeeData();
+          }
+        );
     });
   }
 
@@ -72,7 +80,14 @@ export class EmployeeDataService {
     return new Promise((resolve, reject) => {
       return this.http
         .delete<void>(this.apiUrl + '/api/User/remove-user?Id=' + id)
-        .subscribe();
+        .subscribe(
+          () => {
+            this.getEmployeeData();
+          },
+          (error) => {
+            this.getEmployeeData();
+          }
+        );
     });
   }
 
@@ -80,9 +95,15 @@ export class EmployeeDataService {
     return new Promise((resolve, reject) => {
       return this.http
         .put<Employee>(this.apiUrl + '/api/User/hide-user?Id=' + id, employee)
-        .subscribe((data) => {
-          this.employeeSubject.next(data);
-        });
+        .subscribe(
+          (data) => {
+            this.employeeSubject.next(data);
+            this.getEmployeeData();
+          },
+          (error) => {
+            this.getEmployeeData();
+          }
+        );
     });
   }
 }

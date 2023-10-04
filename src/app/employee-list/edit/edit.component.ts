@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -64,25 +65,13 @@ export class EditComponent implements OnChanges {
     });
   }
 
-  async onEdit() {
+  onEdit() {
     this.isRegisterButtonClicked = true;
     if (this.editForm.valid && this.employees) {
       const employeeData: Employee = this.editForm.value;
-      await this.service.updateEmployee(this.employees.id, employeeData);
+      this.service.updateEmployee(this.employees.id, employeeData);
     }
   }
-
-  // async onEdit() {
-  //   this.isRegisterButtonClicked = true;
-  //   if (this.editForm.valid) {
-  //     if (this.employee) {
-  //       await this.service.updateEmployee(
-  //         this.employee.id,
-  //         this.editForm.value
-  //       );
-  //     }
-  //   }
-  // }
 
   onRegisterClick() {
     if (this.editForm.valid) {
@@ -91,6 +80,10 @@ export class EditComponent implements OnChanges {
   }
 
   loadUserDataForEdit(user: Employee) {
+    const inputDate = new Date(user.birthDate);
+
+    // Format the date as "yyyy-MM-dd"
+    const formattedBirthDate = this.formatDate(inputDate);
     this.editForm.patchValue({
       employeeNo: user.employeeNo,
       firstName: user.firstName,
@@ -98,8 +91,7 @@ export class EditComponent implements OnChanges {
       middleName: user.middleName,
       phoneNumber: user.phoneNumber,
       email: user.email,
-      password: user.password,
-      birthDate: user.birthDate,
+      birthDate: formattedBirthDate,
       gender: user.gender,
       bloodGroup: user.bloodGroup,
       jobLevel: user.jobLevel,
@@ -139,6 +131,14 @@ export class EditComponent implements OnChanges {
 
   hideDialog() {
     this.visibleDialog = false;
+  }
+
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add 1 because months are 0-based
+    const day = date.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 }
 
