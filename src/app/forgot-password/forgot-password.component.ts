@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class ForgotPasswordComponent {
   email: string = '';
   message: string = '';
-  url: string = 'http://localhost:4200/reset-password';
+  url: string = 'https://localhost:4200/reset-password';
   apiUrl =   'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
 
   constructor(private http: HttpClient) {}
