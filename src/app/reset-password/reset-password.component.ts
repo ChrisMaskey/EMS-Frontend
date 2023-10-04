@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-reset-password',
@@ -9,7 +9,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angul
 })
 export class ResetPasswordComponent {
   activationToken: string = '';
-  email: string = ''; // Extracted email
+  email: string = ''; 
   newPassword: string = '';
   confirmPassword: string = '';
   message: string = '';
@@ -30,19 +30,24 @@ export class ResetPasswordComponent {
   onSubmit() {
     if (this.newPassword === this.confirmPassword) {
       const data = {
-        Token: this.activationToken,
-        Email: this.email, // Include extracted email
+        Token: this.activationToken.replaceAll(" ", "+"),
+        Email: this.email, 
         Password: this.newPassword,
         ConfirmPassword: this.confirmPassword
       };
 
+      console.log(this.activationToken, this.email)
+      console.log(this.activationToken.replaceAll(" ", "+"));
+
       const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
 
-      this.http.post(this.apiUrl, data, { headers, observe: 'response' }).subscribe(
-        (response: HttpResponse<any>) => {
-          if (response.status === 200) {
-            console.log('response:', response);
+      this.http.post(this.apiUrl, data, { headers, responseType: 'text' }).subscribe(
+        (response: string) => {
+          console.log('API Response:', response);
+
+          if (response === 'Password has been reset.') {
+            console.log('Password reset successful.');
             this.message = 'Password reset successful.';
           } else {
             this.handleApiError('Password reset failed. Please try again later.');

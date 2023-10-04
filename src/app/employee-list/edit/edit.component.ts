@@ -3,9 +3,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
-  SimpleChanges,
   inject,
 } from '@angular/core';
 import {
@@ -16,8 +14,6 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { from } from 'rxjs';
-import { editEmployee } from 'src/app/Model/editEmployee.model';
 import { Employee } from 'src/app/Model/employee.model';
 import { EmployeeDataService } from 'src/app/services/employee-data.service';
 
@@ -26,60 +22,67 @@ import { EmployeeDataService } from 'src/app/services/employee-data.service';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css'],
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnChanges {
   @Input() employees: Employee | null = null;
-  employee: Employee | null = null;
+  // employee: Employee | null = null;
   date: Date | undefined;
   @Output() visible: EventEmitter<void> = new EventEmitter<void>();
   private service = inject(EmployeeDataService);
   isRegisterButtonClicked: boolean = false;
+  protected employee$ = this.service.employee$;
+  visibleDialog: boolean = false;
 
   editForm: FormGroup;
 
-  ngOnInit() {
-    console.log('from employee');
-    console.log(this.employees);
+  ngOnChanges() {
     if (this.employees) {
-      this.loadUserDataForEdit(this.employees.id);
+      console.log(this.employees);
+      this.loadUserDataForEdit(this.employees);
     }
   }
 
   constructor(public fb: FormBuilder) {
     this.editForm = this.fb.group({
-      employeeNo: [this.employees?.employeeNo || '', Validators.required],
-      firstName: [this.employees?.firstName || '', Validators.required],
-      middleName: [this.employees?.middleName || ''],
-      lastName: [this.employees?.lastName || '', Validators.required],
-      phoneNumber: [
-        this.employees?.phoneNumber,
-        [Validators.required, phoneNumberValidator],
-      ],
+      employeeNo: ['', Validators.required],
+      firstName: ['', Validators.required],
+      middleName: [''],
+      lastName: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, phoneNumberValidator]],
       email: [
-        this.employees?.email,
+        '',
         [Validators.required, Validators.email, vertexEmailValidator()],
       ],
-      password: [this.employees?.password, Validators.required],
-      birthDate: [this.employees?.birthDate, Validators.required],
+      birthDate: ['', Validators.required],
       gender: ['', Validators.required],
-      bloodGroup: [this.employees?.bloodGroup, Validators.required],
-      jobLevel: [this.employees?.jobLevel, Validators.required],
-      jobDepartment: [this.employees?.jobDepartment, Validators.required],
-      jobType: [this.employees?.jobType, Validators.required],
-      city: [this.employee?.city, Validators.required],
-      state: [this.employee?.state, Validators.required],
-      country: [this.employee?.country, Validators.required],
+      bloodGroup: ['', Validators.required],
+      jobLevel: ['', Validators.required],
+      jobDepartment: ['', Validators.required],
+      jobType: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      country: ['', Validators.required],
     });
   }
 
-  async onSubmit() {
+  async onEdit() {
     this.isRegisterButtonClicked = true;
-    if (this.editForm.valid) {
+    if (this.editForm.valid && this.employees) {
       const employeeData: Employee = this.editForm.value;
-      if (this.employee) {
-        await this.service.updateEmployee(this.employee.id, employeeData);
-      }
+      await this.service.updateEmployee(this.employees.id, employeeData);
     }
   }
+
+  // async onEdit() {
+  //   this.isRegisterButtonClicked = true;
+  //   if (this.editForm.valid) {
+  //     if (this.employee) {
+  //       await this.service.updateEmployee(
+  //         this.employee.id,
+  //         this.editForm.value
+  //       );
+  //     }
+  //   }
+  // }
 
   onRegisterClick() {
     if (this.editForm.valid) {
@@ -87,32 +90,33 @@ export class EditComponent implements OnInit {
     }
   }
 
-  loadUserDataForEdit(id: string) {
-    from(this.service.getEmployeeById(id)).subscribe(
-      (user: editEmployee) => {
-        this.editForm.patchValue({
-          employeeNo: user.employeeNo,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          middleName: user.middleName,
-          phoneNumber: user.phoneNumber,
-          email: user.email,
-          password: user.password,
-          birthDate: user.birthDate,
-          gender: user.gender,
-          bloodGroup: user.bloodGroup,
-          jobLevel: user.jobLevel,
-          jobDepartment: user.jobDepartment,
-          jobType: user.jobType,
-          city: user.city,
-          state: user.state,
-          country: user.country,
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  loadUserDataForEdit(user: Employee) {
+    this.editForm.patchValue({
+      employeeNo: user.employeeNo,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      middleName: user.middleName,
+      phoneNumber: user.phoneNumber,
+      email: user.email,
+      password: user.password,
+      birthDate: user.birthDate,
+      gender: user.gender,
+      bloodGroup: user.bloodGroup,
+      jobLevel: user.jobLevel,
+      jobDepartment: user.jobDepartment,
+      jobType: user.jobType,
+      city: user.city,
+      state: user.state,
+      country: user.country,
+    });
+  }
+
+  hideEmployee(id: string, employees: Employee) {
+    if (this.employees) {
+      id = this.employees?.id;
+      employees = this.employees;
+      this.service.hideEmployee(id, employees);
+    }
   }
 
   getPhoneNumberErrors() {
@@ -127,6 +131,14 @@ export class EditComponent implements OnInit {
     }
 
     return '';
+  }
+
+  showDialog() {
+    this.visibleDialog = true;
+  }
+
+  hideDialog() {
+    this.visibleDialog = false;
   }
 }
 
