@@ -26,8 +26,8 @@ export class EmployeeDataService {
     return new Promise((resolve, reject) => {
       return this.http
         .get<Employee[]>(this.apiUrl + '/api/User/get-all-employees')
-        .subscribe((data) => {
-          this.employeeListSubject.next(data);
+        .subscribe((data: any) => {
+          this.employeeListSubject.next(data.employees);
         });
     });
   }
@@ -36,8 +36,8 @@ export class EmployeeDataService {
     return new Promise((resolve, reject) => {
       return this.http
         .get<Employee>(this.apiUrl + '/api/User/get-employee/' + id)
-        .subscribe((data: any) => {
-          this.employeeSubject.next(data);
+        .subscribe((response: any) => {
+          this.employeeSubject.next(response.employee);
         });
     });
   }
@@ -46,11 +46,15 @@ export class EmployeeDataService {
     return new Promise((resolve, reject) => {
       return this.http
         .post<addEmployee>(this.apiUrl + '/api/User/add-employee', employee)
-        .subscribe((data) => {
-          console.log('data added');
-          this.addEmployeeSubject.next(data);
-          resolve();
-        });
+        .subscribe(
+          (data: any) => {
+            this.addEmployeeSubject.next(data.employees);
+            this.getEmployeeData();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     });
   }
 
@@ -61,10 +65,12 @@ export class EmployeeDataService {
           this.apiUrl + '/api/User/update-employee?Id=' + id,
           employee
         )
-        .subscribe((data) => {
-          this.employeeSubject.next(data);
-          resolve();
-        });
+        .subscribe(
+          (data: any) => {
+            this.getEmployeeData();
+          },
+          (error) => {}
+        );
     });
   }
 
@@ -72,7 +78,12 @@ export class EmployeeDataService {
     return new Promise((resolve, reject) => {
       return this.http
         .delete<void>(this.apiUrl + '/api/User/remove-user?Id=' + id)
-        .subscribe();
+        .subscribe(
+          () => {
+            this.getEmployeeData();
+          },
+          (error) => {}
+        );
     });
   }
 
@@ -80,9 +91,13 @@ export class EmployeeDataService {
     return new Promise((resolve, reject) => {
       return this.http
         .put<Employee>(this.apiUrl + '/api/User/hide-user?Id=' + id, employee)
-        .subscribe((data) => {
-          this.employeeSubject.next(data);
-        });
+        .subscribe(
+          (data: any) => {
+            this.employeeSubject.next(data.employees);
+            this.getEmployeeData();
+          },
+          (error) => {}
+        );
     });
   }
 }
