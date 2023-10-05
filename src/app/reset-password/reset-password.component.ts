@@ -38,29 +38,23 @@ export class ResetPasswordComponent {
         ConfirmPassword: this.confirmPassword
       };
 
-      const headers = new HttpHeaders()
-        .set('Content-Type', 'application/json');
+      const headers = new HttpHeaders();
 
-      this.http.post(this.apiUrl, data, { headers, responseType: 'text' }).subscribe(
-        (response: string) => {
-          try {
-            const responseData = JSON.parse(response);
+      this.http.post(this.apiUrl, data, { headers, responseType: 'json' }).subscribe(
+        (response: any) => { 
+          console.log(response)
 
-            if (responseData.code === '200') {
-              console.log('Password reset successful.');
-              this.messageType = 'success';
-              this.message = responseData.description;
-              this.handleApiSuccess();
-            } else {
-              console.error('Unexpected response:', responseData);
-              this.messageType = 'error';
-              this.handleApiError('Unexpected response from the server.');
-            }
-          } catch (error) {
-            console.error('Error parsing JSON:', error);
-            this.messageType = 'error';
-            this.handleApiError('An error occurred while parsing the response.');
+          if (response.code === 200) {
+            console.log('Password reset successful.');
+            this.messageType = 'success';
+            this.message = response.description; 
+            this.handleApiSuccess();
+          } else {
+            console.error('Unexpected response:', response);
+            this.messageType = response.description;
+            this.handleApiError('Unexpected response from the server.');
           }
+          
         },
         (error: HttpErrorResponse) => {
           console.error('Error resetting password', error);
