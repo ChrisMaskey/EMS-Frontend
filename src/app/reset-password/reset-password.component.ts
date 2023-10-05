@@ -13,6 +13,7 @@ export class ResetPasswordComponent {
   newPassword: string = '';
   confirmPassword: string = '';
   message: string = '';
+  messageType: string = ''; // Added messageType property
   apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password';
 
   constructor(
@@ -48,6 +49,7 @@ export class ResetPasswordComponent {
 
           if (response === 'Password has been reset.') {
             console.log('Password reset successful.');
+            this.messageType = 'success'; // Set messageType to 'success'
             this.message = 'Password reset successful.';
           } else {
             this.handleApiError('Password reset failed. Please try again later.');
@@ -55,15 +57,18 @@ export class ResetPasswordComponent {
         },
         (error: HttpErrorResponse) => {
           console.error('Error resetting password', error);
+          this.messageType = 'error'; // Set messageType to 'error'
           this.handleApiError('An error occurred while resetting the password. Please try again later.');
         }
       );
     } else {
+      this.messageType = 'error'; // Set messageType to 'error'
       this.message = 'Passwords do not match.';
     }
   }
 
   private handleApiError(errorMessage: string) {
+    this.messageType = 'error'; // Set messageType to 'error'
     this.message = errorMessage;
   }
 }

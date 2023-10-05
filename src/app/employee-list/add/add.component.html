@@ -228,6 +228,39 @@
           </ng-container>
         </div>
 
+        <!-- <div class="col-sm-6 mb-3">
+          <input
+            type="text"
+            formControlName="password"
+            class="form-control text-center"
+            placeholder="Password"
+          />
+          <ng-container *ngIf="isRegisterButtonClicked">
+            <div
+              class="text-center"
+              *ngIf="
+                addForm.get('password')?.hasError('required');
+                else validPassword
+              "
+            >
+              <small class="text-danger">Password required</small>
+            </div>
+          </ng-container>
+          <ng-template #validPassword>
+            <div
+              class="text-center"
+              *ngIf="addForm.get('password')?.hasError('invalidPassword')"
+              ;
+            >
+              <small class="text-danger"
+                >"Password must be at least 8 characters and contain at least
+                one uppercase letter, one special character, and one
+                number."</small
+              >
+            </div>
+          </ng-template>
+        </div> -->
+
         <div class="col-sm-6 mb-3">
           <input
             type="text"
@@ -235,12 +268,28 @@
             class="form-control text-center"
             placeholder="Password"
           />
-          <div
-            *ngIf="isRegisterButtonClicked && addForm.get('password')?.invalid"
-            class="text-center"
-          >
-            <small class="text-danger">Password required</small>
-          </div>
+          <ng-container *ngIf="isRegisterButtonClicked">
+            <div
+              class="text-center"
+              *ngIf="
+                addForm.get('password')?.hasError('required');
+                else validPassword
+              "
+            >
+              <small class="text-danger">Password required</small>
+            </div>
+            <ng-template #validPassword>
+              <div
+                class="text-center"
+                *ngIf="addForm.get('password')?.hasError('invalidPassword')"
+              >
+                <small class="text-danger">
+                  Password must be at least 8 characters and contain at least
+                  one uppercase letter, one special character, and one number.
+                </small>
+              </div>
+            </ng-template>
+          </ng-container>
         </div>
       </div>
 

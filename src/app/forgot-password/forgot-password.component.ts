@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.css']
+  styleUrls: ['./forgot-password.component.css'],
 })
 export class ForgotPasswordComponent {
   email: string = '';
@@ -24,7 +24,7 @@ export class ForgotPasswordComponent {
             if (response.body === 'Email has been proceeded.') {
               console.log('Email has been proceeded.');
               this.messageType = 'success'; // Set messageType to 'success'
-              this.message = 'Password Change request is sent. Please open your email.';
+              this.message = 'Password Change request is sent that will expire after 5 minutes. Please open your email.';
               this.hideMessageAfterDelay(3000);
             } else {
               console.error('Unexpected response:', response.body);
@@ -48,6 +48,7 @@ export class ForgotPasswordComponent {
       this.hideMessageAfterDelay(3000);
     }
   }
+
   private handleApiError(errorMessage: string) {
     this.message = errorMessage;
     this.hideMessageAfterDelay(3000); // Hide the message after 3 seconds
