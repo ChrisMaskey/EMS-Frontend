@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router'; // Import Router
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 @Component({
@@ -18,7 +18,8 @@ export class ResetPasswordComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router // Add Router to your imports
   ) {
     this.route.queryParams.subscribe(params => {
       this.activationToken = params['activationToken'];
@@ -41,7 +42,7 @@ export class ResetPasswordComponent {
       console.log(this.activationToken.replaceAll(" ", "+"));
 
       const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json');
+        .set('Content-Type', 'application/json');
 
       this.http.post(this.apiUrl, data, { headers, responseType: 'text' }).subscribe(
         (response: string) => {
@@ -51,6 +52,7 @@ export class ResetPasswordComponent {
             console.log('Password reset successful.');
             this.messageType = 'success'; // Set messageType to 'success'
             this.message = 'Password reset successful.';
+            this.handleApiSuccess(); // Call handleApiSuccess method on success
           } else {
             this.handleApiError('Password reset failed. Please try again later.');
           }
@@ -65,6 +67,11 @@ export class ResetPasswordComponent {
       this.messageType = 'error'; // Set messageType to 'error'
       this.message = 'Passwords do not match.';
     }
+  }
+
+  // Modify this method to navigate back to the login page on success
+  private handleApiSuccess() {
+    this.router.navigate(['/login']);
   }
 
   private handleApiError(errorMessage: string) {
