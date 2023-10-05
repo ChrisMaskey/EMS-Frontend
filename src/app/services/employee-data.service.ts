@@ -27,7 +27,7 @@ export class EmployeeDataService {
       return this.http
         .get<Employee[]>(this.apiUrl + '/api/User/get-all-employees')
         .subscribe((data: any) => {
-          this.employeeListSubject.next(data.employees);
+          this.employeeListSubject.next(data.data);
         });
     });
   }
@@ -37,7 +37,7 @@ export class EmployeeDataService {
       return this.http
         .get<Employee>(this.apiUrl + '/api/User/get-employee/' + id)
         .subscribe((response: any) => {
-          this.employeeSubject.next(response.employee);
+          this.employeeSubject.next(response.data);
         });
     });
   }
@@ -47,12 +47,14 @@ export class EmployeeDataService {
       return this.http
         .post<addEmployee>(this.apiUrl + '/api/User/add-employee', employee)
         .subscribe(
-          (data: any) => {
-            this.addEmployeeSubject.next(data.employees);
+          (response: any) => {
+            this.addEmployeeSubject.next(response.employee);
             this.getEmployeeData();
+            resolve();
           },
           (error) => {
             console.log(error);
+            reject(error);
           }
         );
     });
@@ -93,7 +95,7 @@ export class EmployeeDataService {
         .put<Employee>(this.apiUrl + '/api/User/hide-user?Id=' + id, employee)
         .subscribe(
           (data: any) => {
-            this.employeeSubject.next(data.employees);
+            this.employeeSubject.next(data.data);
             this.getEmployeeData();
           },
           (error) => {}

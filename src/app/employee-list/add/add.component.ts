@@ -29,6 +29,7 @@ export class AddComponent {
   @Output() visible: EventEmitter<void> = new EventEmitter<void>();
   private service = inject(EmployeeDataService);
   isRegisterButtonClicked: boolean = false;
+  @Output() addSuccess = new EventEmitter<boolean>();
 
   addForm: FormGroup;
 
@@ -86,7 +87,7 @@ export class AddComponent {
       this.service
         .addEmployee(employee)
         .then(() => {
-          console.log('refresh list');
+          this.addSuccess.emit(true);
           this.addForm.reset();
         })
         .catch((error) => {
@@ -116,12 +117,23 @@ export class AddComponent {
   }
 }
 
+// function vertexEmailValidator(): ValidatorFn {
+//   return (control: AbstractControl): ValidationErrors | null => {
+//     const email = control.value as string;
+//     if (!email.endsWith('@vertexspecial.com')) {
+//       return { vertexSpecialEmail: true };
+//     }
+//     return null;
+//   };
+// }
+
 function vertexEmailValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const email = control.value as string;
-    if (!email.endsWith('@vertexspecial.com')) {
+    if (email && !email.endsWith('@vertexspecial.com')) {
       return { vertexSpecialEmail: true };
     }
+
     return null;
   };
 }
