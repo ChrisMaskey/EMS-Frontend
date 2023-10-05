@@ -26,8 +26,8 @@ export class EmployeeDataService {
     return new Promise((resolve, reject) => {
       return this.http
         .get<Employee[]>(this.apiUrl + '/api/User/get-all-employees')
-        .subscribe((data) => {
-          this.employeeListSubject.next(data);
+        .subscribe((data: any) => {
+          this.employeeListSubject.next(data.employees);
         });
     });
   }
@@ -36,8 +36,8 @@ export class EmployeeDataService {
     return new Promise((resolve, reject) => {
       return this.http
         .get<Employee>(this.apiUrl + '/api/User/get-employee/' + id)
-        .subscribe((data: any) => {
-          this.employeeSubject.next(data);
+        .subscribe((response: any) => {
+          this.employeeSubject.next(response.employee);
         });
     });
   }
@@ -47,12 +47,12 @@ export class EmployeeDataService {
       return this.http
         .post<addEmployee>(this.apiUrl + '/api/User/add-employee', employee)
         .subscribe(
-          (data) => {
-            this.addEmployeeSubject.next(data);
+          (data: any) => {
+            this.addEmployeeSubject.next(data.employees);
             this.getEmployeeData();
           },
           (error) => {
-            this.getEmployeeData();
+            console.log(error);
           }
         );
     });
@@ -69,9 +69,7 @@ export class EmployeeDataService {
           (data: any) => {
             this.getEmployeeData();
           },
-          (error) => {
-            this.getEmployeeData();
-          }
+          (error) => {}
         );
     });
   }
@@ -84,9 +82,7 @@ export class EmployeeDataService {
           () => {
             this.getEmployeeData();
           },
-          (error) => {
-            this.getEmployeeData();
-          }
+          (error) => {}
         );
     });
   }
@@ -96,13 +92,11 @@ export class EmployeeDataService {
       return this.http
         .put<Employee>(this.apiUrl + '/api/User/hide-user?Id=' + id, employee)
         .subscribe(
-          (data) => {
-            this.employeeSubject.next(data);
+          (data: any) => {
+            this.employeeSubject.next(data.employees);
             this.getEmployeeData();
           },
-          (error) => {
-            this.getEmployeeData();
-          }
+          (error) => {}
         );
     });
   }
