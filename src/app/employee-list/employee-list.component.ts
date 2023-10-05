@@ -19,6 +19,10 @@ export class EmployeeListComponent implements OnInit {
   visible: boolean = false;
   editDialogVisible: boolean = false;
   visibleDeleteDialog: boolean = false;
+  addSuccessful: boolean = false;
+  deleteSuccessful: boolean = false;
+  editSuccessful: boolean = false;
+  hideSuccessful: boolean = false;
 
   deleteId: string = '';
 
@@ -38,8 +42,20 @@ export class EmployeeListComponent implements OnInit {
     await this.employeeDataService.updateEmployee(id, employee);
   }
 
-  async deleteEmployeeData(id: string) {
-    await this.employeeDataService.deleteEmployee(id);
+  // async deleteEmployeeData(id: string) {
+  //   await this.employeeDataService.deleteEmployee(id);
+  //   this.deleteSuccessful = true;
+  //   setTimeout(() => {
+  //     this.deleteSuccessful = false;
+  //   }, 3500);
+  // }
+
+  deleteEmployeeData(id: string) {
+    this.employeeDataService.deleteEmployee(id);
+    this.deleteSuccessful = true;
+    setTimeout(() => {
+      this.deleteSuccessful = false;
+    }, 3500);
   }
 
   showDialog() {
@@ -66,5 +82,32 @@ export class EmployeeListComponent implements OnInit {
 
   hideDeleteDialog() {
     this.visibleDeleteDialog = false;
+  }
+
+  onAddSuccess(event: boolean) {
+    if (event) {
+      this.addSuccessful = true;
+      setTimeout(() => {
+        this.addSuccessful = false;
+      }, 3500);
+    }
+  }
+
+  onEditSuccess(event: boolean) {
+    if (event) {
+      this.editSuccessful = true;
+      setTimeout(() => {
+        this.editSuccessful = false;
+      }, 3500);
+    }
+  }
+
+  onHideSuccess(event: boolean) {
+    if (event) {
+      this.hideSuccessful = true;
+      setTimeout(() => {
+        this.hideSuccessful = false;
+      }, 3500);
+    }
   }
 }
