@@ -44,7 +44,7 @@ export class ResetPasswordComponent {
         (response: any) => { 
           console.log(response)
 
-          if (response.code === '200') {
+          if (response.code === 200) {
             console.log('Password reset successful.');
             this.messageType = 'success';
             this.message = response.description; 
