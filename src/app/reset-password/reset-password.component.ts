@@ -14,7 +14,7 @@ export class ResetPasswordComponent {
   confirmPassword: string = '';
   message: string = '';
   messageType: string = '';
-  apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password';
+  apiUrl = 'http://vertex90-001-site1.atempurl.com/api/Email/reset-password'; // Note: Changed to HTTP instead of HTTPS
 
   constructor(
     private route: ActivatedRoute,
@@ -32,29 +32,27 @@ export class ResetPasswordComponent {
   onSubmit() {
     if (this.newPassword === this.confirmPassword) {
       const data = {
-        Token: this.activationToken.replaceAll(" ", "+"),
-        Email: this.email, 
-        Password: this.newPassword,
-        ConfirmPassword: this.confirmPassword
+        email: this.email,
+        password: this.newPassword,
+        confirmPassword: this.confirmPassword,
+        token: this.activationToken
       };
 
-      const headers = new HttpHeaders();
+      const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json');
 
       this.http.post(this.apiUrl, data, { headers, responseType: 'json' }).subscribe(
-        (response: any) => { 
-          console.log(response)
-
-          if (response.code === 200) {
+        (response: any) => { // Change response type to 'any'
+          if (response.code === '200') {
             console.log('Password reset successful.');
             this.messageType = 'success';
-            this.message = response.description; 
+            this.message = response.description;
             this.handleApiSuccess();
           } else {
             console.error('Unexpected response:', response);
-            this.messageType = response.description;
+            this.messageType = 'error';
             this.handleApiError('Unexpected response from the server.');
           }
-          
         },
         (error: HttpErrorResponse) => {
           console.error('Error resetting password', error);
