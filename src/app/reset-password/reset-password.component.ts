@@ -39,19 +39,24 @@ export class ResetPasswordComponent {
 
       const headers = new HttpHeaders();
 
-      this.http.post(this.apiUrl, data, { headers, responseType: 'json' }).subscribe(
-        (response: any) => { 
+      this.http.post(this.apiUrl, data, { headers, observe: 'response', responseType: 'text' }).subscribe(
+        (response) => { 
           console.log(response);
 
-          if (response.code === 'Error') {
-            console.error('Error resetting password:', response.description);
-            this.message = response.description;
+          if (response.status === 200) {
+            const responseBody = response.body;
+            if (responseBody === 'Password reset successful.') {
+              console.log('Password reset successful.');
+              this.message = responseBody;
+              this.handleApiResponse('200');
+            } else {
+              console.error('Unexpected response:', responseBody);
+              this.message = responseBody;
+            }
           } else {
-            console.log('Password reset response:', response);
-            this.message = response.description;
-            this.handleApiResponse(response.code);
+            console.error('Error resetting password:', response.status, response.statusText);
+            this.message = 'An error occurred while resetting the password. Please try again later.';
           }
-          
         },
         (error: HttpErrorResponse) => {
           console.error('Error resetting password', error);
