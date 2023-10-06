@@ -42,16 +42,20 @@ export class ResetPasswordComponent {
 
       this.http.post(this.apiUrl, data, { headers, responseType: 'json' }).subscribe(
         (response: any) => { 
-          console.log(response)
+          console.log(response);
 
-          if (response.code === 200) {
+          if (response.code === 'Error') { // Check for the "Error" code
+            console.error('Error resetting password:', response.description);
+            this.messageType = 'error';
+            this.handleApiError('An error occurred while resetting the password. Please try again later.');
+          } else if (response.code === 200) {
             console.log('Password reset successful.');
             this.messageType = 'success';
             this.message = response.description; 
             this.handleApiSuccess();
           } else {
             console.error('Unexpected response:', response);
-            this.messageType = response.description;
+            this.messageType = 'error';
             this.handleApiError('Unexpected response from the server.');
           }
           
@@ -73,7 +77,6 @@ export class ResetPasswordComponent {
   }
 
   private handleApiError(errorMessage: string) {
-    this.messageType = 'error';
     this.message = errorMessage;
   }
 }
