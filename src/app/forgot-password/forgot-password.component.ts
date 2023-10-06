@@ -17,6 +17,13 @@ export class ForgotPasswordComponent {
   constructor(private http: HttpClient) {}
 
   onSubmit() {
+    if (!this.email.trim()) {
+      this.messageType = 'error';
+      this.message = 'Email cannot be empty';
+      this.hideMessageAfterDelay(3000);
+      return; // Return early if email is empty
+    }
+  
     if (this.isValidEmail(this.email)) {
       const url = `${this.apiUrl}?email=${this.email}&url=${encodeURIComponent(
         this.url
@@ -30,7 +37,8 @@ export class ForgotPasswordComponent {
               if (responseData.code === '200') {
                 console.log('Password Reset Email has been sent.');
                 this.messageType = 'success';
-                this.message = 'Password Change request has been sent and will expire after 5 minutes. Please check your email.';
+                this.message =
+                  'Password Change request has been sent and will expire after 5 minutes. Please check your email.';
                 this.hideMessageAfterDelay(3000);
               } else {
                 console.error('Unexpected response:', responseData);
@@ -42,9 +50,7 @@ export class ForgotPasswordComponent {
               this.messageType = 'error';
               this.handleApiError('Response from the server is null or empty.');
             }
-          }
-          
-          ,
+          },
           (error) => {
             console.error('Error sending email', error);
             this.messageType = 'error'; // Set messageType to 'error'
@@ -59,7 +65,7 @@ export class ForgotPasswordComponent {
       this.hideMessageAfterDelay(3000);
     }
   }
-
+  
   private handleApiError(errorMessage: string) {
     this.message = errorMessage;
     this.hideMessageAfterDelay(3000); // Hide the message after 3 seconds
