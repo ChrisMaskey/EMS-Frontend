@@ -22,6 +22,7 @@ import { EditComponent } from './employee-list/edit/edit.component';
 import { CardsComponent } from './cards/cards.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { EmployeeDataService } from './services/employee-data.service';
+import { ToastModule } from 'primeng/toast';
 
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 @NgModule({
@@ -50,6 +51,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     DropdownModule,
     BrowserAnimationsModule,
     CalendarModule,
+    ToastModule,
   ],
   providers: [SearchService, EmployeeDataService],
   bootstrap: [AppComponent],

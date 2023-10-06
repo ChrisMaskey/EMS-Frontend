@@ -81,3 +81,7 @@ h4 {
   color: #fff;
   transform: scale(0.95);
 }
+
+.no-wrap {
+  white-space: nowrap;
+}
