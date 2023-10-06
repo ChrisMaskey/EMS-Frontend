@@ -13,7 +13,6 @@ export class ResetPasswordComponent {
   newPassword: string = '';
   confirmPassword: string = '';
   message: string = '';
-  messageType: string = '';
   apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password';
 
   constructor(
@@ -44,39 +43,33 @@ export class ResetPasswordComponent {
         (response: any) => { 
           console.log(response);
 
-          if (response.code === 'Error') { // Check for the "Error" code
+          if (response.code === 'Error') {
             console.error('Error resetting password:', response.description);
-            this.messageType = 'error';
-            this.handleApiError('An error occurred while resetting the password. Please try again later.');
-          } else if (response.code === 200) {
-            console.log('Password reset successful.');
-            this.messageType = 'success';
-            this.message = response.description; 
-            this.handleApiSuccess();
+            this.message = response.description;
           } else {
-            console.error('Unexpected response:', response);
-            this.messageType = 'error';
-            this.handleApiError('Unexpected response from the server.');
+            console.log('Password reset response:', response);
+            this.message = response.description;
+            this.handleApiResponse(response.code);
           }
           
         },
         (error: HttpErrorResponse) => {
           console.error('Error resetting password', error);
-          this.messageType = 'error';
-          this.handleApiError('An error occurred while resetting the password. Please try again later.');
+          this.message = 'An error occurred while resetting the password. Please try again later.';
         }
       );
     } else {
-      this.messageType = 'error';
       this.message = 'Passwords do not match.';
     }
   }
 
-  private handleApiSuccess() {
-    this.router.navigate(['/login']);
-  }
-
-  private handleApiError(errorMessage: string) {
-    this.message = errorMessage;
+  private handleApiResponse(responseCode: string) {
+    if (responseCode === '200') {
+      console.log('Password reset successful.');
+      this.router.navigate(['/login']);
+    } else {
+      console.error('Unexpected response:', responseCode);
+      this.message = 'Unexpected response from the server.';
+    }
   }
 }
