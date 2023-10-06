@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-reset-password',
@@ -24,8 +24,6 @@ export class ResetPasswordComponent {
     this.route.queryParams.subscribe(params => {
       this.activationToken = params['activationToken'];
       this.email = params['email'];
-      console.log('Token:', this.activationToken);
-      console.log('Email:', this.email);
     });
   }
 
@@ -40,32 +38,24 @@ export class ResetPasswordComponent {
 
       const headers = new HttpHeaders();
 
-      this.http.post(this.apiUrl, data, { observe: 'response', responseType: 'text' }).subscribe(
-        (response) => { 
-          console.log(response);
+      this.http.post(this.apiUrl, data, { headers, observe: 'response', responseType: 'json' }).subscribe(
+        (response: HttpResponse<any>) => {
+          const responseData = response.body;
 
-          if (response.status === 200) {
-            const responseBody = response.body;
-            if (responseBody === 'Password has been reset successfully') {
-              console.log('Password reset successful.');
-              this.messageType = 'success';
-              this.message = responseBody;
-              this.handleApiResponse('200');
-            } else {
-              console.error('Unexpected response:', responseBody);
-              this.messageType = 'error';
-              this.handleApiResponse('Error');
-            }
+          if (responseData.code === '200') {
+            console.log('Password reset successful.');
+            this.messageType = 'success';
+            this.message = 'Password was reset.'; 
           } else {
-            console.error('Error resetting password:', response.status, response.statusText);
+            console.error('Unexpected response:', responseData);
             this.messageType = 'error';
-            this.handleApiResponse('Error');
+            this.handleApiError('Unexpected response from the server.');
           }
         },
         (error: HttpErrorResponse) => {
           console.error('Error resetting password', error);
           this.messageType = 'error';
-          this.handleApiResponse('Error');
+          this.handleApiError('An error occurred while resetting the password. Please try again later.');
         }
       );
     } else {
@@ -74,13 +64,8 @@ export class ResetPasswordComponent {
     }
   }
 
-  private handleApiResponse(responseCode: string) {
-    if (responseCode === '200') {
-      console.log('Password reset successful.');
-      this.router.navigate(['/login']);
-    } else {
-      console.error('Unexpected response:', responseCode);
-      this.message = 'An error occurred while resetting the password. Please try again later.';
-    }
+  private handleApiError(errorMessage: string) {
+    this.messageType = 'error';
+    this.message = errorMessage;
   }
 }
