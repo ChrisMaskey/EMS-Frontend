@@ -23,7 +23,7 @@ export class ResetPasswordComponent {
   ) {
     this.route.queryParams.subscribe(params => {
       // Use decodeURIComponent to get the exact token as in the URL
-      this.activationToken = decodeURIComponent(params['activationToken']);
+      this.activationToken = encodeURIComponent(params['activationToken']);
       this.email = params['email'];
       console.log(this.activationToken);
       console.log(this.email);
