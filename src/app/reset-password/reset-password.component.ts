@@ -52,9 +52,8 @@ export class ResetPasswordComponent {
           const responseData = response.body;
 
           if (responseData.code === '200') {
-            console.log('Password reset successful.');
             this.messageType = 'success';
-            this.message = 'Password was reset.'; 
+            this.message = 'Password has been reset successfully.'; 
           } else {
             console.error('Unexpected response:', responseData);
             this.messageType = 'error';
