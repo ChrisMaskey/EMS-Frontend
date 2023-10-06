@@ -31,6 +31,12 @@ export class ResetPasswordComponent {
   }
 
   onSubmit() {
+    if (this.newPassword.trim() === '' || this.confirmPassword.trim() === '') {
+      this.messageType = 'error';
+      this.message = 'Both password fields are required.';
+      return; // Exit the function early if fields are empty.
+    }
+
     if (this.newPassword === this.confirmPassword) {
       const data = {
         Token: this.activationToken,
