@@ -24,6 +24,8 @@ export class ResetPasswordComponent {
     this.route.queryParams.subscribe(params => {
       this.activationToken = params['activationToken'];
       this.email = params['email'];
+      console.log(this.activationToken)
+      console.log(this.email)
     });
   }
 
