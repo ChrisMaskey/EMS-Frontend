@@ -3,11 +3,12 @@ import { Employee } from '../Model/employee.model';
 import { EmployeeDataService } from 'src/app/services/employee-data.service';
 import { addEmployee } from '../Model/addEmployee.model';
 import { Subscription } from 'rxjs';
-
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.css'],
+  providers: [MessageService],
 })
 export class EmployeeListComponent implements OnInit {
   employees: Employee[] = [];
@@ -25,6 +26,8 @@ export class EmployeeListComponent implements OnInit {
   hideSuccessful: boolean = false;
 
   deleteId: string = '';
+
+  constructor(private messageService: MessageService) {}
 
   async ngOnInit() {
     await this.employeeDataService.getEmployeeData();
@@ -53,6 +56,11 @@ export class EmployeeListComponent implements OnInit {
   deleteEmployeeData(id: string) {
     this.employeeDataService.deleteEmployee(id);
     this.deleteSuccessful = true;
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Info',
+      detail: 'Employee Successfully Deleted.',
+    });
     setTimeout(() => {
       this.deleteSuccessful = false;
     }, 3500);
@@ -87,6 +95,11 @@ export class EmployeeListComponent implements OnInit {
   onAddSuccess(event: boolean) {
     if (event) {
       this.addSuccessful = true;
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Info',
+        detail: 'Employee Successfully Added.',
+      });
       setTimeout(() => {
         this.addSuccessful = false;
       }, 3500);
@@ -96,6 +109,11 @@ export class EmployeeListComponent implements OnInit {
   onEditSuccess(event: boolean) {
     if (event) {
       this.editSuccessful = true;
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Info',
+        detail: 'Employee Successfully Edited.',
+      });
       setTimeout(() => {
         this.editSuccessful = false;
       }, 3500);
@@ -105,6 +123,11 @@ export class EmployeeListComponent implements OnInit {
   onHideSuccess(event: boolean) {
     if (event) {
       this.hideSuccessful = true;
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Info',
+        detail: 'Employee Successfully Inactivated.',
+      });
       setTimeout(() => {
         this.hideSuccessful = false;
       }, 3500);
