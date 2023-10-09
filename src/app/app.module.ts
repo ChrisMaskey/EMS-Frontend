@@ -25,6 +25,7 @@ import { EmployeeDataService } from './services/employee-data.service';
 import { ToastModule } from 'primeng/toast';
 
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { TestComponent } from './test/test.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,

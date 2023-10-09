@@ -1,6 +1,6 @@
-// export interface Response{
-//     status: number,
-//     data: [],
-//     error:
+export interface Response{
+    code: string ,
+    data: [],
 
-// }
+
+}

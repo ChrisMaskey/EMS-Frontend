@@ -29,8 +29,6 @@ export class CardComponent implements OnInit {
   selectedJobLevel: any = '';
   selectedJobType: any = '';
 
-  
-
 
 
   constructor(
@@ -39,10 +37,11 @@ export class CardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.service.getEmployee().subscribe((res) => {
-      this.employees = res;
-      this.filteredEmployees = res;
-      this.calculateEmployeeCounts(); // Calculate counts on initialization
+    this.service.getEmployee().subscribe((response: any) => {
+      this.employees = response.data; // Access the data property directly
+  
+      this.filteredEmployees = this.employees;
+      this.calculateEmployeeCounts();
     });
 
     this.searchService.searchTerm$.subscribe((searchedTerm) => {

@@ -23,9 +23,10 @@ export class CardsComponent {
   constructor(private renderer: Renderer2, private el: ElementRef) {}
 
   ngOnInit(): void {
-    this.searchService.getEmployeeData().subscribe((data: any) => {
-      this.employees = data;
-      this.filteredEmployees = data;
+    this.searchService.getEmployeeData().subscribe((response: any) => {
+      this.employees = response.data;
+      this.filteredEmployees = response.data;
+
     });
 
     this.searchService.searchTerm$.subscribe((searchedTerm) => {
