@@ -1,32 +1,47 @@
-.content-holder{
+.content-holder {
     display: flex;
-    background-color: whitesmoke;
     flex-direction: column;
+    align-items: center; 
     justify-content: space-around;
-    align-items: center;
-    height: 90vh;
-    overflow-y: scroll;
-}
- h1, h6 {
-    color: #63241f;
-    
-}
-
-.chart{
+    text-align: center; 
+    height: 100vh;
+  }
+  
+  .chart {
     padding: 2rem;
-}
-
-img{
+    display: inline-block; 
+    text-align: left; 
+  }
+  
+  .heading {
+    text-align: center; 
+    
+  }
+  
+  h3 {
+    color: #63241f;
+  }
+  
+  .image img {
     height: 100px;
     width: 100px;
     border-radius: 50%;
-}
-
-.card-content{
+  }
+  
+  .card-content {
     height: 200px;
     width: 200px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between
-    
-}
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .title {
+    margin-bottom: 10px; 
+  }
+  
+  .name p {
+    margin: 0; 
+  }
+  

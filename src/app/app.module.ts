@@ -10,7 +10,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { LoginComponent } from './login/login.component';
-import { LoginService } from './services/login.service';
 import { FooterComponent } from './footer/footer.component';
 import { SearchService } from './services/search.service';
 import { SearchComponent } from './search/search.component';
@@ -24,9 +23,14 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { EmployeeDataService } from './services/employee-data.service';
 import { ToastModule } from 'primeng/toast';
 import { OrganizationChartModule, OrganizationChartNode } from 'primeng/organizationchart';
+import { TreeModule } from 'primeng/tree';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { TestComponent } from './test/test.component';
 import { HierarchyComponent } from './hierarchy/hierarchy.component';
+import { HierarchyService } from './services/hierarchy.service';
+import { NgFor } from '@angular/common';
+import { OrganizationalChartComponent } from './organizational-chart/organizational-chart.component';
+import { OrganizationService } from './services/organization.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +47,7 @@ import { HierarchyComponent } from './hierarchy/hierarchy.component';
     ResetPasswordComponent,
     TestComponent,
     HierarchyComponent,
+    OrganizationalChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,9 +61,11 @@ import { HierarchyComponent } from './hierarchy/hierarchy.component';
     BrowserAnimationsModule,
     CalendarModule,
     ToastModule,
-    OrganizationChartModule
+    OrganizationChartModule,
+    NgFor,
+    TreeModule
   ],
-  providers: [SearchService, EmployeeDataService],
+  providers: [SearchService, EmployeeDataService, HierarchyService, OrganizationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

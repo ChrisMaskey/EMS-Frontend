@@ -1,0 +1,32 @@
+.content-holder{
+    display: flex;
+    background-color: whitesmoke;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 90vh;
+    overflow-y: scroll;
+}
+ h1, h6 {
+    color: #63241f;
+    
+}
+
+.chart{
+    padding: 2rem;
+}
+
+img{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.card-content{
+    height: 200px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between
+    
+}

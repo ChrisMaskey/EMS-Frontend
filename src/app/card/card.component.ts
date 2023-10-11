@@ -106,6 +106,8 @@ export class CardComponent implements OnInit {
     this.searchResults = this.items.filter((item) =>
       item.firstName.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+
+
   }
 
 

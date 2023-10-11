@@ -1,0 +1,6 @@
+<div *ngIf="employees$ | async as employees" >
+<div *ngFor="let employee of employees">
+
+    {{employee.lastName}}
+</div>
+</div>
