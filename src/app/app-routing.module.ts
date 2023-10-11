@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'test', component: TestComponent},
   {path: 'hierarchy', component: HierarchyComponent},
-  {path:'organizational-chart', component: OrganizationalChartComponent }
+  {path:'organizational-chart', component: OrganizationalChartComponent },
   { path: 'test', component: TestComponent },
   { path: 'superadmin', component: SuperadminComponent },
 ];
