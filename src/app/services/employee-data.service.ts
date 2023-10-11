@@ -131,7 +131,7 @@ export class EmployeeDataService {
 
   assignRole(id: string, role: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      const url = `${this.apiUrl}/api/User/assign-role?Id=${id}&role=${role}`;
+      const url = `${this.apiUrl}/api/User/assign-role?userId=${id}&roleId=${role}`;
 
       this.http.post(url, null).subscribe(
         (response: any) => {

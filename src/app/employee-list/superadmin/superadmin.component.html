@@ -28,6 +28,13 @@
     *ngIf="deleteSuccessful"
     class="p-button-danger"
   ></button>
+  <button
+    type="button"
+    pButton
+    pRipple
+    *ngIf="assignSuccessful"
+    class="p-button-success"
+  ></button>
 </div>
 <div class="card shadow border-0">
   <div class="row mx-2 mt-4">
@@ -193,8 +200,12 @@
         <div class="col-sm-6">
           <select formControlName="role" class="form-control text-center">
             <option value="" disabled selected>Select a role</option>
-            <option value="User">User</option>
-            <option value="Admin">Admin</option>
+            <option [ngValue]="'8903845d-3f4a-4eb8-8e6b-08ef498abd69'">
+              User
+            </option>
+            <option [ngValue]="'58c8c0eb-f7a3-4063-8d47-89a74d2d7942'">
+              Admin
+            </option>
           </select>
         </div>
       </div>

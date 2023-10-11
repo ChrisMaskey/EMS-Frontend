@@ -27,6 +27,7 @@ export class SuperadminComponent {
   deleteSuccessful: boolean = false;
   editSuccessful: boolean = false;
   hideSuccessful: boolean = false;
+  assignSuccessful: boolean = false;
 
   deleteId: string = '';
 
@@ -61,19 +62,51 @@ export class SuperadminComponent {
     console.log('ID:', hello);
     console.log('Role:', bye);
     await this.employeeDataService.assignRole(id, role);
-  }
-
-  deleteEmployeeData(id: string) {
-    this.employeeDataService.deleteEmployee(id);
-    this.deleteSuccessful = true;
+    if (this.assignForm.valid) {
+      this.assignForm.reset();
+      this.hideAssignDialog();
+    }
     this.messageService.add({
-      severity: 'error',
+      severity: 'success',
       summary: 'Info',
-      detail: 'Employee Successfully Deleted.',
+      detail: 'Role Successfully Assigned.',
     });
     setTimeout(() => {
-      this.deleteSuccessful = false;
+      this.assignSuccessful = false;
     }, 3500);
+  }
+
+  // deleteEmployeeData(id: string) {
+  //   this.employeeDataService.deleteEmployee(id);
+  //   this.deleteSuccessful = true;
+  //   this.messageService.add({
+  //     severity: 'error',
+  //     summary: 'Info',
+  //     detail: 'Employee Successfully Deleted.',
+  //   });
+  //   setTimeout(() => {
+  //     this.deleteSuccessful = false;
+  //   }, 3500);
+  // }
+
+  deleteEmployeeData(id: string) {
+    this.employeeDataService
+      .deleteEmployee(id)
+      .then(() => {
+        this.deleteSuccessful = true;
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Info',
+          detail: 'Employee Successfully Deleted.',
+        });
+        setTimeout(() => {
+          this.deleteSuccessful = false;
+        }, 3500);
+      })
+      .catch((error) => {
+        // Handle the error here, e.g., display an error message.
+        console.error('Error deleting employee:', error);
+      });
   }
 
   showDialog() {
