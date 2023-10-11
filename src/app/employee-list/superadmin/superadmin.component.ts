@@ -1,25 +1,28 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { Employee } from '../Model/employee.model';
-import { EmployeeDataService } from 'src/app/services/employee-data.service';
-import { addEmployee } from '../Model/addEmployee.model';
-
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { addEmployee } from 'src/app/Model/addEmployee.model';
+import { Employee } from 'src/app/Model/employee.model';
+import { EmployeeDataService } from 'src/app/services/employee-data.service';
+
 @Component({
-  selector: 'app-employee-list',
-  templateUrl: './employee-list.component.html',
-  styleUrls: ['./employee-list.component.css'],
+  selector: 'app-superadmin',
+  templateUrl: './superadmin.component.html',
+  styleUrls: ['./superadmin.component.css'],
   providers: [MessageService],
 })
-export class EmployeeListComponent implements OnInit {
+export class SuperadminComponent {
   employees: Employee[] = [];
   private employeeDataService = inject(EmployeeDataService);
   protected employeeList$ = this.employeeDataService.employeeList$;
   protected employee$ = this.employeeDataService.employee$;
   protected addEmployee$ = this.employeeDataService.employee$;
+  protected assignRole$ = this.employeeDataService.assignRole$;
 
   visible: boolean = false;
   editDialogVisible: boolean = false;
   visibleDeleteDialog: boolean = false;
+  assignDialogVisible: boolean = false;
   addSuccessful: boolean = false;
   deleteSuccessful: boolean = false;
   editSuccessful: boolean = false;
@@ -27,7 +30,14 @@ export class EmployeeListComponent implements OnInit {
 
   deleteId: string = '';
 
-  constructor(private messageService: MessageService) {}
+  assignForm: FormGroup;
+
+  constructor(private messageService: MessageService, private fb: FormBuilder) {
+    this.assignForm = this.fb.group({
+      employee: ['', Validators.required],
+      role: ['', Validators.required],
+    });
+  }
 
   async ngOnInit() {
     await this.employeeDataService.getEmployeeData();
@@ -43,6 +53,14 @@ export class EmployeeListComponent implements OnInit {
 
   async updateEmployee(id: string, employee: Employee) {
     await this.employeeDataService.updateEmployee(id, employee);
+  }
+
+  async assignRole(id: string, role: string) {
+    const hello = this.assignForm.get('employee')?.value;
+    const bye = this.assignForm.get('role')?.value;
+    console.log('ID:', hello);
+    console.log('Role:', bye);
+    await this.employeeDataService.assignRole(id, role);
   }
 
   deleteEmployeeData(id: string) {
@@ -72,6 +90,10 @@ export class EmployeeListComponent implements OnInit {
     this.visibleDeleteDialog = true;
   }
 
+  showDialogAssign() {
+    this.assignDialogVisible = true;
+  }
+
   hideDialog() {
     this.visible = false;
   }
@@ -82,6 +104,10 @@ export class EmployeeListComponent implements OnInit {
 
   hideDeleteDialog() {
     this.visibleDeleteDialog = false;
+  }
+
+  hideAssignDialog() {
+    this.assignDialogVisible = false;
   }
 
   onAddSuccess(event: boolean) {

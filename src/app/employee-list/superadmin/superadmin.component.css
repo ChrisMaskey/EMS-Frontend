@@ -1,0 +1,99 @@
+.outline-button {
+  border: 2px solid #63241f;
+  background-color: transparent;
+  color: #63241f; /* Text color */
+  padding: 10px 20px; /* Adjust padding as needed */
+  cursor: pointer;
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+  transition: transform 0.3s ease; /* Smooth transition for border color */
+}
+
+/* Hover effect */
+.outline-button:hover {
+  border-color: transparent; /* Remove the border on hover */
+  background-color: #63241f; /* Solid background color on hover */
+  color: #fff; /* Text color on hover */
+  /* box-shadow: 0 0 0 0.3rem #63241f; */
+  transform: scale(0.95);
+}
+
+.btn-dark {
+  transition: transform 0.3s ease;
+}
+
+.btn-dark:hover {
+  transform: scale(0.95);
+  background-color: black;
+}
+
+.btn-danger {
+  transition: transform 0.3s ease;
+}
+
+.btn-danger:hover {
+  transform: scale(0.95);
+  background-color: rgb(143, 8, 8);
+}
+
+.full-width-button {
+  display: block;
+  width: 100%;
+}
+
+p {
+  text-align: justify;
+}
+
+h4 {
+  text-align: center;
+}
+
+.btn-primary {
+  border: 2px solid black;
+  background-color: transparent;
+  color: black; /* Text color */
+  padding: 10px 20px; /* Adjust padding as needed */
+  cursor: pointer;
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+  transition: transform 0.3s ease; /* Smooth transition for border color */
+}
+
+.btn-primary:hover {
+  border-color: transparent; /* Remove the border on hover */
+  background-color: black;
+  color: #fff;
+  transform: scale(0.95);
+}
+
+.btn-danger-delete {
+  border: 2px solid #63241f;
+  background-color: transparent;
+  color: #63241f; /* Text color */
+  padding: 10px 20px; /* Adjust padding as needed */
+  cursor: pointer;
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+  transition: transform 0.3s ease; /* Smooth transition for border color */
+}
+
+.btn-danger-delete:hover {
+  border-color: transparent; /* Remove the border on hover */
+  background-color: #63241f;
+  color: #fff;
+  transform: scale(0.95);
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.form-control {
+  border-radius: 8px;
+  transition: box-shadow 0.5s ease;
+  transition: transform 0.2s ease;
+}
+
+/* Custom CSS to change the focus style of form-control */
+.form-control:focus {
+  box-shadow: 0 0 0 0.1rem #63241f;
+  transform: scale(1.01);
+}
