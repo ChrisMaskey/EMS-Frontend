@@ -74,40 +74,61 @@ export class SuperadminComponent {
     setTimeout(() => {
       this.assignSuccessful = false;
     }, 3500);
+
+    // if (this.assignForm.valid) {
+    //   await this.employeeDataService
+    //     .assignRole(id, role)
+    //     .then(() => {
+    //       this.assignForm.reset();
+    //       this.hideAssignDialog();
+    //       this.assignSuccessful = true;
+    //       this.messageService.add({
+    //         severity: 'success',
+    //         summary: 'Info',
+    //         detail: 'Role Successfully Assigned.',
+    //       });
+    //       setTimeout(() => {
+    //         this.assignSuccessful = false;
+    //       }, 3500);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
+  }
+
+  deleteEmployeeData(id: string) {
+    this.employeeDataService.deleteEmployee(id);
+    this.deleteSuccessful = true;
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Info',
+      detail: 'Employee Successfully Deleted.',
+    });
+    setTimeout(() => {
+      this.deleteSuccessful = false;
+    }, 3500);
   }
 
   // deleteEmployeeData(id: string) {
-  //   this.employeeDataService.deleteEmployee(id);
-  //   this.deleteSuccessful = true;
-  //   this.messageService.add({
-  //     severity: 'error',
-  //     summary: 'Info',
-  //     detail: 'Employee Successfully Deleted.',
-  //   });
-  //   setTimeout(() => {
-  //     this.deleteSuccessful = false;
-  //   }, 3500);
+  //   this.employeeDataService
+  //     .deleteEmployee(id)
+  //     .then(() => {
+  //       this.deleteSuccessful = true;
+  //       this.messageService.add({
+  //         severity: 'error',
+  //         summary: 'Info',
+  //         detail: 'Employee Successfully Deleted.',
+  //       });
+  //       setTimeout(() => {
+  //         this.deleteSuccessful = false;
+  //       }, 3500);
+  //     })
+  //     .catch((error) => {
+  //       // Handle the error here, e.g., display an error message.
+  //       console.error('Error deleting employee:', error);
+  //     });
   // }
-
-  deleteEmployeeData(id: string) {
-    this.employeeDataService
-      .deleteEmployee(id)
-      .then(() => {
-        this.deleteSuccessful = true;
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Info',
-          detail: 'Employee Successfully Deleted.',
-        });
-        setTimeout(() => {
-          this.deleteSuccessful = false;
-        }, 3500);
-      })
-      .catch((error) => {
-        // Handle the error here, e.g., display an error message.
-        console.error('Error deleting employee:', error);
-      });
-  }
 
   showDialog() {
     this.visible = true;
