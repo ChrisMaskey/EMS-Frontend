@@ -15,11 +15,9 @@ export class HeaderComponent {
   // showDialog() {
   //   this.visible = true;
   // }
-
-  constructor(private authService: LogoutService, private router: Router) {}
-
-  logout(): void {
-    this.authService.clearAuthToken();
-    this.router.navigate(['/login']);
-  }
+  // constructor(private authService: LogoutService, private router: Router) {}
+  // logout(): void {
+  //   this.authService.clearAuthToken();
+  //   this.router.navigate(['/login']);
+  // }
 }

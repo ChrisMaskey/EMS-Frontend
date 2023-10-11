@@ -10,6 +10,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { TestComponent } from './test/test.component';
 import { HierarchyComponent } from './hierarchy/hierarchy.component';
 import { OrganizationalChartComponent } from './organizational-chart/organizational-chart.component';
+import { SuperadminComponent } from './employee-list/superadmin/superadmin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -23,6 +24,8 @@ const routes: Routes = [
   { path: 'test', component: TestComponent},
   {path: 'hierarchy', component: HierarchyComponent},
   {path:'organizational-chart', component: OrganizationalChartComponent }
+  { path: 'test', component: TestComponent },
+  { path: 'superadmin', component: SuperadminComponent },
 ];
 
 @NgModule({

@@ -1,33 +1,44 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { Employee } from '../Model/employee.model';
-import { EmployeeDataService } from 'src/app/services/employee-data.service';
-import { addEmployee } from '../Model/addEmployee.model';
-
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { addEmployee } from 'src/app/Model/addEmployee.model';
+import { Employee } from 'src/app/Model/employee.model';
+import { EmployeeDataService } from 'src/app/services/employee-data.service';
+
 @Component({
-  selector: 'app-employee-list',
-  templateUrl: './employee-list.component.html',
-  styleUrls: ['./employee-list.component.css'],
+  selector: 'app-superadmin',
+  templateUrl: './superadmin.component.html',
+  styleUrls: ['./superadmin.component.css'],
   providers: [MessageService],
 })
-export class EmployeeListComponent implements OnInit {
+export class SuperadminComponent {
   employees: Employee[] = [];
   private employeeDataService = inject(EmployeeDataService);
   protected employeeList$ = this.employeeDataService.employeeList$;
   protected employee$ = this.employeeDataService.employee$;
   protected addEmployee$ = this.employeeDataService.employee$;
+  protected assignRole$ = this.employeeDataService.assignRole$;
 
   visible: boolean = false;
   editDialogVisible: boolean = false;
   visibleDeleteDialog: boolean = false;
+  assignDialogVisible: boolean = false;
   addSuccessful: boolean = false;
   deleteSuccessful: boolean = false;
   editSuccessful: boolean = false;
   hideSuccessful: boolean = false;
+  assignSuccessful: boolean = false;
 
   deleteId: string = '';
 
-  constructor(private messageService: MessageService) {}
+  assignForm: FormGroup;
+
+  constructor(private messageService: MessageService, private fb: FormBuilder) {
+    this.assignForm = this.fb.group({
+      employee: ['', Validators.required],
+      role: ['', Validators.required],
+    });
+  }
 
   async ngOnInit() {
     await this.employeeDataService.getEmployeeData();
@@ -45,17 +56,57 @@ export class EmployeeListComponent implements OnInit {
     await this.employeeDataService.updateEmployee(id, employee);
   }
 
-  deleteEmployeeData(id: string) {
-    this.employeeDataService.deleteEmployee(id);
-    this.deleteSuccessful = true;
+  async assignRole(id: string, role: string) {
+    const hello = this.assignForm.get('employee')?.value;
+    const bye = this.assignForm.get('role')?.value;
+    console.log('ID:', hello);
+    console.log('Role:', bye);
+    await this.employeeDataService.assignRole(id, role);
+    if (this.assignForm.valid) {
+      this.assignForm.reset();
+      this.hideAssignDialog();
+    }
     this.messageService.add({
-      severity: 'error',
+      severity: 'success',
       summary: 'Info',
-      detail: 'Employee Successfully Deleted.',
+      detail: 'Role Successfully Assigned.',
     });
     setTimeout(() => {
-      this.deleteSuccessful = false;
+      this.assignSuccessful = false;
     }, 3500);
+  }
+
+  // deleteEmployeeData(id: string) {
+  //   this.employeeDataService.deleteEmployee(id);
+  //   this.deleteSuccessful = true;
+  //   this.messageService.add({
+  //     severity: 'error',
+  //     summary: 'Info',
+  //     detail: 'Employee Successfully Deleted.',
+  //   });
+  //   setTimeout(() => {
+  //     this.deleteSuccessful = false;
+  //   }, 3500);
+  // }
+
+  deleteEmployeeData(id: string) {
+    this.employeeDataService
+      .deleteEmployee(id)
+      .then(() => {
+        this.deleteSuccessful = true;
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Info',
+          detail: 'Employee Successfully Deleted.',
+        });
+        setTimeout(() => {
+          this.deleteSuccessful = false;
+        }, 3500);
+      })
+      .catch((error) => {
+        // Handle the error here, e.g., display an error message.
+        console.error('Error deleting employee:', error);
+      });
   }
 
   showDialog() {
@@ -72,6 +123,10 @@ export class EmployeeListComponent implements OnInit {
     this.visibleDeleteDialog = true;
   }
 
+  showDialogAssign() {
+    this.assignDialogVisible = true;
+  }
+
   hideDialog() {
     this.visible = false;
   }
@@ -82,6 +137,10 @@ export class EmployeeListComponent implements OnInit {
 
   hideDeleteDialog() {
     this.visibleDeleteDialog = false;
+  }
+
+  hideAssignDialog() {
+    this.assignDialogVisible = false;
   }
 
   onAddSuccess(event: boolean) {
