@@ -85,3 +85,15 @@ h4 {
 .no-wrap {
   white-space: nowrap;
 }
+
+.form-control {
+  border-radius: 8px;
+  transition: box-shadow 0.5s ease;
+  transition: transform 0.2s ease;
+}
+
+/* Custom CSS to change the focus style of form-control */
+.form-control:focus {
+  box-shadow: 0 0 0 0.1rem #63241f;
+  transform: scale(1.01);
+}

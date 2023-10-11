@@ -1,0 +1,50 @@
+<div class="content-holder">
+  <div class="heading">
+    <h3>Organizational Chart</h3>
+  </div>
+  <div class="chart">
+    <p-organizationChart [value]="hierarchy">
+      <ng-template let-node pTemplate="person">
+        <div class="p-2 text-center card-content " >
+          <div class="title">
+            <h6>{{ node.data.jobLevel }} </h6></div>
+
+          <div class="image">
+            <img src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg" alt="">
+          </div>
+          <div class="font-bold name">
+            <p class="text-muted"> {{node.data.firstName }} {{node.data.lastName}} </p></div>
+
+        </div>
+      </ng-template>
+    </p-organizationChart>  </div>
+</div>
+
+
+
+
+
+
+
+
+ <!-- <ng-container *ngIf="employees$ | async as employees">
+  <div *ngFor="let employee of employees">
+    <div>{{employee.name}}</div>
+  </div>
+</ng-container>  -->
+
+
+<!-- <div *ngFor="let employee of hierarchy">
+  <p style="color: red;">{{employee.firstName}}</p>
+  <p style="color: red;">Reports To: {{ employee.reportsToId }}</p>
+  <p>Job Level: {{ employee.jobLevel }}</p>
+  <p>Job Department: {{ employee.jobDepartment }}</p>
+<hr>
+</div> -->
+
+<!-- <p-tree [value]="hierarchy" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)">
+  <ng-template let-node pTemplate="default">
+    <span>{{ node.label }}</span>
+  </ng-template>
+</p-tree> -->
+

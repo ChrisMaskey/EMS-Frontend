@@ -300,6 +300,7 @@
             <option>Business Analytics</option>
             <option>Quality Assurance</option>
             <option>Marketing</option>
+            <option>UI</option>
           </select>
           <div
             *ngIf="
@@ -347,7 +348,7 @@
       <div class="col-sm-6">
         <button
           class="btn btn-danger full-width-button"
-          (click)="hideEmployee(employee.id, employee)"
+          (click)="hideEmployee(employee.id, employee); hideDialog()"
         >
           Inactivate
         </button>

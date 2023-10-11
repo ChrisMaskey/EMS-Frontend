@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient , HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-forgot-password',
@@ -11,44 +11,61 @@ export class ForgotPasswordComponent {
   message: string = '';
   messageType: string = '';
   url: string = 'https://vertex-ems.netlify.app/#/reset-password';
-  apiUrl = 'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
+  apiUrl =
+    'https://vertex90-001-site1.atempurl.com/api/Email/reset-password-link';
 
   constructor(private http: HttpClient) {}
 
   onSubmit() {
+    if (!this.email.trim()) {
+      this.messageType = 'error';
+      this.message = 'Email cannot be empty';
+      this.hideMessageAfterDelay(3000);
+      return; // Return early if email is empty
+    }
+  
     if (this.isValidEmail(this.email)) {
-      const url = `${this.apiUrl}?email=${this.email}&url=${encodeURIComponent(this.url)}`;
-      this.http.post(url, null, { observe: 'response', responseType: 'text' }).subscribe(
-        (response) => {
-          if (response.status === 200) {
-            if (response.body === 'Email has been proceeded.') {
-              console.log('Email has been proceeded.');
-              this.messageType = 'success'; // Set messageType to 'success'
-              this.message = 'Password Change request is sent that will expire after 5 minutes. Please open your email.';
-              this.hideMessageAfterDelay(3000);
+      const url = `${this.apiUrl}?email=${this.email}&url=${encodeURIComponent(
+        this.url
+      )}`;
+      this.http
+        .post(url, null, { observe: 'response', responseType: 'text' })
+        .subscribe(
+          (response: HttpResponse<string>) => {
+            if (response.body !== null) {
+              const responseData = JSON.parse(response.body);
+              if (responseData.code === '200') {
+                console.log('Password Reset Email has been sent.');
+                this.messageType = 'success';
+                this.message =
+                  'Password Change request has been sent and will expire after 5 minutes. Please check your email.';
+                this.hideMessageAfterDelay(3000);
+              } else {
+                console.error('Unexpected response:', responseData);
+                this.messageType = 'error';
+                this.handleApiError('Unexpected response from the server.');
+              }
             } else {
-              console.error('Unexpected response:', response.body);
-              this.messageType = 'error'; // Set messageType to 'error'
-              this.handleApiError('Unexpected response from the server.');
+              console.error('Response body is null');
+              this.messageType = 'error';
+              this.handleApiError('Response from the server is null or empty.');
             }
-          } else {
+          },
+          (error) => {
+            console.error('Error sending email', error);
             this.messageType = 'error'; // Set messageType to 'error'
-            this.handleApiError('Password Change request failed. Please try again later.');
+            this.handleApiError(
+              'An error occurred while sending the email. Please try again later.'
+            );
           }
-        },
-        (error) => {
-          console.error('Error sending email', error);
-          this.messageType = 'error'; // Set messageType to 'error'
-          this.handleApiError('An error occurred while sending the email. Please try again later.');
-        }
-      );
+        );
     } else {
       this.messageType = 'error'; // Set messageType to 'error'
       this.message = 'Invalid email';
       this.hideMessageAfterDelay(3000);
     }
   }
-
+  
   private handleApiError(errorMessage: string) {
     this.message = errorMessage;
     this.hideMessageAfterDelay(3000); // Hide the message after 3 seconds

@@ -15,6 +15,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Employee } from 'src/app/Model/employee.model';
 import { EmployeeDataService } from 'src/app/services/employee-data.service';
 
@@ -32,6 +33,10 @@ export class EditComponent implements OnChanges {
   isRegisterButtonClicked: boolean = false;
   protected employee$ = this.service.employee$;
   visibleDialog: boolean = false;
+  @Output() closeEditDialog: EventEmitter<boolean> =
+    new EventEmitter<boolean>();
+  @Output() editSuccess = new EventEmitter<boolean>();
+  @Output() hideSuccess = new EventEmitter<boolean>();
 
   editForm: FormGroup;
 
@@ -42,7 +47,7 @@ export class EditComponent implements OnChanges {
     }
   }
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, private router: Router) {
     this.editForm = this.fb.group({
       employeeNo: ['', Validators.required],
       firstName: ['', Validators.required],
@@ -70,6 +75,7 @@ export class EditComponent implements OnChanges {
     if (this.editForm.valid && this.employees) {
       const employeeData: Employee = this.editForm.value;
       this.service.updateEmployee(this.employees.id, employeeData);
+      this.editSuccess.emit(true);
     }
   }
 
@@ -108,6 +114,8 @@ export class EditComponent implements OnChanges {
       id = this.employees?.id;
       employees = this.employees;
       this.service.hideEmployee(id, employees);
+      this.closeEditDialog.emit(true);
+      this.hideSuccess.emit(true);
     }
   }
 
