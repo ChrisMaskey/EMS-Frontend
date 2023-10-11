@@ -9,6 +9,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { TestComponent } from './test/test.component';
 import { HierarchyComponent } from './hierarchy/hierarchy.component';
+import { SuperadminComponent } from './employee-list/superadmin/superadmin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,8 +21,9 @@ const routes: Routes = [
   { path: 'card', component: CardComponent },
   { path: 'forgotpassword', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'test', component: TestComponent},
-  {path: 'hierarchy', component: HierarchyComponent}
+  { path: 'test', component: TestComponent },
+  { path: 'hierarchy', component: HierarchyComponent },
+  { path: 'superadmin', component: SuperadminComponent },
 ];
 
 @NgModule({

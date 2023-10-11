@@ -23,10 +23,14 @@ import { CardsComponent } from './cards/cards.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { EmployeeDataService } from './services/employee-data.service';
 import { ToastModule } from 'primeng/toast';
-import { OrganizationChartModule, OrganizationChartNode } from 'primeng/organizationchart';
+import {
+  OrganizationChartModule,
+  OrganizationChartNode,
+} from 'primeng/organizationchart';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { TestComponent } from './test/test.component';
 import { HierarchyComponent } from './hierarchy/hierarchy.component';
+import { SuperadminComponent } from './employee-list/superadmin/superadmin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +47,7 @@ import { HierarchyComponent } from './hierarchy/hierarchy.component';
     ResetPasswordComponent,
     TestComponent,
     HierarchyComponent,
+    SuperadminComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,7 @@ import { HierarchyComponent } from './hierarchy/hierarchy.component';
     BrowserAnimationsModule,
     CalendarModule,
     ToastModule,
-    OrganizationChartModule
+    OrganizationChartModule,
   ],
   providers: [SearchService, EmployeeDataService],
   bootstrap: [AppComponent],
