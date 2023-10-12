@@ -19,6 +19,7 @@ export class HierarchyComponent implements OnInit {
     this.hierarchyService.getHierarchyData().subscribe((response: any) => {
       if (response && response.data) {
         this.hierarchy = this.buildHierarchyTree(response.data, null);
+        console.log(this.hierarchy)
       }
     });
   }
