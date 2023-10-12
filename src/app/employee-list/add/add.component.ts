@@ -89,6 +89,23 @@ export class AddComponent {
         .then(() => {
           this.addSuccess.emit(true);
           this.addForm.reset();
+          this.addForm.get('employeeNo')?.setValue('');
+          this.addForm.get('firstName')?.setValue('');
+          this.addForm.get('middleName')?.setValue('');
+          this.addForm.get('lastName')?.setValue('');
+          this.addForm.get('phoneNumber')?.setValue('');
+          this.addForm.get('email')?.setValue('');
+          this.addForm.get('password')?.setValue('');
+          this.addForm.get('birthdate')?.setValue('');
+          this.addForm.get('gender')?.setValue('');
+          this.addForm.get('bloodGroup')?.setValue('');
+          this.addForm.get('jobLevel')?.setValue('');
+          this.addForm.get('jobDepartment')?.setValue('');
+          this.addForm.get('jobType')?.setValue('');
+          this.addForm.get('city')?.setValue('');
+          this.addForm.get('state')?.setValue('');
+          this.addForm.get('country')?.setValue('');
+          this.isRegisterButtonClicked = false;
         })
         .catch((error) => {
           console.log(error);
