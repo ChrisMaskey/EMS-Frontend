@@ -196,17 +196,29 @@
               {{ employee.firstName }} {{ employee.lastName }}
             </option>
           </select>
+          <div
+            *ngIf="isAssignButtonClicked && assignForm.get('employee')?.invalid"
+            class="text-center"
+          >
+            <small class="text-danger">Please select an employee</small>
+          </div>
         </div>
         <div class="col-sm-6">
           <select formControlName="role" class="form-control text-center">
             <option value="" disabled selected>Select a role</option>
-            <option [ngValue]="'8903845d-3f4a-4eb8-8e6b-08ef498abd69'">
+            <option [ngValue]="'40a152c9-7e31-4002-995f-4b05528e7c82'">
               User
             </option>
-            <option [ngValue]="'58c8c0eb-f7a3-4063-8d47-89a74d2d7942'">
+            <option [ngValue]="'a4059c76-9e2e-4e5a-a624-53a87fa96dc0'">
               Admin
             </option>
           </select>
+          <div
+            *ngIf="isAssignButtonClicked && assignForm.get('role')?.invalid"
+            class="text-center"
+          >
+            <small class="text-danger">Please select a role</small>
+          </div>
         </div>
       </div>
       <div class="row mb-3">
