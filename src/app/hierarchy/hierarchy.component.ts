@@ -1,7 +1,8 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HierarchyService } from '../services/hierarchy.service'; // Adjust the import as per your project structure
-import { Hierarchy } from '../Model/Hierarchy.model'; // Adjust the import as per your project structure
+import { HierarchyService } from '../services/hierarchy.service'; 
+import { TreeNode } from 'primeng/api';
 import { Input } from '@angular/core';
 
 @Component({
@@ -10,11 +11,8 @@ import { Input } from '@angular/core';
   styleUrls: ['./hierarchy.component.css']
 })
 export class HierarchyComponent implements OnInit {
-
-
-  @Input()  hierarchy: any[] = [];
+  @Input() hierarchy: TreeNode[] = [];
   selectedEmployeeId!: string;
-  selectedNode: any
 
   constructor(
     private hierarchyService: HierarchyService,
@@ -31,15 +29,32 @@ export class HierarchyComponent implements OnInit {
   loadHierarchy() {
     this.hierarchyService.getHierarchyData().subscribe((response: any) => {
       if (response && response.data) {
-        console.log('Hierarchy Data:', response.data);
-        console.log('Selected Employee ID:', this.selectedEmployeeId);
-
-        // Build the hierarchy based on the selected employee's ID
-        this.hierarchy = this.buildHierarchy(response.data, this.selectedEmployeeId);
-        console.log('Filtered Hierarchy:', this.hierarchy); // Check the filtered data here
-        
+        const filteredHierarchy = this.buildHierarchy(response.data, this.selectedEmployeeId);
+        this.hierarchy = this.transformToTreeNode(filteredHierarchy);
       }
     });
+  }
+
+  transformToTreeNode(filteredHierarchy: any[]): TreeNode[] {
+    return filteredHierarchy.map((item) => ({
+      label: item.firstName, 
+      expanded: true,
+      type: 'person',
+      data: item,
+      children: this.buildChildNodes(item.id, filteredHierarchy),
+    }));
+  }
+
+  buildChildNodes(parentId: string, filteredHierarchy: any[]): TreeNode[] {
+    const children = filteredHierarchy.filter((item) => item.reportsToId === parentId);
+
+    return children.map((child) => ({
+      label: child.firstName, 
+      expanded: true,
+      type: 'person', 
+      data: child,
+      children: this.buildChildNodes(child.id, filteredHierarchy),
+    }));
   }
 
   buildHierarchy(data: any[], selectedId: string): any[] {
@@ -61,8 +76,7 @@ export class HierarchyComponent implements OnInit {
     if (parentId) {
       const parent = data.find(item => item.id === parentId);
       if (parent) {
-        hierarchy.unshift(parent); // Add parent at the beginning of the array
-        // Exclude the sibling of the selected employee's parent
+        hierarchy.unshift(parent);
         this.addParentNodes(data, hierarchy, parent.reportsToId, excludeSiblingId);
       }
     }
@@ -75,7 +89,6 @@ export class HierarchyComponent implements OnInit {
     for (const childOrSibling of childrenAndSiblings) {
       hierarchy.push(childOrSibling);
 
-      // Recursively add the children of this child or sibling
       this.addChildrenAndSiblings(data, hierarchy, childOrSibling.id);
     }
   }

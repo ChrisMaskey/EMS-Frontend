@@ -1,14 +1,7 @@
-<div class="org-chart">
-  <ng-container *ngFor="let employee of hierarchy">
-    <div class="org-node" [ngClass]="{'selected': employee.id === selectedEmployeeId}">
-      {{ employee.firstName }}
-      <div class="children" *ngIf="employee.children && employee.children.length > 0">
-        <ng-container *ngFor="let child of employee.children">
-          <div class="org-node" [ngClass]="{'selected': child.id === selectedEmployeeId}">
-            {{ child.firstName }}
-          </div>
-        </ng-container>
-      </div>
-    </div>
-  </ng-container>
-</div>
+<p-organizationChart [value]="hierarchy">
+  <ng-template let-node pTemplate="person">
+    <span class="person-details">
+      {{ node.label }}
+    </span>
+  </ng-template>
+</p-organizationChart>
