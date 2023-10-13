@@ -108,7 +108,7 @@ export class SuperadminComponent {
       console.log(role);
       if (existingRoles.includes(role)) {
         this.messageService.add({
-          severity: 'error',
+          severity: 'warning',
           summary: 'Info',
           detail: 'Role already assigned to the employee.',
         });

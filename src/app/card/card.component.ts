@@ -3,6 +3,7 @@ import { CardService } from '../services/card.service';
 import { Employee } from '../Model/employee.model';
 import { SearchService } from '../services/search.service';
 import { Filter } from '../Model/filter';
+import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-card',
@@ -10,7 +11,7 @@ import { Filter } from '../Model/filter';
   styleUrls: ['./card.component.css'],
 })
 export class CardComponent implements OnInit {
-  
+  isAuthenticated = false;
   visible: boolean = false;
 
   employees: Employee[] = [];
@@ -29,17 +30,19 @@ export class CardComponent implements OnInit {
   selectedJobLevel: any = '';
   selectedJobType: any = '';
 
-
-
   constructor(
     private service: CardService,
-    private searchService: SearchService // Inject SearchService
+    private searchService: SearchService, // Inject SearchService
+    private authService: AuthServiceService
   ) {}
 
   ngOnInit(): void {
+    this.authService.getAuthStatus().subscribe((status) => {
+      this.isAuthenticated = status;
+    });
     this.service.getEmployee().subscribe((response: any) => {
       this.employees = response.data; // Access the data property directly
-  
+
       this.filteredEmployees = this.employees;
       this.calculateEmployeeCounts();
     });
@@ -58,14 +61,22 @@ export class CardComponent implements OnInit {
       if (searchedTerm.source === 'input') {
         this.filteredEmployees = this.employees.filter((employee) => {
           const searchTermLowerCase = searchedTerm.value.toLowerCase();
-          const fullName = `${employee.firstName} ${employee.lastName}`.toLowerCase();
-          const searchTermWithoutSpaces = searchTermLowerCase.replace(/\s/g, '');
+          const fullName =
+            `${employee.firstName} ${employee.lastName}`.toLowerCase();
+          const searchTermWithoutSpaces = searchTermLowerCase.replace(
+            /\s/g,
+            ''
+          );
           const fullNameWithoutSpaces = fullName.replace(/\s/g, '');
 
           return (
             fullNameWithoutSpaces.includes(searchTermWithoutSpaces) ||
-            String(employee.country).toLowerCase().includes(searchTermLowerCase) ||
-            String(employee.employeeNo).toLowerCase().includes(searchTermLowerCase)
+            String(employee.country)
+              .toLowerCase()
+              .includes(searchTermLowerCase) ||
+            String(employee.employeeNo)
+              .toLowerCase()
+              .includes(searchTermLowerCase)
           );
         });
       } else {
@@ -84,12 +95,16 @@ export class CardComponent implements OnInit {
   }
 
   private calculateEmployeeCounts(): void {
-    this.fullTimeEmployeesCount = this.employees.filter((employee) => employee.jobType === 'Full-time').length;
-    this.partTimeEmployeesCount = this.employees.filter((employee) => employee.jobType === 'Part-time').length;
-    this.internsCount = this.employees.filter((employee) => employee.jobLevel === 'Intern').length;
+    this.fullTimeEmployeesCount = this.employees.filter(
+      (employee) => employee.jobType === 'Full-time'
+    ).length;
+    this.partTimeEmployeesCount = this.employees.filter(
+      (employee) => employee.jobType === 'Part-time'
+    ).length;
+    this.internsCount = this.employees.filter(
+      (employee) => employee.jobLevel === 'Intern'
+    ).length;
     this.total = this.employees.filter((employee) => employee).length;
-
-
   }
 
   showDialog(employee: Employee) {
@@ -107,7 +122,6 @@ export class CardComponent implements OnInit {
       item.firstName.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
-
 
   // showDialog(employee: any) {
   //   this.visible = true;
