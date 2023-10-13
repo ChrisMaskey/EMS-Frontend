@@ -148,4 +148,30 @@ export class EmployeeDataService {
       );
     });
   }
+
+  // checkRole(id: string): Promise<string[]> {
+  //   return new Promise<string[]>((resolve, reject) => {
+  //     this.http
+  //       .get(this.apiUrl + '/api/User/view-assigned-role?userId=' + id)
+  //       .subscribe((response: any) => {
+  //         this.assignRoleSubject.next(response.data);
+  //       });
+  //   });
+  // }
+
+  checkRole(id: string): Promise<string[]> {
+    const url = `${this.apiUrl}/api/User/view-assigned-role?userId=${id}`;
+
+    return new Promise<string[]>((resolve, reject) => {
+      this.http.get(url).subscribe(
+        (response: any) => {
+          this.assignRoleSubject.next(response.data);
+          resolve(response.data);
+        },
+        (error: any) => {
+          reject(error);
+        }
+      );
+    });
+  }
 }
