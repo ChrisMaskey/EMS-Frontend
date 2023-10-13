@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HierarchyService } from '../services/hierarchy.service'; 
 import { TreeNode } from 'primeng/api';
@@ -8,8 +8,10 @@ import { Input } from '@angular/core';
 @Component({
   selector: 'app-hierarchy',
   templateUrl: './hierarchy.component.html',
-  styleUrls: ['./hierarchy.component.css']
+  styleUrls: ['./hierarchy.component.css'],
+  // encapsulation: ViewEncapsulation.None
 })
+
 export class HierarchyComponent implements OnInit {
   @Input() hierarchy: TreeNode[] = [];
   selectedEmployeeId!: string;
