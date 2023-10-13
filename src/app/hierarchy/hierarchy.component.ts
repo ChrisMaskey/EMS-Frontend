@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { HierarchyService } from '../services/hierarchy.service'; // Adjust the import as per your project structure
 import { Hierarchy } from '../Model/Hierarchy.model'; // Adjust the import as per your project structure
 import { Input } from '@angular/core';
-import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-hierarchy',
@@ -15,7 +14,7 @@ export class HierarchyComponent implements OnInit {
 
   @Input()  hierarchy: any[] = [];
   selectedEmployeeId!: string;
-  selectedNode!: TreeNode; 
+  selectedNode: any
 
   constructor(
     private hierarchyService: HierarchyService,
@@ -35,35 +34,12 @@ export class HierarchyComponent implements OnInit {
         console.log('Hierarchy Data:', response.data);
         console.log('Selected Employee ID:', this.selectedEmployeeId);
 
+        // Build the hierarchy based on the selected employee's ID
         this.hierarchy = this.buildHierarchy(response.data, this.selectedEmployeeId);
-        console.log('hierarchy:', this.hierarchy); 
+        console.log('Filtered Hierarchy:', this.hierarchy); // Check the filtered data here
         
       }
     });
-  }
-
-  buildHierarchyTree(data: any[], reportsToId: string | null): any[] {
-    const hierarchyTree: any[] = [];
-
-    data.forEach((item: any) => {
-      if (item.reportsToId === reportsToId) {
-        const hierarchyNode = {
-          label: `${item.firstName} ${item.lastName}`,
-          type: 'person',
-          styleClass: 'ui-person',
-          data: {
-            firstName: item.firstName,
-            lastName: item.lastName,
-            jobLevel: item.jobLevel,
-            id: item.id,
-          },
-          children: this.buildHierarchyTree(data, item.id),
-        };
-        hierarchyTree.push(hierarchyNode);
-      }
-    });
-
-    return hierarchyTree;
   }
 
   buildHierarchy(data: any[], selectedId: string): any[] {
@@ -72,13 +48,10 @@ export class HierarchyComponent implements OnInit {
 
     if (selectedEmployee) {
       hierarchy.push(selectedEmployee);
-      
 
       this.addParentNodes(data, hierarchy, selectedEmployee.reportsToId, selectedEmployee.id);
 
       this.addChildrenAndSiblings(data, hierarchy, selectedId);
-
-     
     }
 
     return hierarchy;
@@ -88,7 +61,8 @@ export class HierarchyComponent implements OnInit {
     if (parentId) {
       const parent = data.find(item => item.id === parentId);
       if (parent) {
-        hierarchy.unshift(parent); 
+        hierarchy.unshift(parent); // Add parent at the beginning of the array
+        // Exclude the sibling of the selected employee's parent
         this.addParentNodes(data, hierarchy, parent.reportsToId, excludeSiblingId);
       }
     }
@@ -101,6 +75,7 @@ export class HierarchyComponent implements OnInit {
     for (const childOrSibling of childrenAndSiblings) {
       hierarchy.push(childOrSibling);
 
+      // Recursively add the children of this child or sibling
       this.addChildrenAndSiblings(data, hierarchy, childOrSibling.id);
     }
   }
