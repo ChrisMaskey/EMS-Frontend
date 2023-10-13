@@ -18,6 +18,7 @@ h1 {
 
 .chart {
   grid-row: 2; /* Display the chart below the heading */
+  width: 100%;
 }
 
 

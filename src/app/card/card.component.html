@@ -33,7 +33,7 @@
       <div class="col py-3" *ngFor="let employee of filteredEmployees">
         <div class="card mr-3" id="card" (click)="showDialog(employee)">
           <div class="bg-white rounded shadow-sm pt-4 px-4 image">
-            <img
+            <img id="image"
               src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg"
               alt=""
               class="img-fluid rounded-circle mb-3 img-thumbnail"
@@ -52,7 +52,7 @@
             <ul class="social list-inline mt-3">
               <li class="list-inline-item">
                 <a routerLink="/hierarchy" [queryParams]="{id: employee.id}" class="social-link"
-                  ><i class="bi bi-bar-chart"></i></a>
+                  ><img src="assets/organization-chart.png" alt=""></a>
                <!-- <br>
               <li class="list-inline-item">
                 <a href="#" class="social-link"

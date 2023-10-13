@@ -241,3 +241,7 @@ img {
     text-overflow: initial;
   }
 }
+
+#image{
+  border-radius: 0%;
+}
