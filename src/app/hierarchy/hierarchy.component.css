@@ -23,6 +23,11 @@
 }
 
 .selected {
-  background-color: #007bff;
+  background-color: #63241f;
   color: #fff;
+}
+
+img{
+  width: 150px;
+  height: 150px;
 }

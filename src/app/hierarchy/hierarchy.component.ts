@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HierarchyService } from '../services/hierarchy.service'; // Adjust the import as per your project structure
 import { Hierarchy } from '../Model/Hierarchy.model'; // Adjust the import as per your project structure
 import { Input } from '@angular/core';
+import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-hierarchy',
@@ -14,7 +15,7 @@ export class HierarchyComponent implements OnInit {
 
   @Input()  hierarchy: any[] = [];
   selectedEmployeeId!: string;
-  selectedNode: any
+  selectedNode!: TreeNode; 
 
   constructor(
     private hierarchyService: HierarchyService,
@@ -35,10 +36,34 @@ export class HierarchyComponent implements OnInit {
         console.log('Selected Employee ID:', this.selectedEmployeeId);
 
         this.hierarchy = this.buildHierarchy(response.data, this.selectedEmployeeId);
-        console.log('Filtered Hierarchy:', this.hierarchy); 
+        console.log('hierarchy:', this.hierarchy); 
         
       }
     });
+  }
+
+  buildHierarchyTree(data: any[], reportsToId: string | null): any[] {
+    const hierarchyTree: any[] = [];
+
+    data.forEach((item: any) => {
+      if (item.reportsToId === reportsToId) {
+        const hierarchyNode = {
+          label: `${item.firstName} ${item.lastName}`,
+          type: 'person',
+          styleClass: 'ui-person',
+          data: {
+            firstName: item.firstName,
+            lastName: item.lastName,
+            jobLevel: item.jobLevel,
+            id: item.id,
+          },
+          children: this.buildHierarchyTree(data, item.id),
+        };
+        hierarchyTree.push(hierarchyNode);
+      }
+    });
+
+    return hierarchyTree;
   }
 
   buildHierarchy(data: any[], selectedId: string): any[] {
@@ -47,10 +72,13 @@ export class HierarchyComponent implements OnInit {
 
     if (selectedEmployee) {
       hierarchy.push(selectedEmployee);
+      
 
       this.addParentNodes(data, hierarchy, selectedEmployee.reportsToId, selectedEmployee.id);
 
       this.addChildrenAndSiblings(data, hierarchy, selectedId);
+
+     
     }
 
     return hierarchy;
