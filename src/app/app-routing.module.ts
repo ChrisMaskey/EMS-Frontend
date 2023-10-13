@@ -21,9 +21,9 @@ const routes: Routes = [
   { path: 'card', component: CardComponent },
   { path: 'forgotpassword', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'test', component: TestComponent},
-  {path: 'hierarchy', component: HierarchyComponent},
-  {path:'organizational-chart', component: OrganizationalChartComponent },
+  { path: 'test', component: TestComponent },
+  {path: 'hierarchy', component: HierarchyComponent },
+  { path: 'organizational-chart', component: OrganizationalChartComponent },
   { path: 'test', component: TestComponent },
   { path: 'superadmin', component: SuperadminComponent },
 ];

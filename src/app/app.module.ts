@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardComponent } from './card/card.component';
 import { AddComponent } from './employee-list/add/add.component';
 import { CalendarModule } from 'primeng/calendar';
+import { InputTextModule } from 'primeng/inputtext'; // If you use input elements
+
 import { EditComponent } from './employee-list/edit/edit.component';
 import { CardsComponent } from './cards/cards.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -60,6 +63,8 @@ import { SuperadminComponent } from './employee-list/superadmin/superadmin.compo
     CalendarModule,
     ToastModule,
     OrganizationChartModule,
+    CommonModule,
+    InputTextModule
   ],
   providers: [SearchService, EmployeeDataService, HierarchyService, OrganizationService],
   bootstrap: [AppComponent],

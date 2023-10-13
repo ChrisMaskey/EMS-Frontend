@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { HierarchyService } from '../services/hierarchy.service';
-import { Hierarchy } from '../Model/Hierarchy.model';
-import { TreeNode } from 'primeng/api';
 
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HierarchyService } from '../services/hierarchy.service'; 
+import { TreeNode } from 'primeng/api';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-hierarchy',
@@ -10,42 +11,85 @@ import { TreeNode } from 'primeng/api';
   styleUrls: ['./hierarchy.component.css']
 })
 export class HierarchyComponent implements OnInit {
-  hierarchy: Hierarchy[] = [];
-  selectedNode: Hierarchy | null = null;
+  @Input() hierarchy: TreeNode[] = [];
+  selectedEmployeeId!: string;
 
-  constructor(private hierarchyService: HierarchyService) {}
+  constructor(
+    private hierarchyService: HierarchyService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.selectedEmployeeId = params['id'];
+      this.loadHierarchy();
+    });
+  }
+
+  loadHierarchy() {
     this.hierarchyService.getHierarchyData().subscribe((response: any) => {
       if (response && response.data) {
-        this.hierarchy = this.buildHierarchyTree(response.data, null);
+        const filteredHierarchy = this.buildHierarchy(response.data, this.selectedEmployeeId);
+        this.hierarchy = this.transformToTreeNode(filteredHierarchy);
       }
     });
   }
 
-
-
-  buildHierarchyTree(data: any[], reportsToId: string | null): any[] {
-    const hierarchyTree: any[] = [];
-
-    data.forEach((item: any) => {
-      if (item.reportsToId === reportsToId) {
-        const hierarchyNode = {
-          label: `${item.firstName} ${item.lastName}`,
-          type: 'person',
-          styleClass: 'ui-person',
-          data: {
-            firstName: item.firstName,
-            lastName: item.lastName,
-            jobLevel: item.jobLevel,
-            
-          },
-          children: this.buildHierarchyTree(data, item.id),
-        };
-        hierarchyTree.push(hierarchyNode);
-      }
-    });
-
-    return hierarchyTree;
+  transformToTreeNode(filteredHierarchy: any[]): TreeNode[] {
+    return filteredHierarchy.map((item) => ({
+      label: item.firstName, 
+      expanded: true,
+      type: 'person',
+      data: item,
+      children: this.buildChildNodes(item.id, filteredHierarchy),
+    }));
   }
-} 
+
+  buildChildNodes(parentId: string, filteredHierarchy: any[]): TreeNode[] {
+    const children = filteredHierarchy.filter((item) => item.reportsToId === parentId);
+
+    return children.map((child) => ({
+      label: child.firstName, 
+      expanded: true,
+      type: 'person', 
+      data: child,
+      children: this.buildChildNodes(child.id, filteredHierarchy),
+    }));
+  }
+
+  buildHierarchy(data: any[], selectedId: string): any[] {
+    const hierarchy: any[] = [];
+    const selectedEmployee = data.find(item => item.id === selectedId);
+
+    if (selectedEmployee) {
+      hierarchy.push(selectedEmployee);
+
+      this.addParentNodes(data, hierarchy, selectedEmployee.reportsToId, selectedEmployee.id);
+
+      this.addChildrenAndSiblings(data, hierarchy, selectedId);
+    }
+
+    return hierarchy;
+  }
+
+  addParentNodes(data: any[], hierarchy: any[], parentId: string | null, excludeSiblingId: string) {
+    if (parentId) {
+      const parent = data.find(item => item.id === parentId);
+      if (parent) {
+        hierarchy.unshift(parent);
+        this.addParentNodes(data, hierarchy, parent.reportsToId, excludeSiblingId);
+      }
+    }
+  }
+
+  addChildrenAndSiblings(data: any[], hierarchy: any[], employeeId: string) {
+    const childrenAndSiblings = data.filter(
+      item => item.reportsToId === employeeId && item.id !== employeeId
+    );
+    for (const childOrSibling of childrenAndSiblings) {
+      hierarchy.push(childOrSibling);
+
+      this.addChildrenAndSiblings(data, hierarchy, childOrSibling.id);
+    }
+  }
+}
