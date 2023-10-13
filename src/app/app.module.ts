@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,7 +11,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { LoginComponent } from './login/login.component';
-import { LoginService } from './services/login.service';
 import { FooterComponent } from './footer/footer.component';
 import { SearchService } from './services/search.service';
 import { SearchComponent } from './search/search.component';
@@ -18,18 +18,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardComponent } from './card/card.component';
 import { AddComponent } from './employee-list/add/add.component';
 import { CalendarModule } from 'primeng/calendar';
+import { InputTextModule } from 'primeng/inputtext'; // If you use input elements
+
 import { EditComponent } from './employee-list/edit/edit.component';
 import { CardsComponent } from './cards/cards.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { EmployeeDataService } from './services/employee-data.service';
 import { ToastModule } from 'primeng/toast';
-import {
-  OrganizationChartModule,
-  OrganizationChartNode,
-} from 'primeng/organizationchart';
+import { OrganizationChartModule,OrganizationChartNode} from 'primeng/organizationchart';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { TestComponent } from './test/test.component';
 import { HierarchyComponent } from './hierarchy/hierarchy.component';
+import { HierarchyService } from './services/hierarchy.service';
+import { OrganizationService } from './services/organization.service';
 import { SuperadminComponent } from './employee-list/superadmin/superadmin.component';
 @NgModule({
   declarations: [
@@ -62,8 +63,10 @@ import { SuperadminComponent } from './employee-list/superadmin/superadmin.compo
     CalendarModule,
     ToastModule,
     OrganizationChartModule,
+    CommonModule,
+    InputTextModule
   ],
-  providers: [SearchService, EmployeeDataService],
+  providers: [SearchService, EmployeeDataService, HierarchyService, OrganizationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

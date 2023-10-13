@@ -13,7 +13,7 @@ import { AuthServiceService } from '../services/auth-service.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  private apiUrl = 'http://vertex90-001-site1.atempurl.com';
+  private apiUrl = 'http://vertex90-001-sigti te1.atempurl.com';
 
   loginForm: FormGroup;
 
