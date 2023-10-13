@@ -100,57 +100,57 @@ export class SuperadminComponent {
   //   // }
   // }
 
-  // async assignRole(id: string, role: string) {
-  //   try {
-  //     this.isAssignButtonClicked = true;
-  //     const existingRoles = await this.employeeDataService.checkRole(id);
-  //     console.log(existingRoles);
-  //     console.log(role);
-  //     if (existingRoles.includes('40a152c9-7e31-4002-995f-4b05528e7c82')) {
-  //       this.messageService.add({
-  //         severity: 'error',
-  //         summary: 'Info',
-  //         detail: 'Role already assigned to the employee.',
-  //       });
-  //       console.log('IMWORKING');
-  //     } else {
-  //       await this.employeeDataService.assignRole(id, role);
-  //       this.assignForm.reset();
-  //       this.hideAssignDialog();
-  //       this.assignForm.get('employee')?.setValue('');
-  //       this.assignForm.get('role')?.setValue('');
-  //       this.messageService.add({
-  //         severity: 'success',
-  //         summary: 'Info',
-  //         detail: 'Role Successfully Assigned.',
-  //       });
+  async assignRole(id: string, role: string) {
+    try {
+      this.isAssignButtonClicked = true;
+      const existingRoles = await this.employeeDataService.checkRole(id);
+      console.log(existingRoles);
+      console.log(role);
+      if (existingRoles.includes(role)) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Info',
+          detail: 'Role already assigned to the employee.',
+        });
+        console.log('IMWORKING');
+      } else {
+        await this.employeeDataService.assignRole(id, role);
+        this.assignForm.reset();
+        this.hideAssignDialog();
+        this.assignForm.get('employee')?.setValue('');
+        this.assignForm.get('role')?.setValue('');
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Info',
+          detail: 'Role Successfully Assigned.',
+        });
 
-  //       setTimeout(() => {
-  //         this.assignSuccessful = false;
-  //       }, 3500);
-  //       this.isAssignButtonClicked = false;
-  //     }
-  //   } catch (error) {
-  //     console.error('Error assigning role:', error);
-  //   }
-  // await this.employeeDataService.assignRole(id, role);
+        setTimeout(() => {
+          this.assignSuccessful = false;
+        }, 3500);
+        this.isAssignButtonClicked = false;
+      }
+    } catch (error) {
+      console.error('Error assigning role:', error);
+    }
+    // await this.employeeDataService.assignRole(id, role);
 
-  // this.assignForm.reset();
-  // this.hideAssignDialog();
-  // this.assignForm.get('employee')?.setValue('');
-  // this.assignForm.get('role')?.setValue('');
+    // this.assignForm.reset();
+    // this.hideAssignDialog();
+    // this.assignForm.get('employee')?.setValue('');
+    // this.assignForm.get('role')?.setValue('');
 
-  // this.messageService.add({
-  //   severity: 'success',
-  //   summary: 'Info',
-  //   detail: 'Role Successfully Assigned.',
-  // });
+    // this.messageService.add({
+    //   severity: 'success',
+    //   summary: 'Info',
+    //   detail: 'Role Successfully Assigned.',
+    // });
 
-  // setTimeout(() => {
-  //   this.assignSuccessful = false;
-  // }, 3500);
-  // console.log('ID:' + id, 'ROLE:' + role);
-  // }
+    // setTimeout(() => {
+    //   this.assignSuccessful = false;
+    // }, 3500);
+    // console.log('ID:' + id, 'ROLE:' + role);
+  }
 
   // async assignRole(id: string, role: string): Promise<void> {
   //   try {
@@ -170,44 +170,46 @@ export class SuperadminComponent {
   //   }
   // }
 
-  async assignRole(id: string, role: string) {
-    try {
-      this.isAssignButtonClicked = true;
-      const existingRoles = await this.employeeDataService.checkRole(id);
-      console.log(existingRoles);
-      console.log(role);
-      const roleMap: { [key: string]: string } = {
-        admin: 'a4059c76-9e2e-4e5a-a624-53a87fa96dc0',
-        user: '40a152c9-7e31-4002-995f-4b05528e7c82',
-      };
-      const assignedRole = roleMap[existingRoles[0]];
+  // async assignRole(id: string, role: string) {
+  //   try {
+  //     this.isAssignButtonClicked = true;
+  //     const existingRoles = await this.employeeDataService.checkRole(id);
+  //     console.log(existingRoles);
+  //     console.log(id);
 
-      if (existingRoles.includes(assignedRole)) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Info',
-          detail: 'Role already assigned to the employee.',
-        });
-        console.log('IMWORKING');
-      } else {
-        await this.employeeDataService.assignRole(id, role);
-        this.assignForm.reset();
-        this.hideAssignDialog();
-        this.assignForm.get('employee')?.setValue('');
-        this.assignForm.get('role')?.setValue('');
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Info',
-          detail: 'Role Successfully Assigned.',
-        });
+  //     console.log(role);
+  //     const roleMap: { [key: string]: string } = {
+  //       admin: 'a4059c76-9e2e-4e5a-a624-53a87fa96dc0',
+  //       user: '40a152c9-7e31-4002-995f-4b05528e7c82',
+  //     };
+  //     const assignedRole = roleMap[existingRoles[0]];
 
-        setTimeout(() => {}, 3500);
-        this.isAssignButtonClicked = false;
-      }
-    } catch (error) {
-      console.error('Error assigning role:', error);
-    }
-  }
+  //     if (existingRoles.includes(assignedRole)) {
+  //       this.messageService.add({
+  //         severity: 'error',
+  //         summary: 'Info',
+  //         detail: 'Role already assigned to the employee.',
+  //       });
+  //       console.log('IMWORKING');
+  //     } else {
+  //       await this.employeeDataService.assignRole(id, role);
+  //       this.assignForm.reset();
+  //       this.hideAssignDialog();
+  //       this.assignForm.get('employee')?.setValue('');
+  //       this.assignForm.get('role')?.setValue('');
+  //       this.messageService.add({
+  //         severity: 'success',
+  //         summary: 'Info',
+  //         detail: 'Role Successfully Assigned.',
+  //       });
+
+  //       setTimeout(() => {}, 3500);
+  //       this.isAssignButtonClicked = false;
+  //     }
+  //   } catch (error) {
+  //     console.error('Error assigning role:', error);
+  //   }
+  // }
 
   // async assignRole(id: string, role: string) {
   //   try {
