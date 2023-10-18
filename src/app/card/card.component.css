@@ -178,9 +178,9 @@ img {
 }
 
 /* Hover effect */
-.styled-table tbody tr:hover {
+/* .styled-table tbody tr:hover {
   background-color: #ddd;
-}
+} */
 
 /* Apply styles to the table container for responsiveness */
 .table-container {
@@ -217,9 +217,9 @@ img {
 }
 
 /* Hover effect */
-.styled-table tbody tr:hover {
+/* .styled-table tbody tr:hover {
   background-color: #ddd;
-}
+} */
 
 /* Media query for screens with a width lower than 1050px */
 @media screen and (max-width: 1050px) {
@@ -243,5 +243,5 @@ img {
 }
 
 #image{
-  border-radius: 0%;
+  border-radius: 0;
 }

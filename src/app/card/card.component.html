@@ -33,7 +33,7 @@
       <div class="col py-3" *ngFor="let employee of filteredEmployees">
         <div class="card mr-3" id="card" (click)="showDialog(employee)">
           <div class="bg-white rounded shadow-sm pt-4 px-4 image">
-            <img id="image"
+            <img
               src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg"
               alt=""
               class="img-fluid rounded-circle mb-3 img-thumbnail"
@@ -52,7 +52,7 @@
             <ul class="social list-inline mt-3">
               <li class="list-inline-item">
                 <a routerLink="/hierarchy" [queryParams]="{id: employee.id}" class="social-link"
-                  ><img src="assets/organization-chart.png" alt=""></a>
+                  ><img src="assets/organization-chart.png" id="image" alt=""> </a>
                <!-- <br>
               <li class="list-inline-item">
                 <a href="#" class="social-link"
@@ -103,7 +103,7 @@
       </h5>
       <span class="small text-uppercase text-white"
         ><p>
-          {{ selectedEmployee.jobLevel }} - {{ selectedEmployee.jobDepartment }}
+          {{ selectedEmployee.jobLevel }} - {{ selectedEmployee.jobDepartment }} 
         </p></span
       >
       <span class="small text-uppercase text-white"
@@ -118,14 +118,11 @@
     <div class="row-first">
 
       <div class="employee-about">
-        <h5 style="text-align: left; color: #63241f;" >{{selectedEmployee.firstName}}'s details</h5>
+        <h2 style="text-align: left; color: #63241f;" >{{selectedEmployee.firstName}}'s details</h2>
 
       </div>
 
-      <div class="employee-about-desc">
-        <p style="text-align: left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus sint architecto autem voluptatibus? Natus sunt est magni ducimus accusantium nihil dolore, dolorum ad ex, ullam sapiente, id reprehenderit molestias delectus!</p>
-
-      </div>
+     
     </div>
 
     

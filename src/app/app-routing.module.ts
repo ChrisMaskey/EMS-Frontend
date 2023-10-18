@@ -11,6 +11,7 @@ import { TestComponent } from './test/test.component';
 import { HierarchyComponent } from './hierarchy/hierarchy.component';
 import { OrganizationalChartComponent } from './organizational-chart/organizational-chart.component';
 import { SuperadminComponent } from './employee-list/superadmin/superadmin.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'organizational-chart', component: OrganizationalChartComponent },
   { path: 'test', component: TestComponent },
   { path: 'superadmin', component: SuperadminComponent },
+  { path: 'change-password', component: ChangePasswordComponent}
 ];
 
 @NgModule({

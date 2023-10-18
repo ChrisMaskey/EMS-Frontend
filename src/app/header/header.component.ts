@@ -20,10 +20,10 @@ export class HeaderComponent {
     private authService: AuthServiceService,
     private router: Router
   ) {}
-  // logout(): void {
-  //   this.authService.clearAuthToken();
-  //   this.router.navigate(['/login']);
-  // }
+
+  isAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
+  }
 
   logout() {
     this.authService.logout().then(() => {
