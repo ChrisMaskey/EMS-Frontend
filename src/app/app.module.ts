@@ -32,6 +32,10 @@ import { HierarchyComponent } from './hierarchy/hierarchy.component';
 import { HierarchyService } from './services/hierarchy.service';
 import { OrganizationService } from './services/organization.service';
 import { SuperadminComponent } from './employee-list/superadmin/superadmin.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { changePasswordService } from './services/changepassword.service';
+import { AuthServiceService } from './services/auth-service.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +53,8 @@ import { SuperadminComponent } from './employee-list/superadmin/superadmin.compo
     TestComponent,
     HierarchyComponent,
     SuperadminComponent,
+    DropdownComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +72,7 @@ import { SuperadminComponent } from './employee-list/superadmin/superadmin.compo
     CommonModule,
     InputTextModule
   ],
-  providers: [SearchService, EmployeeDataService, HierarchyService, OrganizationService],
+  providers: [SearchService, EmployeeDataService, HierarchyService, OrganizationService, changePasswordService, AuthServiceService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -14,15 +14,16 @@ export class AuthServiceService {
 
   login(credentials: login): Promise<void> {
     return new Promise((resolve, reject) => {
-      return this.http
+      this.http
         .post<void>(this.apiUrl + '/api/auth/login', credentials)
         .subscribe(
           (response: any) => {
+            console.log(response)
             if (response && response.code === '200' && response.data.token) {
               this.authToken = response.data.token;
-              this.setAuthStatus(true);
+              console.log('User ID:', response.data.userId);
+              localStorage.setItem('id', response.data.userId);
               console.log(this.authToken);
-
               resolve();
             } else {
               reject(response.description);
@@ -34,6 +35,7 @@ export class AuthServiceService {
         );
     });
   }
+  
   logout(): Promise<void> {
     return new Promise((resolve, reject) => {
       return this.http
@@ -41,7 +43,6 @@ export class AuthServiceService {
         .subscribe(
           (response: any) => {
             console.log('LOGOUT: ' + this.authToken);
-
             response.tokenValue = this.authToken;
             this.authToken = null;
             this.setAuthStatus(false);
@@ -80,4 +81,9 @@ export class AuthServiceService {
   private setAuthStatus(status: boolean) {
     this.authStatus.next(status);
   }
+  getUserId(): string | null {
+    return localStorage.getItem('id');
+  }
+ 
 }
+
