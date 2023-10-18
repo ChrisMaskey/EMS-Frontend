@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 export class LogoutService {
   constructor() {}
 
+  readonly apiUrl = 'https://vertex90-001-site1.atempurl.com';
+
   private authToken = '';
 
   setAuthToken(token: string) {

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { LogoutService } from '../services/logout.service';
 import { Route, Router } from '@angular/router';
+import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-header',
@@ -15,9 +16,18 @@ export class HeaderComponent {
   // showDialog() {
   //   this.visible = true;
   // }
-  // constructor(private authService: LogoutService, private router: Router) {}
+  constructor(
+    private authService: AuthServiceService,
+    private router: Router
+  ) {}
   // logout(): void {
   //   this.authService.clearAuthToken();
   //   this.router.navigate(['/login']);
   // }
+
+  logout() {
+    this.authService.logout().then(() => {
+      this.router.navigate(['login']);
+    });
+  }
 }

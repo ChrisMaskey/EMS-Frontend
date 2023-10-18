@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 import { login } from '../Model/login.model';
+import { LogoutService } from '../services/logout.service';
+import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,8 @@ export class LoginComponent {
   constructor(
     public fb: FormBuilder,
     private service: LoginService,
-    private router: Router
+    private router: Router,
+    private authService: AuthServiceService
   ) {
     this.loginForm = this.fb.group({
       email: [
@@ -63,19 +66,31 @@ export class LoginComponent {
 
     // Check if both the username and password are non-empty
     if (email.trim() !== '' && password.trim() !== '') {
+      this.authService
+        .login(login)
+        .then(() => {
+          this.router.navigate(['/card']);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.showInvalidMessage = 'Invalid Login Credentials';
+        });
       // If both fields are non-empty, attempt to log in
-      this.service.login(login).subscribe(
-        (res) => {
-          this.router.navigate(['/list']); // Successful login
-        },
-        (err) => {
-          // Handle invalid login credentials
-          this.showInvalidMessage = 'Invalid Login Credentials.';
-        }
-      );
-    } else {
-      // If either the username or password is empty, display a message
-      this.showInvalidMessage = '';
+      //   this.service.login(login).subscribe(
+      //     (response: any) => {
+      //       if (response && response.code === '200') {
+      //         this.logoutService.setAuthToken(response.data.token);
+      //       }
+      //       this.router.navigate(['/list']); // Successful login
+      //     },
+      //     (err: any) => {
+      //       this.showInvalidMessage = 'Invalid Login Credentials.';
+      //       console.log(err.description);
+      //     }
+      //   );
+      // } else {
+      //   this.showInvalidMessage = '';
+      // }
     }
   }
 }
