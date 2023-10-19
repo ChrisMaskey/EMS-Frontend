@@ -28,3 +28,25 @@
 :host ::ng-deep .p-dropdown {
   width: 100% !important;
 }
+
+#reset-button{
+  background-color: #812d27;
+  color: white;
+  border: none;
+}
+
+#reset-button:hover{
+background-color: #551d1b;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+  font-size: 13px;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  font-size: 13px;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  font-size: 13px;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  font-size: 13px;
+}

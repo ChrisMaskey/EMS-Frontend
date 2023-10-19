@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, EventEmitter, Output } from '@angular/core';
 import { SearchService } from '../services/search.service';
 @Component({
   selector: 'app-search',
@@ -6,6 +6,9 @@ import { SearchService } from '../services/search.service';
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent {
+
+  @Output() resetFiltersEvent = new EventEmitter<void>();
+
   private searchService = inject(SearchService);
 
   countries: any[] = [{ name: 'Nepal' }, { name: 'Pakistan' }];
@@ -68,4 +71,8 @@ export class SearchComponent {
     ];
 
   selectedJobType: any;
+
+  onResetFilters() {
+    this.resetFiltersEvent.emit();
+  }
 }
