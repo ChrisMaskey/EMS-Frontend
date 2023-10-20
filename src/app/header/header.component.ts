@@ -2,6 +2,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { LogoutService } from '../services/logout.service';
 import { Route, Router } from '@angular/router';
 import { AuthServiceService } from '../services/auth-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -29,5 +30,8 @@ export class HeaderComponent {
     this.authService.logout().then(() => {
       this.router.navigate(['login']);
     });
+  }
+  isChangePasswordRoute(): boolean {
+    return this.router.url.includes('change-password');
   }
 }
