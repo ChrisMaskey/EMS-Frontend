@@ -1,20 +1,16 @@
-
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HierarchyService } from '../services/hierarchy.service'; 
+import { HierarchyService } from '../services/hierarchy.service';
 import { TreeNode } from 'primeng/api';
-import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-hierarchy',
   templateUrl: './hierarchy.component.html',
   styleUrls: ['./hierarchy.component.css'],
-  // encapsulation: ViewEncapsulation.None
 })
-
 export class HierarchyComponent implements OnInit {
-  @Input() hierarchy: TreeNode[] = [];
-  selectedEmployeeId!: string;
+  hierarchy: TreeNode[] = [];
+  selectedEmployeeId: string | null = null;
 
   constructor(
     private hierarchyService: HierarchyService,
@@ -22,8 +18,8 @@ export class HierarchyComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.selectedEmployeeId = params['id'];
+    this.route.queryParams.subscribe((params) => {
+      this.selectedEmployeeId = params['id'] || null;
       this.loadHierarchy();
     });
   }
@@ -39,29 +35,46 @@ export class HierarchyComponent implements OnInit {
 
   transformToTreeNode(filteredHierarchy: any[]): TreeNode[] {
     return filteredHierarchy.map((item) => ({
-      label: item.firstName, 
-      expanded: true,
+      label: item.firstName,
+      expanded: this.isInitiallyExpanded(item),
       type: 'person',
       data: item,
       children: this.buildChildNodes(item.id, filteredHierarchy),
     }));
   }
 
+  isInitiallyExpanded(item: any): boolean {
+    if (this.selectedEmployeeId) {
+      if (item && item.id) {
+        if (item.id === this.selectedEmployeeId) {
+          return true; // Expand the selected employee
+        }
+        if (item.reportsToId === this.selectedEmployeeId) {
+          return true; // Expand the immediate parent
+        }
+      }
+
+      return false;
+    } else {
+      return false; // Collapse all nodes if no selected employee
+    }
+  }
+
   buildChildNodes(parentId: string, filteredHierarchy: any[]): TreeNode[] {
     const children = filteredHierarchy.filter((item) => item.reportsToId === parentId);
 
     return children.map((child) => ({
-      label: child.firstName, 
-      expanded: true,
-      type: 'person', 
+      label: child.firstName,
+      expanded: false, // Direct children are initially collapsed
+      type: 'person',
       data: child,
       children: this.buildChildNodes(child.id, filteredHierarchy),
     }));
   }
 
-  buildHierarchy(data: any[], selectedId: string): any[] {
+  buildHierarchy(data: any[], selectedId: string | null): any[] {
     const hierarchy: any[] = [];
-    const selectedEmployee = data.find(item => item.id === selectedId);
+    const selectedEmployee = data.find((item) => item.id === selectedId);
 
     if (selectedEmployee) {
       hierarchy.push(selectedEmployee);
@@ -76,7 +89,7 @@ export class HierarchyComponent implements OnInit {
 
   addParentNodes(data: any[], hierarchy: any[], parentId: string | null, excludeSiblingId: string) {
     if (parentId) {
-      const parent = data.find(item => item.id === parentId);
+      const parent = data.find((item) => item.id === parentId);
       if (parent) {
         hierarchy.unshift(parent);
         this.addParentNodes(data, hierarchy, parent.reportsToId, excludeSiblingId);
@@ -84,14 +97,16 @@ export class HierarchyComponent implements OnInit {
     }
   }
 
-  addChildrenAndSiblings(data: any[], hierarchy: any[], employeeId: string) {
-    const childrenAndSiblings = data.filter(
-      item => item.reportsToId === employeeId && item.id !== employeeId
-    );
-    for (const childOrSibling of childrenAndSiblings) {
-      hierarchy.push(childOrSibling);
+  addChildrenAndSiblings(data: any[], hierarchy: any[], employeeId: string | null) {
+    if (employeeId) {
+      const childrenAndSiblings = data.filter(
+        (item) => item.reportsToId === employeeId && item.id !== employeeId
+      );
+      for (const childOrSibling of childrenAndSiblings) {
+        hierarchy.push(childOrSibling);
 
-      this.addChildrenAndSiblings(data, hierarchy, childOrSibling.id);
+        this.addChildrenAndSiblings(data, hierarchy, childOrSibling.id);
+      }
     }
   }
 }

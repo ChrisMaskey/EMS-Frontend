@@ -1,13 +1,13 @@
 <div class="row justify-content-center">
   <!-- Search Bar -->
-  <div class="col-md-4">
+  <div class="col-md-3">
     <form class="d-flex custom-search-bar">
       <input
         #searchInput
         class="form-control"
         type="text"
         name="search"
-        placeholder="Search"
+        placeholder="Search by name, id or country..."
         [(ngModel)]="searchTerm"
         (keyup)="filter(searchInput.value, '', 'input')"
       />
@@ -68,5 +68,9 @@
       ></p-dropdown>
     </div>
   </div>
+  <div class="col-md-1">
+    <button id="reset-button" class="btn btn-outline-primary" (click)="onResetFilters()">Reset</button>
+  </div>
+  
 </div>
 

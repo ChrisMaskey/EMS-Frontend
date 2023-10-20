@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <app-search></app-search>
+  <app-search (resetFiltersEvent)="resetFilters()"></app-search>
 
   <div class="container mt-5">
     <h1 class="text-center mb-5">Employee List</h1>
@@ -26,8 +26,6 @@
         </div>
       </div>
     </div>
-    
-    
     
     <div class="row row-cols-xl-3 row-cols-sm-2 text-center">
       <div class="col py-3" *ngFor="let employee of filteredEmployees">
@@ -60,7 +58,7 @@
                 ></a>
                <br>
               <li class="list-inline-item">
-                <a href="#" class="social-link"
+                <a href="#" class "social-link"
                   ><i class="bi bi-linkedin"></i
                 ></a>
                <br>
@@ -99,15 +97,15 @@
     </div>
     <div class="description-dialog">
       <h5 class="mb-0 text-white">
-        {{ selectedEmployee.firstName }} {{ selectedEmployee.lastName }}
+        {{ selectedEmployee?.firstName }} {{ selectedEmployee?.lastName }}
       </h5>
       <span class="small text-uppercase text-white"
         ><p>
-          {{ selectedEmployee.jobLevel }} - {{ selectedEmployee.jobDepartment }} 
+          {{ selectedEmployee?.jobLevel }} - {{ selectedEmployee?.jobDepartment }} 
         </p></span
       >
       <span class="small text-uppercase text-white"
-        ><p>{{ selectedEmployee.country }}</p></span
+        ><p>{{ selectedEmployee?.country }}</p></span
       >
     </div>
     
@@ -118,151 +116,63 @@
     <div class="row-first">
 
       <div class="employee-about">
-        <h2 style="text-align: left; color: #63241f;" >{{selectedEmployee.firstName}}'s details</h2>
-
+        <h2 style="text-align: left; color: #63241f;" >{{selectedEmployee?.firstName}}'s details</h2>
       </div>
-
      
     </div>
-
     
-
     <hr style="color: #63241f;">
-    <div class="row-second ">
-      
-
-<div class="table-contaimer">
-      <table class="styled-table">
-        <tbody>
-          <tr>
-            <th>ID:</th>
-            <td>{{ selectedEmployee.employeeNo }}</td>
-            <th>FIRST NAME:</th>
-            <td>{{ selectedEmployee.firstName }}</td>
-          </tr>
-          <tr>
-            <th>MIDDLE NAME:</th>
-            <td  >{{ selectedEmployee.middleName }}</td>
-            <th>LAST NAME:</th>
-            <td>{{ selectedEmployee.lastName }}</td>
-          </tr>
-          <tr>
-            <th>PHONE NUMBER:</th>
-            <td>{{ selectedEmployee.phoneNumber }}</td>
-            <th>EMAIL:</th>
-            <td>{{ selectedEmployee.email }}</td>
-          </tr>
-          <tr>
-            <th>BIRTH DATE:</th>
-            <td>{{ selectedEmployee.birthDate }}</td>
-            <th>GENDER:</th>
-            <td>{{ selectedEmployee.gender }}</td>
-          </tr>
-          <tr>
-            <th>BLOOD GROUP:</th>
-            <td>{{ selectedEmployee.bloodGroup }}</td>
-            <th>JOB LEVEL:</th>
-            <td>{{ selectedEmployee.jobLevel }}</td>
-          </tr>
-          <tr>
-            <th>JOB DEPARTMENT:</th>
-            <td>{{ selectedEmployee.jobDepartment }}</td>
-            <th>JOB TYPE:</th>
-            <td>{{ selectedEmployee.jobType }}</td>
-          </tr>
-          <tr>
-            <th>CITY:</th>
-            <td>{{ selectedEmployee.city }}</td>
-            <th>STATE:</th>
-            <td>{{ selectedEmployee.state }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>    
+    <div class="row-second">
+      <div class="table-contaimer">
+        <table class="styled-table">
+          <tbody>
+            <tr>
+              <th>ID:</th>
+              <td>{{ selectedEmployee?.employeeNo }}</td>
+              <th>FIRST NAME:</th>
+              <td>{{ selectedEmployee?.firstName }}</td>
+            </tr>
+            <tr>
+              <th>MIDDLE NAME:</th>
+              <td>{{ selectedEmployee?.middleName }}</td>
+              <th>LAST NAME:</th>
+              <td>{{ selectedEmployee?.lastName }}</td>
+            </tr>
+            <tr>
+              <th>PHONE NUMBER:</th>
+              <td>{{ selectedEmployee?.phoneNumber }}</td>
+              <th>EMAIL:</th>
+              <td>{{ selectedEmployee?.email }}</td>
+            </tr>
+            <tr>
+              <th>BIRTH DATE:</th>
+              <td>{{ selectedEmployee?.birthDate }}</td>
+              <th>GENDER:</th>
+              <td>{{ selectedEmployee?.gender }}</td>
+            </tr>
+            <tr>
+              <th>BLOOD GROUP:</th>
+              <td>{{ selectedEmployee?.bloodGroup }}</td>
+              <th>JOB LEVEL:</th>
+              <td>{{ selectedEmployee?.jobLevel }}</td>
+            </tr>
+            <tr>
+              <th>JOB DEPARTMENT:</th>
+              <td>{{ selectedEmployee?.jobDepartment }}</td>
+              <th>JOB TYPE:</th>
+              <td>{{ selectedEmployee?.jobType }}</td>
+            </tr>
+            <tr>
+              <th>CITY:</th>
+              <td>{{ selectedEmployee?.city }}</td>
+              <th>STATE:</th>
+              <td>{{ selectedEmployee?.state }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-
   </div>
 </div>
 
 </p-dialog>
-
-<!-- <app-search></app-search>
-
-<div class="dialog-container" (click)="hideDialog()">
-  <p-dialog
-    header="Employee Detail"
-    [(visible)]="visible"
-    [draggable]="false"
-    [resizable]="false"
-  >
-    <div class="details" *ngIf="selectedEmployee">
-      <div class="detail-image">
-        <img
-          src="  https://shotkit.com/wp-content/uploads/2020/07/headshots_image002.jpg"
-          class="detail-image"
-        />
-      </div>
-      <div class="description">
-        <div class="heading-name">
-          <h2 class="text-secondary">{{ selectedEmployee.name }}</h2>
-        </div>
-        <div class="designation">designation</div>
-        <div class="address">
-          {{ selectedEmployee.address }}
-        </div>
-        <div class="blood-group">
-          {{ selectedEmployee.bloodGroup }}
-        </div>
-      </div>
-    </div>
-  </p-dialog>
-</div>
-
-<div class="card-holder">
-  <div *ngIf="filteredEmployees.length === 0">
-    <p class="text-danger">No results found</p>
-  </div>
-
-  <div class="card" *ngFor="let employee of filteredEmployees">
-    <div class="card-image">
-      <img
-        src="  https://shotkit.com/wp-content/uploads/2020/07/headshots_image002.jpg"
-      />
-    </div>
-    <p class="name">{{ employee.firstName }} {{ employee.lastName }}</p>
-    <p>ID: {{ employee.employeeNo }}</p>
-    <p>Designation: {{ employee.jobLevel }}</p>
-    <p>Address: {{ employee.country }}</p>
-    <p>Blood-group: {{ employee.bloodGroup }}</p>
-    <p>Country: {{ employee.country }}</p>
-    <p>Department: {{ employee.jobDepartment }}</p>
-  </div>
-</div>
-<router-outlet></router-outlet> -->
-<!-- <div class="container">
-  <div class="row">
-    <div class="col-md-4 content-details">
-      <div class="text">
-        <p class="small text-uppercase text-muted">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Deserunt magnam voluptatum, quod modi doloremque saepe, nulla
-          mollitia totam earum expedita tempore, illum perspiciatis
-          maiores. Nihil numquam debitis dolorem dolor commodi?
-        </p>
-      </div>
-
-      <div class="col-md-6 dialog-description">
-        <span class="small text-uppercase text-muted"
-          ><p>{{ selectedEmployee.country }}</p></span
-        >
-
-        <span class="small text-uppercase text-muted">
-          <p>ID: {{ selectedEmployee.selectedEmployeeNo }}</p>
-          <p>Designation: {{ selectedEmployee.jobLevel }}</p>
-          <p>Address: {{ selectedEmployee.country }}</p>
-          <p>Blood-group: {{ selectedEmployee.bloodGroup }}</p>
-          <p>Country: {{ selectedEmployee.country }}</p>
-          <p>Department: {{ selectedEmployee.jobDepartment }}</p></span
-        >
-      </div>
-    </div> -->
