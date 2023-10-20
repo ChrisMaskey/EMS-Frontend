@@ -21,20 +21,17 @@ h1 {
   width: 100%;
 }
 
-
-
 .p-organizationchart .p-organizationchart-node-content {
   background-color: #63241f;
   color: white;
 }
 
-.image, img {
+.image,
+img {
   height: 100px;
   width: 100px;
   border-radius: 50%;
-  
 }
-
 
 /* Media Query for Smaller Screens */
 @media (min-width: 768px) {
@@ -54,22 +51,57 @@ h1 {
   }
 }
 
-.person-details{
+.person-details {
   display: flex;
 }
 
 ::ng-deep .p-organizationchart .p-organizationchart-node-content {
-border: 2px solid #63241f;}
-
-::ng-deep .p-organizationchart .p-organizationchart-node-content .p-node-toggler {
-  color: #63241f;
-  
+  background-color: #63241f;
+  color: white;
 }
 
-.text{
+::ng-deep
+  .p-organizationchart
+  .p-organizationchart-node-content
+  .p-node-toggler {
+  background-color: #63241f;
+  color: white;
+}
+
+.text {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+::ng-deep .p-organizationchart .p-organizationchart-node-content.p-highlight {
+  background: white;
+  color: #63241f;
+  border: 2px solid #63241f;
+
+}
+
+::ng-deep .p-organizationchart .p-organizationchart-node-content.p-highlight:hover {
+  
+  background-color: #521b17;
+color: white;
+}
+
+.chart-node {
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center; 
+  justify-content: center; 
+  text-align: center;
+  padding: 10px;
+  margin: 5px;
+}
+
+
+
+.content-holder{
+  border:  10px solid #63241f;
+}
