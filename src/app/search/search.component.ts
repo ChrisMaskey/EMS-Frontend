@@ -74,5 +74,10 @@ export class SearchComponent {
 
   onResetFilters() {
     this.resetFiltersEvent.emit();
+
+    this.selectedCity = null;
+    this.selectedDepartment = null;
+    this.selectedJobLevel = null;
+    this.selectedJobType = null;
   }
 }

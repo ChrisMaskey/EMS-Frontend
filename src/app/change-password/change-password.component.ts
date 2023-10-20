@@ -41,6 +41,13 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     if (this.userId) {
+      if (!this.isPasswordValid(this.newPassword)) {
+        this.message = 'Password must contain at least one digit, one lowercase character, one special character, one uppercase character, and be at least 8 characters long.';
+        this.messageType = 'error';
+        this.clearMessageAfterTimeout(3000);
+        return;
+      }
+
       this.changePasswordService.changePassword({
         currentPassword: this.currentPassword,
         newPassword: this.newPassword,
@@ -54,7 +61,7 @@ export class ChangePasswordComponent implements OnInit {
         },
         (error) => {
           console.log('Invalid password');
-          this.message = 'Invalid password';
+          this.message = 'Cureent password is incorrect';
           this.messageType = 'error';
           this.clearMessageAfterTimeout(3000);
         }
@@ -71,5 +78,21 @@ export class ChangePasswordComponent implements OnInit {
       this.message = '';
       this.messageType = '';
     }, timeout);
+  }
+
+  isPasswordValid(password: string): boolean {
+    // Password validation logic
+    const digitRegex = /\d/;
+    const lowercaseRegex = /[a-z]/;
+    const uppercaseRegex = /[A-Z]/;
+    const specialCharRegex = /[!@#$%^&*]/;
+
+    return (
+      password.length >= 8 &&
+      digitRegex.test(password) &&
+      lowercaseRegex.test(password) &&
+      uppercaseRegex.test(password) &&
+      specialCharRegex.test(password)
+    );
   }
 }
