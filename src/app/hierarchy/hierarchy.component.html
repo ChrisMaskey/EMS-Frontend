@@ -1,27 +1,21 @@
-<!-- hierarchy.component.html -->
 <div class="content-holder">
   <div class="heading">
     <h1>Organizational chart</h1>
   </div>
   <div class="chart">
-    <p-organizationChart [value]="hierarchy">
+    <p-organizationChart [value]="hierarchy" selectionMode="single" [(selection)]="selectedEmployeeId">
       <ng-template let-node pTemplate="person">
-        <span class="person-details" >
-          
+        <div class="chart-node">
           <div class="image">
             <img src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg" alt="">
           </div>
           <div class="text">
             <div class="name">
-              <h5 class="text-muted" style="color: white;" >{{ node.label }}</h5>
+              <p>{{ node.label }}</p>
             </div>
-            <div class="joblevel">
-              <p class="text-muted" [style.font-weight]="'bold' " >{{ node.data.jobLevel }}</p>
-  
-            </div>
+            <div class="joblevel">{{ node.data.jobLevel }}</div>
           </div>
-         
-        </span>
+        </div>
       </ng-template>
     </p-organizationChart>
   </div>
