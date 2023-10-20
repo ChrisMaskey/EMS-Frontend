@@ -46,10 +46,18 @@ export class CardComponent implements OnInit {
     });
 
     this.searchService.searchTerm$.subscribe((searchedTerm) => {
-      this.selectedCountry = searchedTerm.key === 'country' ? searchedTerm.value : this.selectedCountry;
-      this.selectedDepartment = searchedTerm.key === 'department' ? searchedTerm.value : this.selectedDepartment;
-      this.selectedJobLevel = searchedTerm.key === 'jobLevel' ? searchedTerm.value : this.selectedJobLevel;
-      this.selectedJobType = searchedTerm.key === 'jobType' ? searchedTerm.value : this.selectedJobType;
+      if (searchedTerm.key === 'country') {
+        this.selectedCountry = searchedTerm.value;
+      }
+      if (searchedTerm.key === 'department') {
+        this.selectedDepartment = searchedTerm.value;
+      }
+      if (searchedTerm.key === 'jobLevel') {
+        this.selectedJobLevel = searchedTerm.value;
+      }
+      if (searchedTerm.key === 'jobType') {
+        this.selectedJobType = searchedTerm.value;
+      }
 
       if (searchedTerm.source === 'input') {
         this.filteredEmployees = this.employees.filter((employee) => {
