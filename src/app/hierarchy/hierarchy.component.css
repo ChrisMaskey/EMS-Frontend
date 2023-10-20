@@ -88,13 +88,20 @@ img {
 color: white;
 }
 
-.chart-node{
+.chart-node {
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   gap: 10px;
- 
+  align-items: center; 
+  justify-content: center; 
+  text-align: center;
+  padding: 10px;
+  margin: 5px;
 }
 
+
+
 .content-holder{
-  border:  20px solid rgb(64, 59, 59);
+  border:  10px solid #63241f;
 }
