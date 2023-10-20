@@ -34,4 +34,7 @@ export class HeaderComponent {
   isChangePasswordRoute(): boolean {
     return this.router.url.includes('change-password');
   }
+  isLoginRoute(): boolean {
+    return this.router.url.includes('login');
+  }
 }

@@ -5,7 +5,7 @@
     </div>
     
     <div class="ml-auto">
-      <app-dropdown *ngIf="isAuthenticated() && !isChangePasswordRoute()"></app-dropdown>
+      <app-dropdown *ngIf="isAuthenticated() && !isChangePasswordRoute() && !isLoginRoute()"></app-dropdown>
       <a style="text-decoration: none;" routerLink="/card" *ngIf="isChangePasswordRoute()">Home</a>
     </div>
   </div>
