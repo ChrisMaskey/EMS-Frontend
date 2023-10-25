@@ -1,0 +1,33 @@
+.container footer .row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer-slogan, .footer-contact, .footer-social {
+    flex-basis: 33.33%;
+    text-align: center;
+  }
+  
+  .footer-contact {
+    text-align: center;
+  }
+  
+  .footer-social {
+    text-align: right;
+  }
+  
+  .container footer .col-md-12 span {
+    margin: auto;
+    width: 100%;
+  }
+  .container footer {
+    position: relative; 
+  }
+  
+  .footer-copyright {
+    position: absolute;
+    bottom: 0; 
+    width: 100%; 
+    text-align: center; 
+  }
+  
