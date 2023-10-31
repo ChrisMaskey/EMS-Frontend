@@ -65,7 +65,6 @@ export class HierarchyComponent implements OnInit {
       children: this.buildChildNodes(item.id, filteredHierarchy),
     }));
 
-    // Set expanded property based on selected employee
     treeNodes.forEach(node => this.setExpandedProperty(node));
 
     return treeNodes;
