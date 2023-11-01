@@ -3,7 +3,8 @@
     <h1>Organizational chart</h1>
   </div>
   <div class="chart">
-    <p-organizationChart [value]="hierarchy">
+    <p-organizationChart [value]="hierarchy" (onNodeExpand)="onNodeExpand($event)">
+
       <ng-template let-node pTemplate="person">
         <div class="chart-node">
           <div class="image">

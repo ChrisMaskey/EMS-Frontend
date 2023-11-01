@@ -65,7 +65,6 @@ export class HierarchyComponent implements OnInit {
       children: this.buildChildNodes(item.id, filteredHierarchy),
     }));
 
-    // Set expanded property based on selected employee
     treeNodes.forEach(node => this.setExpandedProperty(node));
 
     return treeNodes;
@@ -120,4 +119,19 @@ export class HierarchyComponent implements OnInit {
       this.addChildrenAndSiblings(data, hierarchy, childOrSibling.id);
     }
   }
+  onNodeExpand(event: any) {
+    const expandedNodeId = event.node.data.id;
+    console.log(`Expanded Node ID: ${expandedNodeId}`);
+    this.loadHierarchyForNode(expandedNodeId);
+
+
+}
+loadHierarchyForNode(nodeId: string) {
+  this.selectedEmployeeId = nodeId; 
+  this.loadHierarchy();
+}
+
+
+
+
 }
