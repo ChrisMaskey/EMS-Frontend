@@ -34,8 +34,8 @@ import { OrganizationService } from './services/organization.service';
 import { SuperadminComponent } from './employee-list/superadmin/superadmin.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { changePasswordService } from './services/changepassword.service';
 import { AuthServiceService } from './services/auth-service.service';
+import { changePasswordService } from './services/changepassword.service';
 @NgModule({
   declarations: [
     AppComponent,

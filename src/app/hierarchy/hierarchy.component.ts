@@ -119,4 +119,19 @@ export class HierarchyComponent implements OnInit {
       this.addChildrenAndSiblings(data, hierarchy, childOrSibling.id);
     }
   }
+  onNodeExpand(event: any) {
+    const expandedNodeId = event.node.data.id;
+    console.log(`Expanded Node ID: ${expandedNodeId}`);
+    this.loadHierarchyForNode(expandedNodeId);
+
+
+}
+loadHierarchyForNode(nodeId: string) {
+  this.selectedEmployeeId = nodeId; // Update the selected employee ID
+  this.loadHierarchy();
+}
+
+
+
+
 }
