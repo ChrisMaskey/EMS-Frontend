@@ -127,7 +127,7 @@ export class HierarchyComponent implements OnInit {
 
 }
 loadHierarchyForNode(nodeId: string) {
-  this.selectedEmployeeId = nodeId; // Update the selected employee ID
+  this.selectedEmployeeId = nodeId; 
   this.loadHierarchy();
 }
 
